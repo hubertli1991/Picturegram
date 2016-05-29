@@ -83,6 +83,47 @@ Picturegram is a web application inspired by Instagram that will be build using 
   - Picture Index listens for when pictures are created or destroyed
   - Picture Details listens for when comment store or like store are altered
 
+##Schema
+
+Users
+
+| Column   | Data Type |Details   |
+|---------|-----------|-----------|
+| user_id| Integer| Null False|
+| Username| String| Null False|
+| Password Digest| String| Null False|
+| Session Token| String| Null False|
+
+Follows
+
+| Column| Data Type| Details|
+|------|----------|--------|
+| user_id| Integer| Null False|
+| following user user_id| Integer| Null False|
+
+Picture
+
+| Column| Data Type| Details|
+|-------|----------|--------|
+| picture_id| Integer| Null False|
+| user_id| Integer| Null False|
+| picture| Integer| Null False|
+
+Likes
+
+| Column| Data Type| Details|
+|-------|----------|--------|
+| user_id| Integer| Null False|
+| picture_id| Integer| Null False|
+
+Comments
+
+| Column| Data Type| Details|
+|-------|----------|--------|
+| comment_id| Integer| Null False|
+| picture_id| Integer| Null False|
+| body| Integer| Null False|
+
 ##API End Points
 ####Backend
 Users
