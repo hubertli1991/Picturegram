@@ -82,3 +82,35 @@ Picturegram is a web application inspired by Instagram that will be build using 
 - Store Listeners
   - Picture Index listens for when pictures are created or destroyed
   - Picture Details listens for when comment store or like store are altered
+
+##API End Points
+####Backend
+Users
+  - GET /users/new
+  - POST /users
+  - PATCH /users
+
+Session
+  - GET /session/new
+  - POST /session
+  - DELETE /session
+
+####Json
+
+Other User Page
+
+  - GET /api/
+  - GET /api/pictures/:pictureid
+  - POST /api/pictures
+  - DELETE /api/pictures/:picturesid
+ 
+##Timeline
+- [ ] Backend Configuration and Authentication – 1.5 day
+- [ ] Create Picture Index and Index Items components – 1.5 day
+- [ ] CSS – 1 day
+- [ ] Create Picture Details component with Likes and Dates components – 1 day
+- [ ] CSS – 0.5 day
+- [ ] Create Comments component – 0.5 day
+- [ ] Create Home Page component – 1 day
+- [ ] CSS – 1 day
+  
