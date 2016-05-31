@@ -31,10 +31,10 @@
     "webpack": "^1.13.1"
   },
   "engines": {
-   "node": "4.1.1",
-   "npm": "2.1.x"
+    "node": "5.1.0",
+    "npm": "3.3.12"
   },
   "scripts": {
-   "postinstall": "./node_modules/.bin/webpack"
-  },
+    "postinstall": "./node_modules/.bin/webpack"
+  }
 }
