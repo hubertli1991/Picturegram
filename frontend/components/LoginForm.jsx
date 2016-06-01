@@ -69,14 +69,14 @@ var LoginForm = React.createClass({
 	render: function () {
     var navLink;
     if (this.formType() === "login") {
-      navLink = <Link to="/signup">sign up instead</Link>;
+      navLink = <Link to="/signup">sign up NOW</Link>;
     } else {
-      navLink = <Link to="/login">log in instead</Link>;
+      navLink = <Link to="/login">log in NOW</Link>;
     }
 
 		return (
 			<form onSubmit={this.handleSubmit}>
-        Welcome to Picturegram! Please { this.formType() } or { navLink }
+        Welcome to PicturegramX! Please { this.formType() } or { navLink }
 
         { this.fieldErrors("base") }
 

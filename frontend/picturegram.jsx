@@ -18,14 +18,15 @@ var App = React.createClass({
 
   componentDidMount: function () {
     SessionStore.addListener(this.forceUpdate.bind(this));
+    SessionApiUtil.fetchCurrentUser();
   },
 
   greeting: function(){
-    if (SessionStore.isUserLoggedIn()) {
 
+    if (SessionStore.isUserLoggedIn()) {
     	return (
     		<hgroup>
-    			<h2>Hi, {SessionStore.currentUser().username}!</h2>
+    			<h2>Hi, {SessionStore.currentUser().username}</h2>
     			<input type="submit" value="logout" onClick={ SessionApiUtil.logout } />
     		</hgroup>
     	);
@@ -56,8 +57,8 @@ var App = React.createClass({
 var _Router = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
-      <Route path="/login" component={ LoginForm } />
-      <Route path="/signup" component={ LoginForm } />
+      <Route path="login" component={ LoginForm } />
+      <Route path="signup" component={ LoginForm } />
     </Route>
   </Router>
 );
