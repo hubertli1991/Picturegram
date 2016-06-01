@@ -33,6 +33,7 @@ var App = React.createClass({
       return (
         <nav>
           <Link to="/login" activeClassName="current">Login</Link>
+          <br></br>
           <Link to="/signup" activeClassName="current">Sign up!</Link>
         </nav>
       );
