@@ -33,8 +33,10 @@ var SessionApiUtil = {
 		$.ajax({
       method: 'GET',
 			url: '/api/session',
-			success: function (currentUser) {
-			  SessionActions.receiveCurrentUser(currentUser);
+			success: function (currentUserAndPosts) {
+				delete currentUserAndPosts.posts;
+				var currentUser = currentUserAndPosts;
+				SessionActions.receiveCurrentUser(currentUser);
 			},
 			error: function (xhr) {
 			},
