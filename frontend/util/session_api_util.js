@@ -34,9 +34,16 @@ var SessionApiUtil = {
       method: 'GET',
 			url: '/api/session',
 			success: function (currentUserAndPosts) {
-				delete currentUserAndPosts.posts;
-				var currentUser = currentUserAndPosts;
+				// Sign user in
+				// Not Session Api Util's job to send current user's posts
+				var currentUser = {
+					id: currentUserAndPosts.id,
+					username: currentUserAndPosts.username
+				};
 				SessionActions.receiveCurrentUser(currentUser);
+
+				// send all current user's posts to post store
+				// PostActions.receiveAllPostsFromUser(currentUserAndPosts.posts);
 			},
 			error: function (xhr) {
 			},

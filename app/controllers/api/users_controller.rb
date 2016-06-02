@@ -14,7 +14,7 @@ class Api::UsersController < ApplicationController
 
 		if @user.save
 			login(@user)
-			render "api/users/show.json.jbuilder"
+			render "api/users/show"
 		else
 			render json: @user.errors, status: 422
 		end

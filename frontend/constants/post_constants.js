@@ -1,0 +1,8 @@
+var PostConstants = {
+  ADD_ALL_USER_POSTS: "ADD_ALL_USER_POSTS",
+  ADD_NEW_USER_POST: "ADD_NEW_USER_POST",
+  UPDATE_USER_POST: "UPDATE_USER_POST",
+  DELETE_USER_POST: "DELETE_USER_POST"
+};
+
+module.exports = PostConstants;
