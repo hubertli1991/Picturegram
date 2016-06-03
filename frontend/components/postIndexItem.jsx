@@ -9,10 +9,11 @@ var PostIndexItem = React.createClass({
     this.context.router.push('' + this.props.post.id);
   },
 
+  // <img src={this.props.post.image_url}/>
   render: function() {
     return (
       <li onClick={this.handleClick}>
-        // picture tag with {this.props.post.picture}
+        <img src={this.props.post.image_url}/> 
       </li>
     );
   }

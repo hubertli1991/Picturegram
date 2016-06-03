@@ -10,6 +10,7 @@ var IndexRoute = ReactRouter.IndexRoute;
 var hashHistory = ReactRouter.hashHistory;
 //Components
 var LoginForm = require('./components/loginForm');
+var PostIndex = require('./components/postIndex');
 //Auth
 var SessionStore = require('./stores/session_store');
 var SessionApiUtil = require('./util/session_api_util');
@@ -59,6 +60,7 @@ var _Router = (
     <Route path="/" component={App}>
       <Route path="login" component={ LoginForm } />
       <Route path="signup" component={ LoginForm } />
+      <Route path="users/:id" component={ PostIndex }/>
     </Route>
   </Router>
 );
