@@ -1,6 +1,6 @@
 var AppDispatcher = require('../dispatcher/dispatcher.js');
 var Store = require('flux/utils').Store;
-var PostConstants = require('../constants/post_constants');
+var UserAndPostConstants = require('../constants/user_and_post_constants');
 
  var PostStore = new Store(AppDispatcher);
 
@@ -26,23 +26,42 @@ var PostConstants = require('../constants/post_constants');
    _posts.splice(_posts.indexOf(post[0]),1);
  };
 
+ PostStore.all = function() {
+   return _posts;
+ };
+
  PostStore.__onDispatch = function(payload) {
    switch(payload.actionType) {
-     case PostConstants.ADD_ALL_USER_POSTS:
-      addAllUsersPosts(payload.userPosts);
+     case UserAndPostConstants.ADD_USER_OR_ALL_HIS_POSTS:
+      var userPosts = payload.userAndPosts;
+      addAllUserPosts(userPosts);
       PostStore.__emitChange();
       break;
-     case PostConstants.ADD_NEW_USER_POST:
+     case UserAndPostConstants.ADD_NEW_USER_POST:
       addNewUserPost(payload.userPost);
       PostStore.__emitChange();
       break;
-     case PostConstants.UPDATE_USER_POST:
+     case UserAndPostConstants.UPDATE_USER_POST:
       UpdateUserPost(payload.userPost);
       PostStore.__emitchange();
       break;
-     case PostConstants.DELETE_USER_POST:
+     case UserAndPostConstants.DELETE_USER_POST:
       DeleteUserPost(payload.userPost);
       PostStore.__emitChange();
       break;
+    //  case UserConstants.USER_RECEIVED:
+    //   addAllUsersPosts(payload.user.posts);
+    //   PostStore.__emitChange();
+    //   break;
    }
  };
+
+
+
+  // UserStore.__onDispatch = function(payload) {
+  //   switch(payload.actionType) {
+  //     case UserConstants.USER_RECEIVED:
+  //      setShownUser(payload.user);
+  //      PostStore.__emitChange();
+  //      break;
+  //   }

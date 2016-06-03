@@ -1,4 +1,4 @@
-var PostAction = require('../actions/post_actions');
+var ServerActions = require('../actions/server_actions');
 
 var PostApiUtil = {
 
@@ -8,7 +8,7 @@ var PostApiUtil = {
       url: 'api/posts',
       data: {post: post},
       success: function(userPost) {
-        PostActions.receiveNewPostFromUser(userPost);
+        ServerActions.receiveNewPostFromUser(userPost);
       }
     });
   },
@@ -19,7 +19,7 @@ var PostApiUtil = {
       url: 'api/posts/' + post.id,
       data: {post: {caption: caption}},
       success: function(userPost) {
-        PostAction.updatePostFromUser(userPost);
+        ServerActions.updatePostFromUser(userPost);
       }
     });
   },
@@ -29,7 +29,7 @@ var PostApiUtil = {
       method: 'DELETE',
       url: '/api/posts/' + id,
       success: function(userPost) {
-        PostActions.deletePostFromUser(userPost);
+        ServerActions.deletePostFromUser(userPost);
       }
     });
   }
