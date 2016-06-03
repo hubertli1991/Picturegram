@@ -1,1 +1,2 @@
 json.extract! @post, :id, :caption, :picture, :created_at, :user_id
+json.image_url asset_path(@post.image.url)
