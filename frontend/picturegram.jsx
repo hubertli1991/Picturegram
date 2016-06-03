@@ -32,6 +32,7 @@ var App = React.createClass({
     		</hgroup>
     	);
     } else if (["/login", "/signup"].indexOf(this.props.location.pathname) === -1) {
+
       return (
         <nav>
           <Link to="/login" activeClassName="current">Login</Link>
@@ -42,14 +43,17 @@ var App = React.createClass({
     }
   },
 
+
   render: function(){
     return (
-        <div>
-          <header>
-            <h1>Picturegram</h1>
-            { this.greeting() }
-          </header>
-          {this.props.children}
+        <div className="login_box">
+          <div>
+            <header>
+              <h1 className="title">Picturegram</h1>
+              { this.greeting() }
+            </header>
+            {this.props.children}
+          </div>
         </div>
     );
   }

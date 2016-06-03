@@ -76,25 +76,27 @@ var LoginForm = React.createClass({
 
 		return (
 			<form onSubmit={this.handleSubmit}>
-        Welcome to PicturegramX! Please { this.formType() } or { navLink }
+        Welcome to Picturegram! Please { this.formType() } or { navLink }
 
         { this.fieldErrors("base") }
 
         <br />
 				<label> Username:
           { this.fieldErrors("username") }
-					<input type="text" valueLink={this.linkState("username")} />
+					<input type="text" placeholder="username" valueLink={this.linkState("username")} />
 				</label>
 
         <br />
 				<label> Password:
           { this.fieldErrors("password") }
-					<input type="password" valueLink={this.linkState("password")} />
+					<input type="password" placeholder="password" alueLink={this.linkState("password")} />
 				</label>
 
         <br />
-				<input type="submit" value="Submit" />
+				<input type="submit" value={ this.formType() } />
 			</form>
+
+
 		);
 	}
 });
