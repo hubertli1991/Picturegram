@@ -9,7 +9,7 @@ var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 var hashHistory = ReactRouter.hashHistory;
 //Components
-var LoginForm = require('./components/LoginForm');
+var LoginForm = require('./components/loginForm');
 //Auth
 var SessionStore = require('./stores/session_store');
 var SessionApiUtil = require('./util/session_api_util');

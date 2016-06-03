@@ -27,13 +27,13 @@ var PostIndex = React.createClass({
 
   render: function() {
     return (
-      <div>
         <ul>
           {this.state.posts.map(function(post) {
             return (< PostIndexItem post={post} />);
           })}
         </ul>
-      </div>
-    )
+    );
   }
 });
+
+module.exports = PostIndex;
