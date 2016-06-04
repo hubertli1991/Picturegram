@@ -23,7 +23,6 @@ var App = React.createClass({
   },
 
   greeting: function(){
-
     if (SessionStore.isUserLoggedIn()) {
     	return (
     		<hgroup>
@@ -31,15 +30,6 @@ var App = React.createClass({
     			<input type="submit" value="logout" onClick={ SessionApiUtil.logout } />
     		</hgroup>
     	);
-    } else if (["/login", "/signup"].indexOf(this.props.location.pathname) === -1) {
-
-      return (
-        <nav>
-          <Link to="/login" activeClassName="current">Login</Link>
-          <br></br>
-          <Link to="/signup" activeClassName="current">Sign up!</Link>
-        </nav>
-      );
     }
   },
 
@@ -62,12 +52,13 @@ var App = React.createClass({
 var _Router = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
-      <Route path="login" component={ LoginForm } />
-      <Route path="signup" component={ LoginForm } />
+      <IndexRoute component={LoginForm} />
       <Route path="users/:id" component={ PostIndex }/>
     </Route>
   </Router>
 );
+// <Route path="login" component={ LoginForm } />
+// <Route path="signup" component={ LoginForm } />
 
 document.addEventListener('DOMContentLoaded', function() {
   ReactDOM.render(_Router, document.getElementById('content'));

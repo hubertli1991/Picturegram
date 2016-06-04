@@ -12,7 +12,8 @@ var LoginForm = React.createClass({
   getInitialState: function () {
     return {
       username: "",
-      password: ""
+      password: "",
+			login: true
     };
   },
 
@@ -44,7 +45,7 @@ var LoginForm = React.createClass({
 			password: this.state.password
 		};
 
-    if (this.props.location.pathname === "/login") {
+    if (this.state.login) {
       SessionApiUtil.login(formData);
     } else {
       UserApiUtil.signup(formData);
@@ -52,7 +53,7 @@ var LoginForm = React.createClass({
 	},
 
   fieldErrors: function (field) {
-    var errors = ErrorStore.formErrors(this.formType());
+    var errors = ErrorStore.formErrors(this.formType);
     if (!errors[field]) { return; }
 
     var messages = errors[field].map(function (errorMsg, i) {
@@ -62,21 +63,24 @@ var LoginForm = React.createClass({
     return <ul>{ messages }</ul>;
   },
 
-  formType: function () {
-    return this.props.location.pathname.slice(1);
+  toggleForm: function (e) {
+		e.preventDefault();
+    this.setState({login: !this.state.login});
   },
 
 	render: function () {
-    var navLink;
-    if (this.formType() === "login") {
-      navLink = <Link to="/signup">sign up NOW</Link>;
+    var navButton;
+    if (this.state.login) {
+      navButton = <button onClick={this.toggleForm}>sign up</button>;
+			this.formType = 'login';
     } else {
-      navLink = <Link to="/login">log in NOW</Link>;
+      navButton = <button onClick={this.toggleForm}>Log in</button>;
+			this.formType = 'signup';
     }
 
 		return (
 			<form onSubmit={this.handleSubmit}>
-        Welcome to Picturegram! Please { this.formType() } or { navLink }
+        Welcome to Picturegram! Please { this.formType } or { navButton }
 
         { this.fieldErrors("base") }
 
@@ -89,11 +93,13 @@ var LoginForm = React.createClass({
         <br />
 				<label> Password:
           { this.fieldErrors("password") }
-					<input type="password" placeholder="password" alueLink={this.linkState("password")} />
+					<input type="password" placeholder="password" valueLink={this.linkState("password")} />
 				</label>
 
         <br />
-				<input type="submit" value={ this.formType() } />
+				<span class="submit_button">
+				<input type="submit" value={ this.formType } />
+				</span>
 			</form>
 
 
