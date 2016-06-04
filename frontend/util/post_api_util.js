@@ -13,6 +13,7 @@ var PostApiUtil = {
       success: function(userPost) {
         // ServerActions.receiveNewPostFromUser(userPost);
         // send client to the user homepage
+        console.log(userPost);
       }
     });
   },

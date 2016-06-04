@@ -2,7 +2,8 @@ var React = require('react');
 var PostStore = require('../stores/post_store');
 var ClientActions = require('../actions/client_actions');
 
-var PostIndexItem = require('./postIndexItem.jsx');
+var PostIndexItem = require('./postIndexItem');
+var PostForm = require('./postForm');
 
 var PostIndex = React.createClass({
 
@@ -35,11 +36,15 @@ var PostIndex = React.createClass({
 // console.log(post);
 
   render: function() {
+
     return (
         <ul>
-          {this.state.posts.map(function(post) {
-            return (< PostIndexItem post={post} />);
+          <h1> Hi User {this.props.params.id}!</h1>
+          {this.state.posts.map(function(post, idx) {
+            return (< PostIndexItem post={post} key={idx}/>);
           })}
+          <PostForm user_id={this.props.params.id}/>
+          {this.props.children}
         </ul>
     );
   }

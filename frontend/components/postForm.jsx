@@ -8,7 +8,7 @@ var PostForm = React.createClass({
     return {
       // works when you replace this.props.id with a number
       // move the postForm into the proper place
-      user_id: this.props.id,
+      user_id: parseInt(this.props.user_id),
       caption: "",
       imageFile: null,
       imageUrl: null
@@ -41,6 +41,7 @@ var PostForm = React.createClass({
     //   image_url: this.state.imageFile,
     //   caption: this.state.caption
     // };
+
     var formData = new FormData();
     formData.append("post[user_id]", this.state.user_id);
     formData.append("post[caption]", this.state.caption);

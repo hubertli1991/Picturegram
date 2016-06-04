@@ -44,7 +44,6 @@ var App = React.createClass({
               { this.greeting() }
             </header>
             {this.props.children}
-            <PostForm/>
           </div>
         </div>
     );
