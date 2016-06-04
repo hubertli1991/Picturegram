@@ -2,13 +2,17 @@ var ServerActions = require('../actions/server_actions');
 
 var PostApiUtil = {
 
-  createOnePost: function(post) {
+  createOnePost: function(formData) {
     $.ajax({
       method: 'POST',
       url: 'api/posts',
-      data: {post: post},
+      dataType: "json",
+      contentType: false,
+      processData: false,
+      data: formData,
       success: function(userPost) {
-        ServerActions.receiveNewPostFromUser(userPost);
+        // ServerActions.receiveNewPostFromUser(userPost);
+        // send client to the user homepage
       }
     });
   },

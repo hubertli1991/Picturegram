@@ -11,6 +11,7 @@ var hashHistory = ReactRouter.hashHistory;
 //Components
 var LoginForm = require('./components/loginForm');
 var PostIndex = require('./components/postIndex');
+var PostForm = require('./components/postForm');
 //Auth
 var SessionStore = require('./stores/session_store');
 var SessionApiUtil = require('./util/session_api_util');
@@ -43,6 +44,7 @@ var App = React.createClass({
               { this.greeting() }
             </header>
             {this.props.children}
+            <PostForm/>
           </div>
         </div>
     );

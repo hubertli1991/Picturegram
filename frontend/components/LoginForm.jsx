@@ -101,8 +101,6 @@ var LoginForm = React.createClass({
 				<input type="submit" value={ this.formType } />
 				</span>
 			</form>
-
-
 		);
 	}
 });
