@@ -8,6 +8,7 @@ var _Style = require("../modal_styles/modal_styles");
 
 var PostIndexItem = React.createClass({
 
+  //modal function start
   getInitialState: function(){
     return({ modalOpen: false });
   },
@@ -17,6 +18,7 @@ var PostIndexItem = React.createClass({
   openModal: function(){
     this.setState({ modalOpen: true });
   },
+  //modal function end
 
   // <img src={this.props.post.image_url}/>
   render: function() {
