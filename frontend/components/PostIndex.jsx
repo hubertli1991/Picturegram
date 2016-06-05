@@ -2,8 +2,8 @@ var React = require('react');
 var PostStore = require('../stores/post_store');
 var ClientActions = require('../actions/client_actions');
 
-var PostIndexItem = require('./postIndexItem');
-var PostForm = require('./postForm');
+var PostIndexItem = require('./PostIndexItem');
+var PostForm = require('./PostForm');
 
 var PostIndex = React.createClass({
 
@@ -36,14 +36,16 @@ var PostIndex = React.createClass({
 // console.log(post);
 
   render: function() {
+    
+    var currentPathLocation = this.props.location.pathname;
 
     return (
         <ul>
           <h1> Hi User {this.props.params.id}!</h1>
           {this.state.posts.map(function(post, idx) {
-            return (< PostIndexItem post={post} key={idx}/>);
+            return (< PostIndexItem post={post} path={currentPathLocation} key={idx} />);
           })}
-          <PostForm user_id={this.props.params.id}/>
+          <PostForm userId={this.props.params.id}/>
           {this.props.children}
         </ul>
     );

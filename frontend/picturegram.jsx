@@ -10,13 +10,32 @@ var IndexRoute = ReactRouter.IndexRoute;
 var hashHistory = ReactRouter.hashHistory;
 //Components
 var LoginForm = require('./components/loginForm');
-var PostIndex = require('./components/postIndex');
-var PostForm = require('./components/postForm');
+var PostIndex = require('./components/PostIndex');
+var PostForm = require('./components/PostForm');
+
 //Auth
 var SessionStore = require('./stores/session_store');
 var SessionApiUtil = require('./util/session_api_util');
 
+// Modal Require Start
+var Modal = require("react-modal");
+var _Style = require("./modal_styles/modal_styles");
+// Modal Require End
+
+
 var App = React.createClass({
+
+  // For Modal Purposes Start
+  getInitialState: function(){
+    return({ modalOpen: false });
+  },
+  closeModal: function(){
+    this.setState({ modalOpen: false });
+  },
+  openModal: function(){
+    this.setState({ modalOpen: true });
+  },
+  // For Modal Purposes End
 
   componentDidMount: function () {
     SessionStore.addListener(this.forceUpdate.bind(this));
@@ -34,10 +53,10 @@ var App = React.createClass({
     }
   },
 
-
   render: function(){
     return (
         <div className="login_box">
+
           <div>
             <header>
               <h1 className="title">Picturegram</h1>
@@ -45,6 +64,24 @@ var App = React.createClass({
             </header>
             {this.props.children}
           </div>
+
+
+          <div>
+            <button onClick={this.openModal}>Open Me!</button>
+
+            <Modal
+              isOpen={this.state.modalOpen}
+              onRequestClose={this.closeModal}
+              style={_Style}>
+
+              <h2>Im a modal!</h2>
+              <p>modal modal modal modal modal</p>
+              <p>mooooooooodal!</p>
+
+            </Modal>
+          </div>
+
+
         </div>
     );
   }
@@ -54,13 +91,16 @@ var _Router = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={LoginForm} />
-      <Route path="users/:id" component={ PostIndex }/>
+      <Route path="users/:id" component={ PostIndex }>
+      </Route>
     </Route>
   </Router>
 );
+// <Route path="post/:postid" component={ PostDetail }/>
 // <Route path="login" component={ LoginForm } />
 // <Route path="signup" component={ LoginForm } />
 
 document.addEventListener('DOMContentLoaded', function() {
+  Modal.setAppElement(document.body); // Add this line for Modal
   ReactDOM.render(_Router, document.getElementById('content'));
 });

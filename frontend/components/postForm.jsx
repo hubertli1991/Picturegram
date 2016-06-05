@@ -12,8 +12,8 @@ var PostForm = React.createClass({
   getInitialState: function() {
     return {
       // works when you replace this.props.id with a number
-      // move the postForm into the proper place
-      user_id: parseInt(this.props.user_id),
+      // move the PostForm into the proper place
+      user_id: parseInt(this.props.userId),
       caption: "",
       imageFile: null,
       imageUrl: null
