@@ -2,7 +2,12 @@ var React = require('react');
 var PostStore = require('../stores/post_store');
 var ClientActions = require('../actions/client_actions');
 
+
 var PostForm = React.createClass({
+
+  contextTypes: {
+  router: React.PropTypes.object.isRequired
+  },
 
   getInitialState: function() {
     return {
@@ -46,7 +51,12 @@ var PostForm = React.createClass({
     formData.append("post[user_id]", this.state.user_id);
     formData.append("post[caption]", this.state.caption);
     formData.append("post[image]", this.state.imageFile);
-    ClientActions.createOnePost(formData);
+    ClientActions.createOnePost(formData, this.backToUserPage);
+    this.setState({caption: "", imageFile: "", imageUrl: ""});
+  },
+
+  backToUserPage: function() {
+    this.context.router.push("/users/" + this.state.user_id);
   },
 
   render: function() {

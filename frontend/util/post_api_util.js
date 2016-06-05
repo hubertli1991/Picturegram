@@ -2,7 +2,7 @@ var ServerActions = require('../actions/server_actions');
 
 var PostApiUtil = {
 
-  createOnePost: function(formData) {
+  createOnePost: function(formData, backToUserPage) {
     $.ajax({
       method: 'POST',
       url: 'api/posts',
@@ -13,7 +13,7 @@ var PostApiUtil = {
       success: function(userPost) {
         // ServerActions.receiveNewPostFromUser(userPost);
         // send client to the user homepage
-        console.log(userPost);
+        backToUserPage();
       }
     });
   },
