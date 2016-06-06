@@ -71,36 +71,50 @@ var LoginForm = React.createClass({
 	render: function () {
     var navButton;
     if (this.state.login) {
-      navButton = <button onClick={this.toggleForm}>sign up</button>;
+      navButton = <button onClick={this.toggleForm} className="signin-signup-toggle" >sign up</button>;
 			this.formType = 'login';
     } else {
-      navButton = <button onClick={this.toggleForm}>Log in</button>;
+      navButton = <button onClick={this.toggleForm} className="signin-signup-toggle" >Log in</button>;
 			this.formType = 'signup';
     }
 
 		return (
-			<form onSubmit={this.handleSubmit}>
-        Welcome to Picturegram! Please { this.formType } or { navButton }
+			<div>
+				<div className="login_box">
 
-        { this.fieldErrors("base") }
+					<h1 className="title">Picturegram</h1>
 
-        <br />
-				<label> Username:
-          { this.fieldErrors("username") }
-					<input type="text" placeholder="username" valueLink={this.linkState("username")} />
-				</label>
+					<form onSubmit={this.handleSubmit}>
 
-        <br />
-				<label> Password:
-          { this.fieldErrors("password") }
-					<input type="password" placeholder="password" valueLink={this.linkState("password")} />
-				</label>
+		        { this.fieldErrors("base") }
 
-        <br />
-				<span class="submit_button">
-				<input type="submit" value={ this.formType } />
-				</span>
-			</form>
+						<div className="form-input">
+
+							<label>
+			          { this.fieldErrors("username") }
+								<input type="text" placeholder="username" className="username" valueLink={this.linkState("username")} />
+							</label>
+
+							<label>
+			          { this.fieldErrors("password") }
+								<input type="password" placeholder="password" className="password" valueLink={this.linkState("password")} />
+							</label>
+
+							<span>
+								<input type="submit" className="submit-button" value={ this.formType } />
+							</span>
+						</div>
+
+					</form>
+				</div>
+
+				<div className="signup-or-signin-box">
+					<div className="signup-or-signin">
+						<p>Don't have an account? {navButton}</p>
+					</div>
+				</div>
+
+			</div>
 		);
 	}
 });

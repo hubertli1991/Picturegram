@@ -25,7 +25,7 @@ var PostIndexItem = React.createClass({
     return (
       <div>
         <li onClick={this.openModal}>
-          <img src={this.props.post.image_url}/>
+          <img src={this.props.post.image_url_small}/>
         </li>
 
         <div>
@@ -34,7 +34,7 @@ var PostIndexItem = React.createClass({
             onRequestClose={this.closeModal}
             style={_Style}>
 
-            <img src={this.props.post.image_url}/>
+            <img src={this.props.post.image_url_large}/>
             <p> {this.props.post.caption} </p>
 
           </Modal>

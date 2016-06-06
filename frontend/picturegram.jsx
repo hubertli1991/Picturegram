@@ -55,32 +55,14 @@ var App = React.createClass({
 
   render: function(){
     return (
-        <div className="login_box">
+        <div>
 
           <div>
             <header>
-              <h1 className="title">Picturegram</h1>
               { this.greeting() }
             </header>
             {this.props.children}
           </div>
-
-
-          <div>
-            <button onClick={this.openModal}>Open Me!</button>
-
-            <Modal
-              isOpen={this.state.modalOpen}
-              onRequestClose={this.closeModal}
-              style={_Style}>
-
-              <h2>Im a modal!</h2>
-              <p>modal modal modal modal modal</p>
-              <p>mooooooooodal!</p>
-
-            </Modal>
-          </div>
-
 
         </div>
     );

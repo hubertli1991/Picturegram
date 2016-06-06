@@ -1,2 +1,3 @@
 json.extract! @post, :id, :caption, :created_at, :user_id
-json.image_url asset_path(@post.image.url)
+json.image_url_small asset_path(@post.image.url(:small))
+json.image_url_large asset_path(@post.image.url(:large))

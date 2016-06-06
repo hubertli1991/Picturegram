@@ -14,7 +14,7 @@
  *= require_self
  */
 
- /*html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
  blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img,
  ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center,
  dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody,
@@ -24,31 +24,84 @@
   margin: 0;
   padding: 0;
   border: 0;
+  outline: 0;
+  display: block;
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  }*/
+  }
 
 
 body {
   font-family: 'proxima-nova','Helvetica Neue',Arial,Helvetica,sans-serif;
   height: 100%;
   /*line-height: 1;*/
-  display: block;
   background: #eee;
 }
 
-.title {
-  /*background: gray;*/
-
-}
 
 
 .login_box {
   background: white;
   margin: auto;
-  margin-top: 30px;
-  /*padding*/
-  width: 500px;
-  height: 935px;
+  width: 280px;
+  height: 100%;
+  margin-top: 100px;
+  margin-bottom: 20px;
+  padding: 40px;
+}
+
+.title {
+  text-align: center;
+  margin: auto;
+  font-size: 20px;
+  /*background: pink;*/
+}
+
+.form-input {
+  /*background: green;*/
+  width: 270px;
+  margin: auto;
+  border: 0;
+  padding: 0;
+}
+
+.form-input label{
+}
+
+.password {
+  width: 97%;
+  margin-top: 10px;
+}
+
+.username {
+  width: 97%;
+  margin-top: 10px;
+}
+
+.submit-button {
+  width: 100%;
+  background: #3897f0;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  margin-top: 20px;
+}
+
+.signup-or-signin-box {
+  width: 350px;
+  margin: auto;
+}
+
+.signup-or-signin {
+  text-align: center;
+  margin-top: 50px;
+  background: white;
+  font-size: 12px;
+  margin: auto;
+  padding: 10px;
+}
+
+.signin-signup-toggle {
+  background: #3897f0;
 }
