@@ -38,6 +38,7 @@ var PostIndexItem = React.createClass({
     var comments = [];
     if (this.props.post.comments) {
       comments = this.props.post.comments;
+
     } else {
       comments = [];
     }
