@@ -1,8 +1,17 @@
 class Api::PostsController < ApplicationController
 
-  def create
+  def show
+    @post = Post.find(param[:id])
+    if @post
+      render "api/posts/show"
+    else
+      render json: @post.errors
+    end
+  end
 
+  def create
     @post = Post.new(post_params)
+    @post.user_id = current_user.id
     if @post.save
       render "api/posts/show"
     else
@@ -35,6 +44,6 @@ class Api::PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:image, :caption, :user_id)
+    params.require(:post).permit(:image, :caption)
   end
 end

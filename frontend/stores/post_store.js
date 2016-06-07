@@ -16,8 +16,8 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
 
  var UpdateUserPost = function(post) {
    for (var i = 0; i < _posts.length; i++) {
-     if (_posts[i].id === post[0].id) {
-       _posts[i] = post[0];
+     if (_posts[i].id === post.id) {
+       _posts[i] = post;
      }
    }
  };
@@ -28,6 +28,14 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
 
  PostStore.all = function() {
    return _posts;
+ };
+
+ PostStore.fetchSinglePost = function(postId) {
+   for (var i = 0; i < _posts.length; i++) {
+     if (_posts[i].id === postId) {
+       return _posts[i];
+     }
+   }
  };
 
  PostStore.__onDispatch = function(payload) {
@@ -43,7 +51,7 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
       break;
      case UserAndPostConstants.UPDATE_USER_POST:
       UpdateUserPost(payload.userPost);
-      PostStore.__emitchange();
+      PostStore.__emitChange();
       break;
      case UserAndPostConstants.DELETE_USER_POST:
       DeleteUserPost(payload.userPost);

@@ -4,6 +4,8 @@ var Router = require('react-router').Router;
 var Modal = require("react-modal");
 var _Style = require("../modal_styles/modal_styles");
 // Modal Require End
+var PostStore = require("../stores/post_store");
+var CommentForm = require("./CommentForm");
 
 
 var PostIndexItem = React.createClass({
@@ -20,8 +22,26 @@ var PostIndexItem = React.createClass({
   },
   //modal function end
 
+  // When PostStore __emitChange, PostIndex will re-render, thus updating this.props.post
+  //
+  // componentDidMount: function() {
+  //   var postStorelistener = PostStore.addListener(this.onChange);
+  // },
+  //
+  // _onChange: function() {
+  //   this.setState({ comments: PostStore.fetchSinglePost(this.props.post.id).comments });
+  // },
+
   // <img src={this.props.post.image_url}/>
   render: function() {
+
+    var comments = [];
+    if (this.props.post.comments) {
+      comments = this.props.post.comments;
+    } else {
+      comments = [];
+    }
+
     return (
       <div>
         <li onClick={this.openModal}>
@@ -36,7 +56,15 @@ var PostIndexItem = React.createClass({
 
             <img src={this.props.post.image_url_large}/>
             <p> {this.props.post.caption} </p>
+            <ul>
+              {comments.map( function(comment, idx){
+                return ( <li key={idx}>
+                          {comment.userName} {comment.body}
+                        </li> );
+              })}
+            </ul>
 
+            <CommentForm postId={this.props.post.id}/>
           </Modal>
         </div>
       </div>

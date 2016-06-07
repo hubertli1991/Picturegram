@@ -36,7 +36,7 @@ var PostIndex = React.createClass({
 // console.log(post);
 
   render: function() {
-    
+
     var currentPathLocation = this.props.location.pathname;
 
     return (
