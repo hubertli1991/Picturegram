@@ -19,6 +19,12 @@ class Api::SessionsController < ApplicationController
 		end
 	end
 
+	def create_with_facebook
+		@user = User.find_or_create_with_auth_hash(auth_hash)
+		login(@user)
+		redirect_to root_url
+	end
+
 	def destroy
 		@user = current_user
 		if @user
@@ -43,4 +49,7 @@ class Api::SessionsController < ApplicationController
 		end
 	end
 
+	def auth_hash
+		request.env['omniauth.auth']
+	end
 end

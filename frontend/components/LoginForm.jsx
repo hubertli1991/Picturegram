@@ -114,6 +114,8 @@ var LoginForm = React.createClass({
 					</div>
 				</div>
 
+				<a href="/auth/facebook"> Login through Facebook </a>
+
 			</div>
 		);
 	}

@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
 
-  validates :username, :password_digest, :session_token, presence: true
-  validates :username, uniqueness: true
+  validates :session_token, presence: true
   validates :password, length: {minimum: 6, allow_nil: true}
 
   has_many :posts
@@ -15,6 +14,17 @@ class User < ActiveRecord::Base
     user = User.find_by(username: username)
     return nil unless user
     user.is_password?(password) ? user : nil
+  end
+
+  def self.find_or_create_with_auth_hash(auth_hash)
+    user = User.find_by(facebook_uid: auth_hash[:uid])
+    if user.nil?
+      user = User.create(
+        facebook_uid: auth_hash[:uid],
+        username: auth_hash[:info][:name]
+      )
+    end
+    user
   end
 
   def password=(password)

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy, :show]
   end
 
+  get '/auth/facebook/callback', to: "api/sessions#create_with_facebook"
+
   root to: "static_pages#root"
 
 end
