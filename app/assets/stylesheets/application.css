@@ -25,6 +25,7 @@
   padding: 0;
   border: 0;
   outline: 0;
+  text-decoration: none;
   display: block;
   font: inherit;
   }
@@ -106,13 +107,44 @@ body {
 
 .picture{
   float: left;
+  margin: 10px;
 }
 
 .non-picture-stuff{
-  float: right
+  float: right;
+  width: 225px;
+  padding: 10px;
+  margin: auto;
 }
 
 .modal-header {
-  color: green;
-  display: block;
+  border-bottom: 1px solid #efefef;
+  padding: 20px 0 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.caption {
+  color: #262626;
+  margin: 10px 0 10px 0;
+}
+
+.username {
+  display: inline;
+  font-weight: 600;
+  color: #262626;
+}
+
+.comment {
+  word-wrap: break-word;
+  margin: 10px 0 10px 0;
+}
+
+.comment-list {
+  border-bottom: 1px solid #efefef;
+}
+
+.comment-form {
+  margin: 10px 0 0 0
 }

@@ -67,16 +67,24 @@ var PostIndexItem = React.createClass({
 
             <div className="non-picture-stuff" >
               <p className="modal-header" onClick={ this.handleClick.bind(null, this.props.post.user_id) }> {this.props.post.username} </p>
-              <p> {this.props.post.caption} </p>
-              <ul>
+
+              <div className="caption">
+                <p> <p className="username" onClick={ this.handleClick.bind(null, this.props.post.user_id) }> {this.props.post.username} </p>
+                  {this.props.post.caption} </p>
+              </div>
+
+              <ul className="comment-list">
                 {comments.map( function(comment, idx) {
-                  return ( <li key={idx}>
-                            <p onClick={ this.handleClick.bind(null, comment.user_id) }> {comment.username} </p>
-                            {comment.body}
+                  return ( <li className="comment" key={idx}>
+                            <p> <p className="username" onClick={ this.handleClick.bind(null, comment.user_id) }> {comment.username} </p>
+                            {comment.body} </p>
                           </li> );
                 }.bind(this) )}
               </ul>
-              <CommentForm postId={this.props.post.id}/>
+
+              <div className="comment-form">
+                <CommentForm postId={this.props.post.id}/>
+              </div>
             </div>
 
           </Modal>
