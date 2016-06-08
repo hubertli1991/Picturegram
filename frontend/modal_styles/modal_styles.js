@@ -10,13 +10,15 @@ var _Style = {
               },
               content : {
                 position        : 'fixed',
-                top             : '50px',
+                top             : '37px',
                 left            : '150px',
                 right           : '150px',
-                bottom          : '50px',
+                bottom          : '37px',
                 border          : '1px solid #ccc',
-                padding         : '20px',
-                zIndex          : 11
+                padding         : '0px',
+                margin          : '0px',
+                zIndex          : 11,
+                overflow        : 'none'
               }
             };
 
