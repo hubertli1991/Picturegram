@@ -29,7 +29,7 @@ var SessionApiUtil = {
 		});
 	},
 
-	fetchCurrentUser: function (complete) {
+	fetchCurrentUser: function(complete) {
 		$.ajax({
       method: 'GET',
 			url: '/api/session',

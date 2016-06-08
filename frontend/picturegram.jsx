@@ -78,12 +78,26 @@ var App = React.createClass({
 
 var _Router = (
   <Router history={hashHistory}>
-    <Route path="/" component={App}>
-      <Route path="users/:id" component={ PostIndex }>
-      </Route>
-    </Route>
+    <Route path="/" component={App}/>
+    <Route path="/users/:id" component={ PostIndex } onEnter={ _ensureLoggedIn }/>
   </Router>
 );
+
+function _ensureLoggedIn(nextState, replace, asyncDoneCallback) {
+  if (SessionStore.currentUserHasBeenFetched) {
+    redirectIfNotLoggedIn();
+  } else {
+    SessionApiUtil.fetchCurrentUser(redirectIfNotLoggedIn);
+  }
+
+  function redirectIfNotLoggedIn() {
+    if (!SessionStore.isUserLoggedIn()) {
+      replace('/');
+    }
+    asyncDoneCallback();
+  }
+}
+
 // <Route path="post/:postid" component={ PostDetail }/>
 // <Route path="login" component={ LoginForm } />
 // <Route path="signup" component={ LoginForm } />

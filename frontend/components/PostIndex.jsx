@@ -7,6 +7,10 @@ var PostForm = require('./PostForm');
 
 var PostIndex = React.createClass({
 
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
   getInitialState: function() {
     return { posts: PostStore.all() };
   },
@@ -29,6 +33,9 @@ var PostIndex = React.createClass({
     this.postStorelistener.remove();
   },
 
+  backToRootPage: function() {
+    this.context.router.push('/');
+  },
 // < PostIndexItem post={post} />
 // <h1> Hello </h1>
 
@@ -40,6 +47,10 @@ var PostIndex = React.createClass({
     var currentPathLocation = this.props.location.pathname;
 
     return (
+      <div>
+
+        <button onClick={this.backToRootPage}> Home Page </button>
+
         <ul>
           <h1> Hi User {this.props.params.id}!</h1>
           {this.state.posts.map(function(post, idx) {
@@ -48,6 +59,7 @@ var PostIndex = React.createClass({
           <PostForm userId={this.props.params.id}/>
           {this.props.children}
         </ul>
+      </div>
     );
   }
 });
