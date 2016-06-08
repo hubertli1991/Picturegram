@@ -4,6 +4,7 @@ var PostStore = require("../stores/post_store");
 var PostIndexItem = require('./PostIndexItem');
 var ClientActions = require('../actions/client_actions');
 var CommentForm = require("./CommentForm");
+var NavBar = require('./NavBar');
 
 var HomeIndex = React.createClass({
 
@@ -34,26 +35,43 @@ var HomeIndex = React.createClass({
 
   render: function() {
     return(
+      <div>
         <ul>
           {this.state.posts.map( function(post, idx) {
             return (
                     <li key={idx}>
-                        <p onClick={this.handleClick.bind(null, post.user_id)}> {post.username} </p>
-                        <img src={post.image_url_large} />
-                        <p> {post.caption} </p>
-                        <ul>
-                          {post.comments.map( function(comment, idex){
-                            return ( <li key={idex}>
-                                      <p onClick={this.handleClick.bind(null, comment.user_id)}> {comment.username} </p>
-                                      {comment.body}
-                                    </li> );
-                          }.bind(this))}
-                        </ul>
-                        <CommentForm postId={post.id}/>
+
+                      <div className="home-index-item">
+                        <p className="post-header-home" onClick={this.handleClick.bind(null, post.user_id)}> {post.username} </p>
+
+                        <img className="home-picture" src={post.image_url_large} />
+
+                        <div className="caption-and-comments-home" >
+                          <div className="caption">
+                            <p> <p className="username" onClick={ this.handleClick.bind(null, post.user_id) }> {post.username} </p>
+                              {post.caption} </p>
+                          </div>
+
+                          <ul className="comment-list-home">
+                            {post.comments.map( function(comment, idex){
+                              return ( <li className="comment" key={idex}>
+                                        <p> <p className="username" onClick={this.handleClick.bind(null, comment.user_id)}> {comment.username} </p>
+                                        {comment.body} </p>
+                                      </li> );
+                            }.bind(this))}
+                          </ul>
+                        </div>
+
+                        <div className="comment-form-home">
+                          <CommentForm postId={post.id}/>
+                        </div>
+                      </div>
+
                     </li>
                   );
             }.bind(this) )}
         </ul>
+      </div>
     );
   }
 });

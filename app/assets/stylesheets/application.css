@@ -33,7 +33,7 @@
 
 body {
   font-family: 'proxima-nova','Helvetica Neue',Arial,Helvetica,sans-serif;
-  background: #eee;
+  background: #fafafa;
 }
 
 
@@ -103,21 +103,32 @@ body {
   background: #3897f0;
 }
 
+/*home-nav*/
+
+.home-nav {
+  height: 50%;
+  border-bottom: 1px solid #efefef;
+  background: white;
+  margin-bottom: 40px;
+}
+
+
 /*Modal stuff*/
 
 .picture{
   float: left;
   margin: 10px;
+  width: 50%;
 }
 
 .non-picture-stuff{
   float: right;
-  width: 30%;
+  width: 40%;
   padding: 10px;
   margin: auto;
 }
 
-.modal-header {
+.post-header {
   border-bottom: 1px solid #efefef;
   padding: 20px 0 20px;
   font-size: 20px;
@@ -153,4 +164,38 @@ body {
 .comment-form {
   padding: 15px 0 0 0;
   border-top: 1px solid #efefef;
+}
+
+
+/*Home Index Items */
+
+.home-index-item {
+  background: white;
+  width: 600px;
+  margin: auto;
+  margin-bottom: 40px;
+  border: 1px solid #efefef;
+}
+
+.caption-and-comments-home {
+  width: 90%;
+  margin: auto;
+  margin-top: 15px;
+  font-size: 15px;
+}
+
+.comment-form-home {
+  width: 90%;
+  padding: 15px;
+  margin: auto;
+  border-top: 1px solid #efefef;
+}
+
+.post-header-home {
+  padding: 15px 0 15px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #262626;
+  width: 90%;
+  margin: auto;
 }

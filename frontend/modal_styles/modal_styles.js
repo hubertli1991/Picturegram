@@ -11,8 +11,8 @@ var _Style = {
               content : {
                 position        : 'fixed',
                 top             : '37px',
-                left            : '150px',
-                right           : '150px',
+                left            : '10%',
+                right           : '10%',
                 bottom          : '37px',
                 border          : '1px solid #ccc',
                 padding         : '0px',

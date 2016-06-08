@@ -13,6 +13,7 @@ var LoginForm = require('./components/LoginForm');
 var PostIndex = require('./components/PostIndex');
 var PostForm = require('./components/PostForm');
 var HomeIndex = require('./components/HomeIndex');
+var NavBar = require('./components/NavBar');
 //Auth
 var SessionStore = require('./stores/session_store');
 var SessionApiUtil = require('./util/session_api_util');
@@ -64,7 +65,8 @@ var App = React.createClass({
     } else {
       return (
         <div>
-          <header>
+          <header className="home-nav">
+            <NavBar/>
             { this.greeting() }
           </header>
           <HomeIndex/>

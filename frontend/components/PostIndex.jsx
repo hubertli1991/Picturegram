@@ -4,6 +4,7 @@ var ClientActions = require('../actions/client_actions');
 
 var PostIndexItem = require('./PostIndexItem');
 var PostForm = require('./PostForm');
+var NavBar = require('./NavBar');
 
 var PostIndex = React.createClass({
 
@@ -49,7 +50,7 @@ var PostIndex = React.createClass({
     return (
       <div>
 
-        <button onClick={this.backToRootPage}> Home Page </button>
+        <NavBar/>
 
         <ul>
           <h1> Hi User {this.props.params.id}!</h1>

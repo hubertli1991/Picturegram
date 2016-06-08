@@ -67,7 +67,7 @@ var PostIndexItem = React.createClass({
 
             <div className="non-picture-stuff" >
 
-              <p className="modal-header" onClick={ this.handleClick.bind(null, this.props.post.user_id) }> {this.props.post.username} </p>
+              <p className="post-header" onClick={ this.handleClick.bind(null, this.props.post.user_id) }> {this.props.post.username} </p>
 
               <div className="caption-and-comments">
                 <div className="caption">
@@ -84,7 +84,7 @@ var PostIndexItem = React.createClass({
                   }.bind(this) )}
                 </ul>
               </div>
-            
+
               <div className="comment-form">
                 <CommentForm postId={this.props.post.id}/>
               </div>
