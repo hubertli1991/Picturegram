@@ -84,7 +84,7 @@ var _Router = (
 );
 
 function _ensureLoggedIn(nextState, replace, asyncDoneCallback) {
-  if (SessionStore.currentUserHasBeenFetched) {
+  if (SessionStore.currentUserHasBeenFetched()) {
     redirectIfNotLoggedIn();
   } else {
     SessionApiUtil.fetchCurrentUser(redirectIfNotLoggedIn);

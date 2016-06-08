@@ -63,20 +63,22 @@ var PostIndexItem = React.createClass({
             onRequestClose={this.closeModal}
             style={_Style}>
 
-            <p onClick={ this.handleClick.bind(null, this.props.post.user_id) }> {this.props.post.username} </p>
+            <img className="picture" src={this.props.post.image_url_large}/>
 
-            <img src={this.props.post.image_url_large}/>
-            <p> {this.props.post.caption} </p>
-            <ul>
-              {comments.map( function(comment, idx) {
-                return ( <li key={idx}>
-                          <p onClick={ this.handleClick.bind(null, comment.user_id) }> {comment.username} </p>
-                          {comment.body}
-                        </li> );
-              }.bind(this) )}
-            </ul>
+            <div className="non-picture-stuff" >
+              <p className="modal-header" onClick={ this.handleClick.bind(null, this.props.post.user_id) }> {this.props.post.username} </p>
+              <p> {this.props.post.caption} </p>
+              <ul>
+                {comments.map( function(comment, idx) {
+                  return ( <li key={idx}>
+                            <p onClick={ this.handleClick.bind(null, comment.user_id) }> {comment.username} </p>
+                            {comment.body}
+                          </li> );
+                }.bind(this) )}
+              </ul>
+              <CommentForm postId={this.props.post.id}/>
+            </div>
 
-            <CommentForm postId={this.props.post.id}/>
           </Modal>
         </div>
       </div>

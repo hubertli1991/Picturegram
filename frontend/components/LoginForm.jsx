@@ -23,19 +23,20 @@ var LoginForm = React.createClass({
 
   componentDidMount: function () {
     this.errorListener = ErrorStore.addListener(this.forceUpdate.bind(this));
-    this.sessionListener = SessionStore.addListener(this.redirectIfLoggedIn);
+    // this.sessionListener = SessionStore.addListener(this.redirectIfLoggedIn);
   },
 
   componentWillUnmount: function () {
     this.errorListener.remove();
-    this.sessionListener.remove();
+    // this.sessionListener.remove();
   },
 
-  redirectIfLoggedIn: function () {
-    if (SessionStore.isUserLoggedIn()) {
-      this.context.router.push("/");
-    }
-  },
+  // redirectIfLoggedIn: function () {
+	// 	debugger
+  //   if (SessionStore.isUserLoggedIn()) {
+  //     this.context.router.push("/");
+  //   }
+  // },
 
 	handleSubmit: function (e) {
 		e.preventDefault();
