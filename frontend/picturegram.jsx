@@ -9,7 +9,7 @@ var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 var hashHistory = ReactRouter.hashHistory;
 //Components
-var LoginForm = require('./components/loginForm');
+var LoginForm = require('./components/LoginForm');
 var PostIndex = require('./components/PostIndex');
 var PostForm = require('./components/PostForm');
 var HomeIndex = require('./components/HomeIndex');
