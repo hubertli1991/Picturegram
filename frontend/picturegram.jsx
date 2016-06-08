@@ -12,7 +12,7 @@ var hashHistory = ReactRouter.hashHistory;
 var LoginForm = require('./components/loginForm');
 var PostIndex = require('./components/PostIndex');
 var PostForm = require('./components/PostForm');
-
+var HomeIndex = require('./components/HomeIndex');
 //Auth
 var SessionStore = require('./stores/session_store');
 var SessionApiUtil = require('./util/session_api_util');
@@ -54,25 +54,31 @@ var App = React.createClass({
   },
 
   render: function(){
-    return (
+    if (!SessionStore.isUserLoggedIn()) {
+      return (
         <div>
-
-          <div>
-            <header>
-              { this.greeting() }
-            </header>
-            {this.props.children}
-          </div>
-
+          <LoginForm/>
+          {this.props.children}
         </div>
-    );
+          );
+    } else {
+      return (
+        <div>
+          <header>
+            { this.greeting() }
+          </header>
+          <HomeIndex/>
+          {this.props.children}
+        </div>
+      );
+    }
   }
 });
+// <IndexRoute component={LoginForm} />
 
 var _Router = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={LoginForm} />
       <Route path="users/:id" component={ PostIndex }>
       </Route>
     </Route>

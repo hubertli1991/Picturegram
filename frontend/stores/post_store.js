@@ -10,6 +10,10 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
    _posts = userPosts;
  };
 
+ var addAllPosts = function(allPosts) {
+   _posts = allPosts;
+ };
+
  var addNewUserPost = function(post) {
    _posts = _posts.concat(post);
  };
@@ -40,6 +44,11 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
 
  PostStore.__onDispatch = function(payload) {
    switch(payload.actionType) {
+     case UserAndPostConstants.ALL_POSTS:
+      var allPosts = payload.allPosts.posts;
+      addAllPosts(allPosts);
+      PostStore.__emitChange();
+      break;
      case UserAndPostConstants.ADD_USER_OR_ALL_HIS_POSTS:
       var userPosts = payload.userAndPosts.posts;
       addAllUserPosts(userPosts);

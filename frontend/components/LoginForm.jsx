@@ -9,16 +9,16 @@ var UserApiUtil = require('./../util/user_api_util');
 var LoginForm = React.createClass({
 	mixins: [LinkedStateMixin],
 
+	contextTypes: {
+		router: React.PropTypes.object.isRequired
+	},
+
   getInitialState: function () {
     return {
       username: "",
       password: "",
 			login: true
     };
-  },
-
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
   },
 
   componentDidMount: function () {

@@ -8,6 +8,10 @@ module.exports = {
     UserApiUtil.fetchUserAndPosts(id);
   },
 
+  fetchAllPosts: function() {
+    PostApiUtil.fetchAllPosts();
+  },
+
   createOnePost: function(formData, backToUserPage) {
     PostApiUtil.createOnePost(formData, backToUserPage);
   },

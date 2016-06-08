@@ -1,5 +1,10 @@
 class Api::PostsController < ApplicationController
 
+  def index
+    @posts = Post.all
+    render "api/posts/index"
+  end
+
   def show
     @post = Post.find(param[:id])
     if @post

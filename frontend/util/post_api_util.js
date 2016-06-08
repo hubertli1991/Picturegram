@@ -2,6 +2,17 @@ var ServerActions = require('../actions/server_actions');
 
 var PostApiUtil = {
 
+  fetchAllPosts: function() {
+    $.ajax({
+      method: 'GET',
+      url: 'api/posts',
+      success: function(allPosts) {
+        // debugger;
+        ServerActions.fetchAllPosts(allPosts);
+      }
+    });
+  },
+
   createOnePost: function(formData, backToUserPage) {
     $.ajax({
       method: 'POST',

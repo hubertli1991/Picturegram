@@ -3,6 +3,13 @@ var AppDispatcher = require('../dispatcher/dispatcher');
 
 var ServerActions = {
 
+  fetchAllPosts: function(allPosts) {
+    AppDispatcher.dispatch({
+      actionType: UserAndPostConstants.ALL_POSTS,
+      allPosts: allPosts
+    });
+  },
+
 // fetching a single user and all of his/her posts
 
   receiveUserAndAllPosts: function(userAndPosts) {
