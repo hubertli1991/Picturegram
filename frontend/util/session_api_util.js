@@ -47,7 +47,10 @@ var SessionApiUtil = {
 			},
 			error: function (xhr) {
 			},
-      complete: complete
+
+      complete: function() {
+				complete && complete();
+			}
 		});
 	}
 };

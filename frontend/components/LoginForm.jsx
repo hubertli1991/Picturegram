@@ -52,6 +52,16 @@ var LoginForm = React.createClass({
     }
 	},
 
+	guestLogin: function(e) {
+		e.preventDefault();
+
+		var guestData = {
+			username: 'guest',
+			password: 1234567
+		};
+		SessionApiUtil.login(guestData);
+	},
+
   fieldErrors: function (field) {
     var errors = ErrorStore.formErrors(this.formType);
     if (!errors[field]) { return; }
@@ -103,6 +113,8 @@ var LoginForm = React.createClass({
 							<span>
 								<input type="submit" className="submit-button" value={ this.formType } />
 							</span>
+
+							<button onClick={this.guestLogin}> Guest Login </button>
 						</div>
 
 					</form>

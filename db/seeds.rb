@@ -6,7 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-users = User.create([ { username: 'hubert1', password: 1234567 }, { username: 'hubert5', password: 1234567 } ])
+users = User.create([ { username: 'hubert1', password: 1234567 },
+  { username: 'hubert5', password: 1234567 },
+  { username: 'guest', password: 1234567}])
 
 post = Post.create([
   # first user's post
