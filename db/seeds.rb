@@ -6,14 +6,17 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-users = User.create([ { username: 'hubert1', password: 1234567 },
-  { username: 'hubert5', password: 1234567 },
-  { username: 'guest', password: 1234567}])
+User.destroy_all
+Post.destroy_all
 
-post = Post.create([
+user_1 = User.create!({ username: 'hubert1', password: 1234567 })
+user_2 = User.create!({ username: 'hubert5', password: 1234567 })
+user_3 = User.create!({ username: 'guest', password: 1234567 })
+
+post = Post.create!([
   # first user's post
-    { user_id: 1, caption: "hello world!", image: File.open('app/assets/images/31.jpg') },
-    { user_id: 1, caption: "this is my second post!", image: File.open('app/assets/images/shar_pei.jpg') },
+    { user_id: user_1.id, caption: "hello world!", image: File.open('app/assets/images/31.jpg') },
+    { user_id: user_2.id, caption: "this is my second post!", image: File.open('app/assets/images/shar_pei.jpg') },
   # second user's posts
-    { user_id: 2, caption: "I am a dog!", image: File.open('app/assets/images/second_dog_image.jpg') }
+    { user_id: user_3.id, caption: "I am a dog!", image: File.open('app/assets/images/second_dog_image.jpg') }
   ])
