@@ -35,7 +35,7 @@ var UserApiUtil = {
 
         // Add Header stuff later
         // HeaderAction.receiveUser(user);
-
+        
         // We're just going to pass both the user and his or her posts
         // this way we can split up the data at a later point
         ServerActions.receiveUserAndAllPosts(userAndPosts);

@@ -42,6 +42,12 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
    }
  };
 
+ PostStore.fetchUserName = function() {
+   if (this.userName) {
+    return this.userName;
+    }
+ };
+
  PostStore.__onDispatch = function(payload) {
    switch(payload.actionType) {
      case UserAndPostConstants.ALL_POSTS:
@@ -51,6 +57,7 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
       break;
      case UserAndPostConstants.ADD_USER_OR_ALL_HIS_POSTS:
       var userPosts = payload.userAndPosts.posts;
+      this.userName = payload.userAndPosts.username;
       addAllUserPosts(userPosts);
       PostStore.__emitChange();
       break;

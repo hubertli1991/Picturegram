@@ -82,11 +82,11 @@ var LoginForm = React.createClass({
 	render: function () {
     var navButton;
     if (this.state.login) {
-      navButton = <button onClick={this.toggleForm} className="signin-signup-toggle" >sign up</button>;
-			this.formType = 'login';
+      navButton = <p>Don't have an account? <button onClick={this.toggleForm} className="signin-signup-toggle" >Sign up</button></p>;
+			this.formType = 'Log in';
     } else {
-      navButton = <button onClick={this.toggleForm} className="signin-signup-toggle" >Log in</button>;
-			this.formType = 'signup';
+      navButton = <p>Have an account? <button onClick={this.toggleForm} className="signin-signup-toggle" >Log in</button></p>;
+			this.formType = 'Sign up';
     }
 
 		return (
@@ -94,6 +94,10 @@ var LoginForm = React.createClass({
 				<div className="login_box">
 
 					<h1 className="title">Picturegram</h1>
+
+					<a href="/auth/facebook"><button className="login-through-facebook" type="button">Log in with Facebook</button></a>
+
+					<h1 className="or">OR</h1>
 
 					<form onSubmit={this.handleSubmit}>
 
@@ -115,7 +119,7 @@ var LoginForm = React.createClass({
 								<input type="submit" className="submit-button" value={ this.formType } />
 							</span>
 
-							<button onClick={this.guestLogin}> Guest Login </button>
+							<button className="guest-login" onClick={this.guestLogin}> Guest Log in </button>
 						</div>
 
 					</form>
@@ -123,11 +127,9 @@ var LoginForm = React.createClass({
 
 				<div className="signup-or-signin-box">
 					<div className="signup-or-signin">
-						<p>Don't have an account? {navButton}</p>
+						{navButton}
 					</div>
 				</div>
-
-				<a href="/auth/facebook"> Login through Facebook </a>
 
 			</div>
 		);

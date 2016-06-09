@@ -17,9 +17,11 @@ var NavBar = React.createClass({
 
   render: function() {
     return(
-      <div>
-        <button onClick={this.backToRootPage}> Home Index </button>
-        <button onClick={this.backToYourPage}> Your Index </button>
+      <div className="nav-bar" >
+        <div className="nav-bar-refined group">
+          <button className="home-link" onClick={this.backToRootPage}> Home Index </button>
+          <button className="your-page-link" onClick={this.backToYourPage}> Your Index </button>
+        </div>
       </div>
     );
   }

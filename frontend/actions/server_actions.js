@@ -13,6 +13,7 @@ var ServerActions = {
 // fetching a single user and all of his/her posts
 
   receiveUserAndAllPosts: function(userAndPosts) {
+
     AppDispatcher.dispatch({
       actionType: UserAndPostConstants.ADD_USER_OR_ALL_HIS_POSTS,
       userAndPosts: userAndPosts

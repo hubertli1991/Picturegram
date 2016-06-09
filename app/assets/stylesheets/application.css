@@ -36,7 +36,13 @@ body {
   background: #fafafa;
 }
 
-
+/*clear-fix*/
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+/*clear-fix*/
 
 .login_box {
   background: white;
@@ -69,11 +75,13 @@ body {
 .password {
   width: 97%;
   margin-top: 10px;
+  font-size: 16px;
 }
 
 .username {
   width: 97%;
   margin-top: 10px;
+  font-size: 16px;
 }
 
 .submit-button {
@@ -85,8 +93,17 @@ body {
   margin-top: 20px;
 }
 
+.guest-login {
+  width: 100%;
+  background: #3897f0;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  margin-top: 20px;
+}
+
 .signup-or-signin-box {
-  width: 350px;
+  width: 360px;
   margin: auto;
 }
 
@@ -100,20 +117,122 @@ body {
 }
 
 .signin-signup-toggle {
-  background: #3897f0;
+  color: #3897f0;
+  background:none;
+  border:none;
+  padding:0;
+  font: inherit;
 }
 
+.login-through-facebook {
+  width: 97%;
+  background: #3897f0;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.or {
+  /*background: green;*/
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: gray;
+}
 /*home-nav*/
 
-.home-nav {
+.nav-bar {
   height: 50%;
   border-bottom: 1px solid #efefef;
   background: white;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
+.nav-bar-refined {
+  width: 90%;
+  background: white;
+  margin: auto;
+  padding: 25px;
+}
 
+.home-link {
+  float: left;
+}
+
+.your-page-link {
+  float: right;
+}
+
+/*logout modal*/
+
+.right-below-nav {
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.logout-modal-button {
+  /*float: right;*/
+  /*margin-bottom: 40px;*/
+}
+
+.logout-modal {
+  width: 100%;
+  height: 100%;
+  /*background: green;*/
+  font-family: 'proxima-nova','Helvetica Neue',Arial,Helvetica,sans-serif;
+  text-align: center;
+  /*top: 50%;*/
+  font-size: 20px;
+  font-weight: 400;
+  background: white;
+}
+
+.logout-half {
+  display: block;
+  /*background: green;*/
+  height: 50%;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 400;
+  /*border-bottom: 1px solid gray;*/
+  text-align: center;
+  background: white;
+}
+
+.cancel-half {
+  display: block;
+  height: 50%;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 400;
+  background: white;
+}
+
+/*<img alt="Add a profile photo" class="_g5pg0" src="https://scontent-lga3-1.cdninstagram.com/t51.2885-19/11906329_960233084022564_1448528159_a.jpg">*/
 /*Modal stuff*/
+
+.user-picture-index {
+  width: 1050px;
+  margin: auto;
+}
+
+.posted-picture {
+  float: left;
+  margin: 20px;
+}
+
+.post-form {
+  position: fixed;
+  bottom: 0px;
+  right: 500px;
+  width: 200px;
+  background: green;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
 
 .picture{
   float: left;

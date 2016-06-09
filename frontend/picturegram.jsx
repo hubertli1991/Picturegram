@@ -65,9 +65,8 @@ var App = React.createClass({
     } else {
       return (
         <div>
-          <header className="home-nav">
+          <header>
             <NavBar/>
-            { this.greeting() }
           </header>
           <HomeIndex/>
           {this.props.children}
