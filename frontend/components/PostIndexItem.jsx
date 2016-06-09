@@ -71,8 +71,8 @@ var PostIndexItem = React.createClass({
 
               <div className="caption-and-comments">
                 <div className="caption">
-                  <p> <p className="username" onClick={ this.handleClick.bind(null, this.props.post.user_id) }> {this.props.post.username} </p>
-                    {this.props.post.caption} </p>
+                  <div> <p className="username" onClick={ this.handleClick.bind(null, this.props.post.user_id) }> {this.props.post.username} </p>
+                    {this.props.post.caption} </div>
                 </div>
 
                 <ul className="comment-list">

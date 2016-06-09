@@ -327,6 +327,12 @@ button {
   width: 50%;
 }
 
+/*img {
+  width: 50%;
+  height: auto;
+  border-radius: 50%;
+}*/
+
 .non-picture-stuff{
   float: right;
   width: 40%;

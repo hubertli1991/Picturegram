@@ -20,7 +20,20 @@ class Api::UsersController < ApplicationController
 		end
 	end
 
+	def update
+		@user = User.find(params[:id])
+		if @user.update(user_profile_params)
+			render "api/users/show"
+		else
+			render json: @user.errors
+		end
+	end
+
 	private
+
+	def user_profile_params
+		params.require(:user).permit(:profile_picture, :bio)
+	end
 
 	def user_params
 		params.require(:user).permit(:username, :password)

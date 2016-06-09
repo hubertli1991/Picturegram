@@ -66,7 +66,7 @@ var PostIndex = React.createClass({
   render: function() {
 
     var currentPathLocation = this.props.location.pathname;
-    var username = PostStore.fetchUserName();
+    var user = PostStore.fetchUser();
     // debugger;
 
     return (
@@ -74,7 +74,9 @@ var PostIndex = React.createClass({
         <NavBar/>
 
         <div className="right-below-nav group" >
-          <h1> {username} </h1>
+          <h1> {user.username} </h1>
+          <img src={user.profile_picture_url_regular}/>
+          <p> {user.bio} </p>
           <div className="logout-modal-button">
             <button className="fa fa-bars" onClick={this.openModal} />
           </div>
@@ -94,7 +96,7 @@ var PostIndex = React.createClass({
         <div className="user-picture-index group">
           <ul>
             {this.state.posts.map(function(post, idx) {
-              return ( <div className="posted-picture">< PostIndexItem post={post} path={currentPathLocation} key={idx} /></div>);
+              return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} path={currentPathLocation}/></div>);
             })}
           </ul>
         </div>

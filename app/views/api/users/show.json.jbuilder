@@ -15,7 +15,9 @@
 #   json.image_url_large asset_path(post.image.url(:large))
 # end
 
-json.extract! @user, :id, :username
+json.extract! @user, :id, :username, :bio
+json.profile_picture_url_regular asset_path(@user.profile_picture.url(:regular))
+json.profile_picture_url_thumb_nail asset_path(@user.profile_picture.url(:thumb_nail))
 json.posts @user.posts do |post|
   json.partial! 'posts/posts', post: post
 end

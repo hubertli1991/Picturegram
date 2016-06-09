@@ -42,10 +42,14 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
    }
  };
 
- PostStore.fetchUserName = function() {
-   if (this.userName) {
-    return this.userName;
-    }
+ PostStore.fetchUser = function() {
+   var user = {};
+   if (this.userAndPosts) {
+     ["id", "username", "bio", "profile_picture_url_regular", "profile_picture_url_thumb_nail"].map( function(key) {
+       user[key] = this.userAndPosts[key];
+     }.bind(this));
+   }
+   return user;
  };
 
  PostStore.__onDispatch = function(payload) {
@@ -56,8 +60,8 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
       PostStore.__emitChange();
       break;
      case UserAndPostConstants.ADD_USER_OR_ALL_HIS_POSTS:
+      this.userAndPosts = payload.userAndPosts;
       var userPosts = payload.userAndPosts.posts;
-      this.userName = payload.userAndPosts.username;
       addAllUserPosts(userPosts);
       PostStore.__emitChange();
       break;
