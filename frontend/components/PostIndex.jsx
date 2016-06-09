@@ -1,5 +1,6 @@
 var React = require('react');
 var PostStore = require('../stores/post_store');
+var SessionStore = require('../stores/session_store');
 var ClientActions = require('../actions/client_actions');
 var SessionApiUtil = require('../util/session_api_util');
 // Modal Require Start
@@ -67,6 +68,7 @@ var PostIndex = React.createClass({
     var currentPathLocation = this.props.location.pathname;
     var username = PostStore.fetchUserName();
     // debugger;
+
     return (
       <div>
         <NavBar/>
@@ -95,7 +97,7 @@ var PostIndex = React.createClass({
         </div>
 
         <div className="post-form">
-          <PostForm userId={this.props.params.id}/>
+          <PostForm userId={SessionStore.currentUser().id}/>
         </div>
 
         {this.props.children}

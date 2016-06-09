@@ -5,6 +5,7 @@ var PostIndexItem = require('./PostIndexItem');
 var ClientActions = require('../actions/client_actions');
 var CommentForm = require("./CommentForm");
 var NavBar = require('./NavBar');
+var PostForm = require('./PostForm');
 
 var HomeIndex = React.createClass({
 

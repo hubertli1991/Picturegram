@@ -56,6 +56,7 @@ var PostForm = React.createClass({
   },
 
   backToUserPage: function() {
+    // debugger;
     this.context.router.push("/users/" + this.state.user_id);
   },
 
