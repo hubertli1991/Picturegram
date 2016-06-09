@@ -73,10 +73,13 @@ var PostIndex = React.createClass({
       <div>
         <NavBar/>
 
-        <div className="right-below-nav">
+        <div className="right-below-nav group" >
           <h1> {username} </h1>
-          <button className="logout-modal-button" onClick={this.openModal} > Logout </button>
-        </div>
+          <div className="logout-modal-button">
+            <button className="fa fa-bars" onClick={this.openModal} />
+          </div>
+          <PostForm userId={SessionStore.currentUser().id}/>
+      </div>
 
         <Modal
           isOpen={this.state.modalOpen}
@@ -94,10 +97,6 @@ var PostIndex = React.createClass({
               return ( <div className="posted-picture">< PostIndexItem post={post} path={currentPathLocation} key={idx} /></div>);
             })}
           </ul>
-        </div>
-
-        <div className="post-form">
-          <PostForm userId={SessionStore.currentUser().id}/>
         </div>
 
         {this.props.children}

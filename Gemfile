@@ -34,6 +34,8 @@ gem 'omniauth-facebook'
 
 gem 'aws-sdk', '>= 2.0'
 
+gem "font-awesome-rails"
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

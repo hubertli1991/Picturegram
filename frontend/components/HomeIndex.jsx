@@ -6,6 +6,7 @@ var ClientActions = require('../actions/client_actions');
 var CommentForm = require("./CommentForm");
 var NavBar = require('./NavBar');
 var PostForm = require('./PostForm');
+var SessionStore = require('../stores/session_store');
 
 var HomeIndex = React.createClass({
 
@@ -37,6 +38,7 @@ var HomeIndex = React.createClass({
   render: function() {
     return(
       <div>
+        <PostForm userId={SessionStore.currentUser().id}/>
         <ul>
           {this.state.posts.map( function(post, idx) {
             return (

@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require font-awesome
  */
 
  html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
@@ -20,11 +21,13 @@
  dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody,
  tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure,
  figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,
- time, mark, audio, video {
+ time, mark, audio, video{
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
+  /*background: transparent;*/
+  /*color: inherit;*/
   text-decoration: none;
   display: block;
   font: inherit;
@@ -34,6 +37,11 @@
 body {
   font-family: 'proxima-nova','Helvetica Neue',Arial,Helvetica,sans-serif;
   background: #fafafa;
+}
+
+button {
+  border: 0;
+  background: transparent;
 }
 
 /*clear-fix*/
@@ -159,10 +167,12 @@ body {
 
 .home-link {
   float: left;
+  font-size: 50px;
 }
 
 .your-page-link {
   float: right;
+  font-size: 50px;
 }
 
 /*logout modal*/
@@ -173,7 +183,8 @@ body {
 }
 
 .logout-modal-button {
-  /*float: right;*/
+  float: right;
+  font-size: 50px;
   /*margin-bottom: 40px;*/
 }
 
@@ -196,7 +207,7 @@ body {
   width: 100%;
   font-size: 20px;
   font-weight: 400;
-  /*border-bottom: 1px solid gray;*/
+  border-bottom: 1px solid gray;
   text-align: center;
   background: white;
 }
@@ -226,29 +237,27 @@ body {
 /*PostForm*/
 
 .post-form {
-  position: fixed;
-  bottom: 0px;
-  right: 500px;
-  width: 200px;
-  height: 200px;
-  background: green;
-  margin-top: 20px;
-  margin-bottom: 30px;
+  /*position: absolute;*/
+  margin: auto;
 }
 
 .post-form-button {
-  width: 100%;
-  height: 100%;
+  font-size: 50px;
+  width: 5%;
+  margin: auto;
 }
 
 .modal-body {
   /*background: green;*/
   position: relative;
   height: 100%;
+  background: #fafafa;
 }
 
-.post-form-box {
+
+.post-form-boxes {
   /*background: red;*/
+  /*bottom: 0;*/
   position: absolute;
   width: 100%;
   height: 20%;
@@ -260,18 +269,20 @@ body {
   text-align: center;
   width: 50%;
   margin: auto;
-  /*margin-top: 5%;*/
+  font-weight: bold;
+  padding-top: 1%;
 }
 
 .image-preview-box {
   display: block;
   position: absolute;
-  top: 5%;
+  top: 7.5%;
   left: 15%;
   /*background: blue;*/
   width: 70%;
   height: 70%;
   border: 1px solid #fafafa;
+  background: white;
 }
 
 .image-preview {
@@ -284,6 +295,9 @@ body {
   width: 80%;
   margin: auto;
   margin-bottom: 1%;
+  background: white;
+  font-weight: bold;
+  /*border: 1px solid gray;*/
 }
 
 .upload-image-caption {
@@ -291,6 +305,8 @@ body {
   width: 80%;
   margin: auto;
   margin-bottom: 1%;
+  background: white;
+  font-weight: bold;
 }
 
 .post-form-submit-button {
@@ -298,7 +314,10 @@ body {
   width: 80%;
   margin: auto;
   margin-bottom: 1%;
-  background: #fafafa;
+  background: #3897f0;
+  font-weight: bold;
+  color: white;
+  /*background: white;*/
   /*bottom: 10px;*/
 }
 /*-----------------------------------------------------------*/

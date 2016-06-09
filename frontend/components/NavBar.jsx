@@ -15,12 +15,17 @@ var NavBar = React.createClass({
     this.context.router.push('/users/' + SessionStore.currentUser().id);
   },
 
+
   render: function() {
     return(
       <div className="nav-bar" >
         <div className="nav-bar-refined group">
-          <button className="home-link" onClick={this.backToRootPage}> Home Index </button>
-          <button className="your-page-link" onClick={this.backToYourPage}> Your Index </button>
+          <div className="home-link">
+            <button className="fa fa-instagram" onClick={this.backToRootPage}/>
+          </div>
+          <div className="your-page-link">
+            <button className="fa fa-user" onClick={this.backToYourPage}/>
+          </div>
         </div>
       </div>
     );

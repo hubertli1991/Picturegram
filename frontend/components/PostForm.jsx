@@ -76,9 +76,10 @@ var PostForm = React.createClass({
 
   render: function() {
     return(
-      <div>
-        <button className="post-form-button" onClick={this.openModal} value="Post Photo"/>
-
+      <div className="post-form">
+        <div className="post-form-button">
+          <button className="fa fa-camera" onClick={this.openModal} value="Post Photo"/>
+        </div>
 
         <Modal
           isOpen={this.state.modalOpen}
@@ -90,13 +91,13 @@ var PostForm = React.createClass({
             <div className="image-preview-box">
               <img className="image-preview" src={this.state.imageUrl}/>
             </div>
-            <div className="post-form-box">
-              <form onSubmit={this.handleSubmit}>
-                <input className="choose-file" type="file" placeholder="image file" onChange={this.updateFile} />
-                <input className="upload-image-caption" type="text" placeholder="caption" value={this.state.caption} onChange={this.captionChange}/>
-                <input className="post-form-submit-button" type="submit" value="Add Post"/>
-              </form>
-            </div>
+
+            <form className="post-form-boxes" onSubmit={this.handleSubmit}>
+              <input className="choose-file" type="file" placeholder="image file" onChange={this.updateFile} />
+              <input className="upload-image-caption" type="text" placeholder="caption" value={this.state.caption} onChange={this.captionChange}/>
+              <input className="post-form-submit-button" type="submit" value="Add Post"/>
+            </form>
+
           </div>
 
         </Modal>
