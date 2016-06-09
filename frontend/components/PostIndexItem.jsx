@@ -78,8 +78,8 @@ var PostIndexItem = React.createClass({
                 <ul className="comment-list">
                   {comments.map( function(comment, idx) {
                     return ( <li className="comment" key={idx}>
-                              <p> <p className="username" onClick={ this.handleClick.bind(null, comment.user_id) }> {comment.username} </p>
-                              {comment.body} </p>
+                              <div> <p className="username" onClick={ this.handleClick.bind(null, comment.user_id) }> {comment.username} </p>
+                              {comment.body} </div>
                             </li> );
                   }.bind(this) )}
                 </ul>

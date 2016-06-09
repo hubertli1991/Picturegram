@@ -72,6 +72,7 @@ var HomeIndex = React.createClass({
                   );
             }.bind(this) )}
         </ul>
+
       </div>
     );
   }
