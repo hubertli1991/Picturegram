@@ -26,5 +26,9 @@ module.exports = {
 
   createOneComment: function(commentFormData) {
     CommentApiUtil.createOneComment(commentFormData);
+  },
+
+  updateCurrentUser: function(currentUserId, profileFormData, backToUserPage) {
+    UserApiUtil.updateUserProfile(currentUserId, profileFormData, backToUserPage);
   }
 };

@@ -50,7 +50,7 @@ var PostIndexItem = React.createClass({
     } else {
       comments = [];
     }
-
+    // debugger;
     return (
       <div>
         <li onClick={this.openModal}>
@@ -67,7 +67,9 @@ var PostIndexItem = React.createClass({
 
             <div className="non-picture-stuff" >
 
-              <p className="post-header" onClick={ this.handleClick.bind(null, this.props.post.user_id) }> {this.props.post.username} </p>
+              <p className="post-header" onClick={ this.handleClick.bind(null, this.props.post.user_id) }>
+                <img className="thumbnail" src={this.props.thumbnail}/> <div className="thumb-username">{this.props.post.username}</div>
+              </p>
 
               <div className="caption-and-comments">
                 <div className="caption">

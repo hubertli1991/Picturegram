@@ -175,6 +175,14 @@ button {
   font-size: 50px;
 }
 
+/*User Profile*/
+
+.profile-picture {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+}
+
 /*logout modal*/
 
 .right-below-nav {
@@ -346,6 +354,22 @@ button {
   font-size: 20px;
   font-weight: 600;
   color: #262626;
+  position: relative;
+}
+
+
+.thumbnail {
+  display: inline;
+  border-radius: 50%;
+  height: 75px;
+  width: 75px;
+}
+
+.thumb-username {
+  display: inline;
+  position: absolute;
+  top: 35%;
+  padding-left: 5%;
 }
 
 .caption-and-comments {

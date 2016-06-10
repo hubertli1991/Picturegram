@@ -9,6 +9,7 @@ var _Logout_Style = require("../modal_styles/logout_styles");
 // Modal Require End
 var PostIndexItem = require('./PostIndexItem');
 var PostForm = require('./PostForm');
+var ProfileForm = require('./ProfileForm');
 var NavBar = require('./NavBar');
 
 var PostIndex = React.createClass({
@@ -73,9 +74,15 @@ var PostIndex = React.createClass({
       <div>
         <NavBar/>
 
+        <ProfileForm userId={SessionStore.currentUser().id}/>
+
+
         <div className="right-below-nav group" >
+
           <h1> {user.username} </h1>
-          <img src={user.profile_picture_url_regular}/>
+
+          <img className="profile-picture" src={user.profile_picture_url_regular}/>
+
           <p> {user.bio} </p>
           <div className="logout-modal-button">
             <button className="fa fa-bars" onClick={this.openModal} />
@@ -96,7 +103,7 @@ var PostIndex = React.createClass({
         <div className="user-picture-index group">
           <ul>
             {this.state.posts.map(function(post, idx) {
-              return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} path={currentPathLocation}/></div>);
+              return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} thumbnail={user.profile_picture_url_thumb_nail} path={currentPathLocation}/></div>);
             })}
           </ul>
         </div>

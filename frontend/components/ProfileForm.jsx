@@ -1,13 +1,13 @@
 var React = require('react');
 var PostStore = require('../stores/post_store');
+var SessionStore = require('../stores/session_store');
 var ClientActions = require('../actions/client_actions');
 // Modal Require Start
 var Modal = require("react-modal");
 var _Post_Modal_Style = require("../modal_styles/post_modal_styles");
 // Modal Require End
 
-
-var PostForm = React.createClass({
+var ProfileForm = React.createClass({
 
   contextTypes: {
   router: React.PropTypes.object.isRequired
@@ -15,16 +15,13 @@ var PostForm = React.createClass({
 
   getInitialState: function() {
     return {
-      // works when you replace this.props.id with a number
-      // move the PostForm into the proper place
       user_id: parseInt(this.props.userId),
-      caption: "",
+      bio: "",
       imageFile: null,
       imageUrl: null,
       modalOpen: false
     };
   },
-
 
   closeModal: function(){
     this.setState({ modalOpen: false });
@@ -34,9 +31,9 @@ var PostForm = React.createClass({
   },
 
 
-  captionChange: function(e) {
-    var newCaption = e.target.value;
-    this.setState({caption: newCaption});
+  bioChange: function(e) {
+    var newBio = e.target.value;
+    this.setState({bio: newBio});
   },
 
   updateFile: function(e) {
@@ -61,12 +58,12 @@ var PostForm = React.createClass({
     //   caption: this.state.caption
     // };
     this.closeModal();
-    var formData = new FormData();
+    var profileFormData = new FormData();
     // formData.append("post[user_id]", this.state.user_id);
-    formData.append("post[caption]", this.state.caption);
-    formData.append("post[image]", this.state.imageFile);
-    ClientActions.createOnePost(formData, this.backToUserPage);
-    this.setState({caption: "", imageFile: "", imageUrl: ""});
+    profileFormData.append("user[bio]", this.state.bio);
+    profileFormData.append("user[profile_picture]", this.state.imageFile);
+    ClientActions.updateCurrentUser(this.state.user_id, profileFormData, this.backToUserPage);
+    this.setState({bio: "", imageFile: "", imageUrl: ""});
   },
 
   backToUserPage: function() {
@@ -75,11 +72,11 @@ var PostForm = React.createClass({
   },
 
   render: function() {
+    // Re-use the Post Modal Styles
+    // Re-use upload-image-caption css style for bio
     return(
-      <div className="post-form">
-        <div className="post-form-button">
-          <button className="fa fa-camera" onClick={this.openModal} value="Post Photo"/>
-        </div>
+      <div>
+        <button onClick={this.openModal} > Update Your Profile </button>
 
         <Modal
           isOpen={this.state.modalOpen}
@@ -88,15 +85,15 @@ var PostForm = React.createClass({
 
           <div className="modal-body">
 
-            <p className="post-form-header">Share a Picture</p>
+            <p className="post-form-header">Update your profile</p>
             <div className="image-preview-box">
               <img className="image-preview" src={this.state.imageUrl}/>
             </div>
 
             <form className="post-form-boxes" onSubmit={this.handleSubmit}>
               <input className="choose-file" type="file" placeholder="image file" onChange={this.updateFile} />
-              <input className="upload-image-caption" type="text" placeholder="caption" value={this.state.caption} onChange={this.captionChange}/>
-              <input className="post-form-submit-button" type="submit" value="Add Post"/>
+              <input className="upload-image-caption" type="text" placeholder="bio" value={this.state.bio} onChange={this.bioChange}/>
+              <input className="post-form-submit-button" type="submit" value="Update Profile"/>
             </form>
 
           </div>
@@ -107,4 +104,4 @@ var PostForm = React.createClass({
   }
 });
 
-module.exports = PostForm;
+module.exports = ProfileForm;

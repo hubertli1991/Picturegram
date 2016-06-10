@@ -35,9 +35,24 @@ var UserApiUtil = {
 
         // Add Header stuff later
         // HeaderAction.receiveUser(user);
-        
+
         // We're just going to pass both the user and his or her posts
         // this way we can split up the data at a later point
+        ServerActions.receiveUserAndAllPosts(userAndPosts);
+      }
+    });
+  },
+
+  updateUserProfile: function(currentUserId, profileFormData, backToUserPage) {
+    $.ajax({
+      url: '/api/users/' + currentUserId,
+      method: 'PATCH',
+      dataType: "json",
+      contentType: false,
+      processData: false,
+      data: profileFormData,
+      success: function(userAndPosts) {
+        // debugger;
         ServerActions.receiveUserAndAllPosts(userAndPosts);
       }
     });
