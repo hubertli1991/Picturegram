@@ -46,9 +46,9 @@ var HomeIndex = React.createClass({
 
                       <div className="home-index-item">
 
-                        <p className="post-header-home">
+                        <div className="post-header-home">
                           <img className="thumbnail" src={post.thumbnail}/> <p className="thumb-username" onClick={this.handleClick.bind(null, post.user_id)}> {post.username} </p>
-                        </p>
+                        </div>
 
                         <img className="home-picture" src={post.image_url_large} />
 
@@ -61,7 +61,7 @@ var HomeIndex = React.createClass({
                           <ul className="comment-list-home">
                             {post.comments.map( function(comment, idex){
                               return ( <li className="comment" key={idex}>
-                                        <p> <p className="username" onClick={this.handleClick.bind(null, comment.user_id)}> {comment.username} </p>
+                                        <p> <a className="username" onClick={this.handleClick.bind(null, comment.user_id)}> {comment.username} </a>
                                         {comment.body} </p>
                                       </li> );
                             }.bind(this))}

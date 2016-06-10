@@ -33,7 +33,7 @@
   font: inherit;
   }
 
-button, p {
+button {
     cursor: pointer;
 }
 
@@ -287,6 +287,7 @@ button {
 .posted-picture {
   float: left;
   margin: 20px;
+  cursor: pointer;
 }
 
 /*PostForm*/
@@ -419,6 +420,7 @@ button {
   border-radius: 50%;
   height: 75px;
   width: 75px;
+  cursor: pointer;
 }
 
 .thumb-username {
@@ -426,6 +428,7 @@ button {
   position: absolute;
   top: 35%;
   padding-left: 5%;
+  cursor: pointer;
 }
 
 .caption-and-comments {
@@ -442,6 +445,7 @@ button {
   display: inline;
   font-weight: 600;
   color: #262626;
+  cursor: pointer;
 }
 
 .comment {
