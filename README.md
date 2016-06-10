@@ -1,17 +1,25 @@
 # Picturegram
 
+[Picturegram] (picture-gram.herokuapp.com)
+
+Picturegram is a full-stack web application inspired by Instagram. It's backend was built on Ruby on Rails and uses React.js with a Flux architectural framework for its frontend.
+
+## Features and Implementation
+
+### Single Page App
+
+Picturegram is a single page app where all data is delivered on one static page. The root page listens to the 'SessionController' in the back end by invoking the 'currentUserHasBeenFetched()' method.
+
 ##Minimum Viable Product
 Picturegram is a web application inspired by Instagram that will be build using Ruby on Rails and React.js. By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
 
-- [ ] New account creation and log
+- [ ] New account creation and login
+- [ ] Login through Facebook
 - [ ] Smooth navigation
 - [ ] Adequate seed data to showcase the app’s features
 - [ ] Homepage
 - [ ] User pages with pictures
-- [ ] Following
 - [ ] Comments on pictures
-- [ ] Links for hashtags
-- [ ] Links for @username
 - [ ] Hosting on Heroku
 - [ ] CSS styling that is satisfactorily visually appealing
 
@@ -25,7 +33,7 @@ Picturegram is a web application inspired by Instagram that will be build using 
       - [ ] Comments
       - [ ] Likes
       - [ ] Date
- 
+
 ####Home Page (Very Similar to Other User Page, but the layouts are very different)
 - [ ] Search bar
 - [ ] Picture Index
@@ -144,7 +152,7 @@ Other User Page
   - GET /api/pictures/:pictureid
   - POST /api/pictures
   - DELETE /api/pictures/:picturesid
- 
+
 ##Timeline
 - [ ] Backend Configuration and Authentication – 1.5 day
 - [ ] Create Picture Index and Index Items components – 1.5 day
@@ -154,4 +162,3 @@ Other User Page
 - [ ] Create Comments component – 0.5 day
 - [ ] Create Home Page component – 1 day
 - [ ] CSS – 1 day
-  

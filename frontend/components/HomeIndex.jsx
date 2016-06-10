@@ -54,8 +54,8 @@ var HomeIndex = React.createClass({
 
                         <div className="caption-and-comments-home" >
                           <div className="caption">
-                            <p> <p className="username" onClick={ this.handleClick.bind(null, post.user_id) }> {post.username} </p>
-                              {post.caption} </p>
+                            <div> <p className="username" onClick={ this.handleClick.bind(null, post.user_id) }> {post.username} </p>
+                              {post.caption} </div>
                           </div>
 
                           <ul className="comment-list-home">
@@ -72,6 +72,7 @@ var HomeIndex = React.createClass({
                           <CommentForm postId={post.id}/>
                         </div>
                       </div>
+
 
                     </li>
                   );

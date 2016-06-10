@@ -39,8 +39,12 @@ var App = React.createClass({
   // For Modal Purposes End
 
   componentDidMount: function () {
-    SessionStore.addListener(this.forceUpdate.bind(this));
+    this.sessionStoreListener = SessionStore.addListener(this.forceUpdate.bind(this));
     SessionApiUtil.fetchCurrentUser();
+  },
+
+  componentWillUnmount: function() {
+    this.sessionStoreListener.remove();
   },
 
   greeting: function(){

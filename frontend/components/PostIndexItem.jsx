@@ -67,9 +67,9 @@ var PostIndexItem = React.createClass({
 
             <div className="non-picture-stuff" >
 
-              <p className="post-header" onClick={ this.handleClick.bind(null, this.props.post.user_id) }>
-                <img className="thumbnail" src={this.props.thumbnail}/> <div className="thumb-username">{this.props.post.username}</div>
-              </p>
+              <div className="post-header" onClick={ this.handleClick.bind(null, this.props.post.user_id) }>
+                <img className="thumbnail" src={this.props.thumbnail}/> <p className="thumb-username">{this.props.post.username}</p>
+              </div>
 
               <div className="caption-and-comments">
                 <div className="caption">
