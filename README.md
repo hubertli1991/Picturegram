@@ -2,13 +2,7 @@
 
 [Picturegram] (picture-gram.herokuapp.com)
 
-Picturegram is a full-stack web application inspired by Instagram. It's backend was built on Ruby on Rails and uses React.js with a Flux architectural framework for its frontend.
-
-## Features and Implementation
-
-### Single Page App
-
-Picturegram is a single page app where all data is delivered on one static page. The root page listens to the 'SessionController' in the back end by invoking the 'currentUserHasBeenFetched()' method.
+Picturegram is a full-stack web application inspired by Instagram. It's back-end was built on Ruby on Rails and uses React.js with a Flux architectural framework for its front-end.
 
 ##Minimum Viable Product
 Picturegram is a web application inspired by Instagram that will be build using Ruby on Rails and React.js. By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
