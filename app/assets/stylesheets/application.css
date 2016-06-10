@@ -33,6 +33,11 @@
   font: inherit;
   }
 
+button, p {
+    cursor: pointer;
+}
+
+
 
 body {
   font-family: 'proxima-nova','Helvetica Neue',Arial,Helvetica,sans-serif;
