@@ -64,6 +64,12 @@ var PostIndex = React.createClass({
 // debugger;
 // console.log(post);
 
+  renderProfileFormIfOnYourPage: function() {
+    if (parseInt(this.props.params.id) === SessionStore.currentUser().id) {
+      return <ProfileForm userId={SessionStore.currentUser().id}/>;
+    }
+  },
+
   render: function() {
 
     var currentPathLocation = this.props.location.pathname;
@@ -74,21 +80,24 @@ var PostIndex = React.createClass({
       <div>
         <NavBar/>
 
-        <ProfileForm userId={SessionStore.currentUser().id}/>
-
-
         <div className="right-below-nav group" >
-
-          <h1> {user.username} </h1>
 
           <img className="profile-picture" src={user.profile_picture_url_regular}/>
 
-          <p> {user.bio} </p>
-          <div className="logout-modal-button">
-            <button className="fa fa-bars" onClick={this.openModal} />
+          <div className="stuff-under-nav-top-part group">
+            <h1 className="user-name"> {user.username} </h1>
+            {this.renderProfileFormIfOnYourPage()}
+            <div className="logout-modal-button">
+              <button className="fa fa-bars" onClick={this.openModal} />
+            </div>
+            <p className="profile-bio"> {user.bio} </p>
           </div>
+
+        </div>
+
+        <div>
           <PostForm userId={SessionStore.currentUser().id}/>
-      </div>
+        </div>
 
         <Modal
           isOpen={this.state.modalOpen}

@@ -175,25 +175,67 @@ button {
   font-size: 50px;
 }
 
-/*User Profile*/
-
-.profile-picture {
-  border-radius: 50%;
-  height: 150px;
-  width: 150px;
-}
-
 /*logout modal*/
 
 .right-below-nav {
   padding: 25px;
   margin-bottom: 20px;
+  font-family: proxima-nova, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 21px;
+}
+
+.profile-picture {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  float: left;
+  margin-left: 8%;
+}
+
+.stuff-under-nav-top-part{
+  display: block;
+  float: left;
+  margin-left: 8%;
+  width: 400px;
+}
+
+.user-name {
+  display: block;
+  float: left;
+  margin-right: 10%;
+  font-family: proxima-nova, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 21px;
+}
+
+.profile-form {
+  float: left;
+  margin-right: 10%;
+  border: 1px solid gray;
+  font-family: proxima-nova, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 21px;
+  border-radius: 15%;
+  font-weight: bold;
 }
 
 .logout-modal-button {
-  float: right;
+  float: left;
+  margin-right: 10%;
+  top: 0%;
+  border-radius: 15%;
+}
+
+.profile-bio {
+  display: block;
+  float: left;
+  width: 500px;
+  margin-top: 10px;
+}
+
+.logout-modal-button {
+  float: left;
   font-size: 50px;
   /*margin-bottom: 40px;*/
+  border: 1px solid gray;
 }
 
 .logout-modal {
@@ -346,6 +388,7 @@ button {
   width: 40%;
   padding: 10px;
   margin: auto;
+  height: 100%%;
 }
 
 .post-header {
@@ -374,7 +417,7 @@ button {
 
 .caption-and-comments {
   overflow-y: scroll;
-  height: 500px;
+  height: 400px;
 }
 
 .caption {

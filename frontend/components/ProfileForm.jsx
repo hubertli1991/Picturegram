@@ -14,6 +14,7 @@ var ProfileForm = React.createClass({
   },
 
   getInitialState: function() {
+    // this.props.userId is the currentUser's id. It's passed as a PostIndex prop
     return {
       user_id: parseInt(this.props.userId),
       bio: "",
@@ -59,7 +60,7 @@ var ProfileForm = React.createClass({
     // };
     this.closeModal();
     var profileFormData = new FormData();
-    // formData.append("post[user_id]", this.state.user_id);
+    // profileFormData.append("post[user_id]", this.state.user_id);
     profileFormData.append("user[bio]", this.state.bio);
     profileFormData.append("user[profile_picture]", this.state.imageFile);
     ClientActions.updateCurrentUser(this.state.user_id, profileFormData, this.backToUserPage);
@@ -75,8 +76,8 @@ var ProfileForm = React.createClass({
     // Re-use the Post Modal Styles
     // Re-use upload-image-caption css style for bio
     return(
-      <div>
-        <button onClick={this.openModal} > Update Your Profile </button>
+      <div className="profile-form">
+        <button onClick={this.openModal} > Edit Profile </button>
 
         <Modal
           isOpen={this.state.modalOpen}
