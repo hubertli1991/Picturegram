@@ -1,5 +1,6 @@
 json.extract! post, :id, :caption, :created_at, :user_id
 json.username User.find(post.user_id).username
+json.thumbnail asset_path(User.find(post.user_id).profile_picture.url(:thumb_nail))
 
 # json.partial('comments/comments', { comments: @message.comments })
 

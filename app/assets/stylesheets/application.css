@@ -400,6 +400,14 @@ button {
   position: relative;
 }
 
+.post-header-home {
+  border-bottom: 1px solid #efefef;
+  padding: 20px 0 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #262626;
+  position: relative;
+}
 
 .thumbnail {
   display: inline;
