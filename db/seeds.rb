@@ -9,9 +9,10 @@
 User.destroy_all
 Post.destroy_all
 
-user_1 = User.create!({ username: 'hubert1', password: 1234567 })
-user_2 = User.create!({ username: 'hubert5', password: 1234567 })
-user_3 = User.create!({ username: 'guest', password: 1234567 })
+user_1 = User.create!({ username: 'Thomsen', password: 1234567 })
+user_2 = User.create!({ username: 'batman', password: 1234567 })
+user_3 = User.create!({ username: 'Mark', password: 1234567 })
+user_4 = User.create!({ username: 'guest', password: 1234567 })
 
 post = Post.create!([
   # first user's post
