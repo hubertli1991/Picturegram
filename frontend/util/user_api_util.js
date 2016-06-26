@@ -52,7 +52,6 @@ var UserApiUtil = {
       processData: false,
       data: profileFormData,
       success: function(userAndPosts) {
-        // debugger;
         ServerActions.receiveUserAndAllPosts(userAndPosts);
       }
     });

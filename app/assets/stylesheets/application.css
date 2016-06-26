@@ -344,6 +344,7 @@ button {
 .image-preview {
   width: 100%;
   height: 100%;
+  /*border-radius: 50%;*/
 }
 
 .choose-file {
@@ -364,6 +365,10 @@ button {
   background: white;
   font-weight: bold;
 }
+
+/*::-webkit-input-placeholder {
+  color: black;
+}*/
 
 .post-form-submit-button {
   display: block;

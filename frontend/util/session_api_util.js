@@ -8,6 +8,7 @@ var SessionApiUtil = {
 			url: '/api/session',
 			data: {user: credentials},
 			success: function (currentUser) {
+				// debugger;
         SessionActions.receiveCurrentUser(currentUser);
       },
 			error: function (xhr) {
@@ -38,7 +39,9 @@ var SessionApiUtil = {
 				// Not Session Api Util's job to send current user's posts
 				var currentUser = {
 					id: currentUserAndPosts.id,
-					username: currentUserAndPosts.username
+					username: currentUserAndPosts.username,
+					bio: currentUserAndPosts.bio,
+					profile_picture_url_regular: currentUserAndPosts.profile_picture_url_regular
 				};
 				SessionActions.receiveCurrentUser(currentUser);
 

@@ -10,16 +10,17 @@ var _Post_Modal_Style = require("../modal_styles/post_modal_styles");
 var ProfileForm = React.createClass({
 
   contextTypes: {
-  router: React.PropTypes.object.isRequired
+    router: React.PropTypes.object.isRequired
   },
 
   getInitialState: function() {
     // this.props.userId is the currentUser's id. It's passed as a PostIndex prop
+    // parseInt(this.props.userId)
     return {
-      user_id: parseInt(this.props.userId),
-      bio: "",
-      imageFile: null,
-      imageUrl: null,
+      user_id: this.props.user.id,
+      bio: this.props.user.bio,
+      imageFile: this.props.user.profile_picture_url_regular,
+      imageUrl: this.props.user.profile_picture_url_regular,
       modalOpen: false
     };
   },
@@ -38,12 +39,13 @@ var ProfileForm = React.createClass({
   },
 
   updateFile: function(e) {
-    var file = e.currentTarget.files[0];
+    var file = e.currentTarget.files[0] || this.state.imageUrl;
     // setup preview
     // FileReader is a constructor built into Javascript
     var fileReader = new FileReader();
+    var imageUrlValue = fileReader.result || this.state.imageUrl;
     fileReader.onloadend = function() {
-      this.setState({ imageFile: file, imageUrl: fileReader.result });
+      this.setState({ imageFile: file, imageUrl: imageUrlValue });
     }.bind(this);
 
     // to actually run the function
@@ -62,19 +64,19 @@ var ProfileForm = React.createClass({
     var profileFormData = new FormData();
     // profileFormData.append("post[user_id]", this.state.user_id);
     profileFormData.append("user[bio]", this.state.bio);
-    profileFormData.append("user[profile_picture]", this.state.imageFile);
+    profileFormData.append("user[profile_picture]", this.state.imageFile );
     ClientActions.updateCurrentUser(this.state.user_id, profileFormData, this.backToUserPage);
     this.setState({bio: "", imageFile: "", imageUrl: ""});
   },
 
   backToUserPage: function() {
-    // debugger;
     this.context.router.push("/users/" + this.state.user_id);
   },
 
   render: function() {
     // Re-use the Post Modal Styles
     // Re-use upload-image-caption css style for bio
+
     return(
       <div className="profile-form">
         <button onClick={this.openModal} > Edit Profile </button>
@@ -93,7 +95,7 @@ var ProfileForm = React.createClass({
 
             <form className="post-form-boxes" onSubmit={this.handleSubmit}>
               <input className="choose-file" type="file" placeholder="image file" onChange={this.updateFile} />
-              <input className="upload-image-caption" type="text" placeholder="bio" value={this.state.bio} onChange={this.bioChange}/>
+              <input className="upload-image-caption" type="text" defaultValue={ this.state.bio } onChange={this.bioChange}/>
               <input className="post-form-submit-button" type="submit" value="Update Profile"/>
             </form>
 

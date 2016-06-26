@@ -50,7 +50,7 @@ var PostIndexItem = React.createClass({
     } else {
       comments = [];
     }
-    // debugger;
+
     return (
       <div>
         <li onClick={this.openModal}>

@@ -5,7 +5,6 @@ class Api::CommentsController < ApplicationController
     @comment.user_id = current_user.id
     @post = Post.find(comment_params["post_id"].to_i)
     if @comment.save
-      # debugger
       render "api/posts/show"
     else
       render json: @comment.errors

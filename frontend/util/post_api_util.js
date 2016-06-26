@@ -7,7 +7,6 @@ var PostApiUtil = {
       method: 'GET',
       url: 'api/posts',
       success: function(allPosts) {
-        // debugger;
         ServerActions.fetchAllPosts(allPosts);
       }
     });
