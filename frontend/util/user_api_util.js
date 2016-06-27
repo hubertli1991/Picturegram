@@ -68,7 +68,7 @@ var UserApiUtil = {
         dataType: 'json',
         data: {user: {username: searchValue}},
         success: function(matchedUsers) {
-          console.log(matchedUsers);
+          // console.log(matchedUsers);
           ServerActions.fetchUsersThatMatchSearch(matchedUsers);
         }
       });

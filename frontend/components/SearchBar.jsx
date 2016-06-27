@@ -31,9 +31,7 @@ var SearchBar = React.createClass({
   changeSearchValue: function(e) {
     var newSearchValue = e.target.value;
     // asynchronous
-    if ( newSearchValue !== "" ) {
-      this.fetchUsersThatMatchSearch( newSearchValue );
-    }
+    this.fetchUsersThatMatchSearch( newSearchValue );
     this.setState( { username: newSearchValue } );
   },
 
@@ -42,14 +40,11 @@ var SearchBar = React.createClass({
   },
 
   _onChange: function() {
-    if ( UserStore.all().length === 0 ) {
-      this.setState( { username: "", matchedUsers: UserStore.all() } );
-    } else {
-      this.setState( { matchedUsers: UserStore.all() } );
-    }
+    this.setState( { matchedUsers: UserStore.all() } );
   },
 
   render: function() {
+    // console.log(this.state.matchedUsers);
     return (
       <div>
         <form onSubmit={this.searchForUser}>
