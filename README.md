@@ -1,6 +1,6 @@
 # Picturegram
 
-[Picturegram](picture-gram.herokuapp.com)
+[Picturegram](https://picture-gram.herokuapp.com/)
 
 Picturegram is a full-stack web application inspired by Instagram. It's back-end was built on Ruby on Rails and uses React.js with a Flux architectural framework for its front-end.
 
