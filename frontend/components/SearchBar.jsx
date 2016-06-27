@@ -44,15 +44,14 @@ var SearchBar = React.createClass({
   },
 
   render: function() {
-    // console.log(this.state.matchedUsers);
     return (
-      <div>
+      <div className="searchbar">
         <form onSubmit={this.searchForUser}>
           <input type="text" value={this.state.username} onChange={this.changeSearchValue}/>
           <input type="submit" value="search"/>
         </form>
 
-        <ul>
+        <ul className="searchbar-index">
           {this.state.matchedUsers.map(function(user, idx) {
             return (<SearchBarIndexItem user={user} key={idx}/>);
           })}

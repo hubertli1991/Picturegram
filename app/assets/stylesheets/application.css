@@ -180,6 +180,34 @@ button {
   font-size: 50px;
 }
 
+.searchbar {
+  width: 50%;
+  margin: auto;
+  background: green;
+  height: 50px;
+}
+
+.searchbar-index {
+  position: absolute;
+}
+
+.searchbar-index-item {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.searchbar-username {
+  float: right
+}
+
+.searchbar-thumbnail {
+  display: inline;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
 /*logout modal*/
 
 .right-below-nav {
