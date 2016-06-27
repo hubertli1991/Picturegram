@@ -21,6 +21,16 @@ var LoginForm = React.createClass({
     };
   },
 
+	changeUsernameValue: function(e) {
+		var newUsername = e.target.value;
+		this.setState({username: newUsername});
+	},
+
+	changePasswordValue: function(e) {
+		var newPassword = e.target.value;
+		this.setState({password: newPassword});
+	},
+
   componentDidMount: function () {
     this.errorListener = ErrorStore.addListener(this.forceUpdate.bind(this));
     // this.sessionListener = SessionStore.addListener(this.redirectIfLoggedIn);
@@ -106,12 +116,12 @@ var LoginForm = React.createClass({
 
 							<label>
 			          { this.fieldErrors("username") }
-								<input type="text" placeholder="username" className="username" valueLink={this.linkState("username")} />
+								<input type="text" placeholder="username" className="username" value={this.state.username} onChange={this.changeUsernameValue}/>
 							</label>
 
 							<label>
 			          { this.fieldErrors("password") }
-								<input type="password" placeholder="password" className="password" valueLink={this.linkState("password")} />
+								<input type="password" placeholder="password" className="password" value={this.state.password} onChange={this.changePasswordValue} />
 							</label>
 
 							<span>
