@@ -184,11 +184,22 @@ button {
   width: 50%;
   margin: auto;
   background: green;
-  height: 50px;
+  height: 40px;
+  top: 25px;
+}
+
+.searchbar-form {
+  width: 70%;
+  height: 40px;
+}
+
+.searchbar-text{
+  width: 100%;
 }
 
 .searchbar-index {
   position: absolute;
+  width: 70%;
 }
 
 .searchbar-index-item {

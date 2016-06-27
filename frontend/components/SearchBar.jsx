@@ -39,6 +39,11 @@ var SearchBar = React.createClass({
     ClientActions.fetchUsersThatMatchSearch( searchValue );
   },
 
+  clearSearchBar: function() {
+    // debugger;
+    this.setState( { username: "" } );
+  },
+
   _onChange: function() {
     this.setState( { matchedUsers: UserStore.all() } );
   },
@@ -46,12 +51,12 @@ var SearchBar = React.createClass({
   render: function() {
     return (
       <div className="searchbar">
-        <form onSubmit={this.searchForUser}>
-          <input type="text" value={this.state.username} onChange={this.changeSearchValue}/>
+        <form className="searchbar-form" onSubmit={this.searchForUser}>
+          <input className="searchbar-text" type="text" value={this.state.username} onChange={this.changeSearchValue}/>
           <input type="submit" value="search"/>
         </form>
 
-        <ul className="searchbar-index">
+        <ul className="searchbar-index" onClick={this.clearSearchBar}>
           {this.state.matchedUsers.map(function(user, idx) {
             return (<SearchBarIndexItem user={user} key={idx}/>);
           })}
