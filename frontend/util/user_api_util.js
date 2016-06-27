@@ -59,6 +59,7 @@ var UserApiUtil = {
 
   fetchUsersThatMatchSearch: function(searchValue) {
     if (searchValue === "") {
+      // skip backend if the search value is ""
       ServerActions.fetchUsersThatMatchSearch([]);
     } else {
       $.ajax({
