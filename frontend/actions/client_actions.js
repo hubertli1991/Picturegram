@@ -30,5 +30,9 @@ module.exports = {
 
   updateCurrentUser: function(currentUserId, profileFormData, backToUserPage) {
     UserApiUtil.updateUserProfile(currentUserId, profileFormData, backToUserPage);
+  },
+
+  fetchUsersThatMatchSearch: function(searchValue) {
+    UserApiUtil.fetchUsersThatMatchSearch(searchValue);
   }
 };

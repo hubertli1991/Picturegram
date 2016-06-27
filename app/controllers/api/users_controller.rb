@@ -9,6 +9,14 @@ class Api::UsersController < ApplicationController
 		end
 	end
 
+	def search
+		# usernames are unique
+		@matched_users = User.where( "username LIKE ?", '%' + user_search_params["username"] + '%' ).limit(5)
+		if @matched_users.length > 0;
+			render "api/users/search"
+		end
+	end
+
 	def create
 		@user = User.new(user_params)
 
@@ -30,6 +38,9 @@ class Api::UsersController < ApplicationController
 	end
 
 	private
+	def user_search_params
+		params.require(:user).permit(:username)
+	end
 
 	def user_profile_params
 		params.require(:user).permit(:profile_picture, :bio)

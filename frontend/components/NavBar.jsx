@@ -1,5 +1,6 @@
 var React = require('react');
 var SessionStore = require('../stores/session_store');
+var SearchBar = require('./SearchBar');
 
 var NavBar = React.createClass({
 
@@ -23,6 +24,7 @@ var NavBar = React.createClass({
           <div className="home-link">
             <button className="fa fa-instagram" onClick={this.backToRootPage}/>
           </div>
+          <SearchBar/>
           <div className="your-page-link">
             <button className="fa fa-user" onClick={this.backToYourPage}/>
           </div>

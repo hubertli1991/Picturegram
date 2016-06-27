@@ -47,7 +47,7 @@ var UserApiUtil = {
     $.ajax({
       url: '/api/users/' + currentUserId,
       method: 'PATCH',
-      dataType: "json",
+      dataType: 'json',
       contentType: false,
       processData: false,
       data: profileFormData,
@@ -55,7 +55,26 @@ var UserApiUtil = {
         ServerActions.receiveUserAndAllPosts(userAndPosts);
       }
     });
+  },
+
+  fetchUsersThatMatchSearch: function(searchValue) {
+    if (searchValue === "") {
+      ServerActions.fetchUsersThatMatchSearch([]);
+    } else {
+      $.ajax({
+        url: '/api/users/search',
+        method: 'GET',
+        dataType: 'json',
+        data: {user: {username: searchValue}},
+        success: function(matchedUsers) {
+          console.log(matchedUsers);
+          ServerActions.fetchUsersThatMatchSearch(matchedUsers);
+        }
+      });
+    }
   }
 };
+
+// window.api = UserApiUtil;
 
 module.exports = UserApiUtil;

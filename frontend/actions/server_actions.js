@@ -37,9 +37,16 @@ var ServerActions = {
   },
 
   deletePostFromUser: function(userPost) {
-    AppDispatcher.dispatcher({
+    AppDispatcher.dispatch({
       actionType: UserAndPostConstants.DELETE_USER_POST,
       userPost: userPost
+    });
+  },
+
+  fetchUsersThatMatchSearch: function(matchedUsers) {
+    AppDispatcher.dispatch({
+      actionType: UserAndPostConstants.BRING_DOWN_MATCHED_USERS,
+      matchedUsers: matchedUsers
     });
   }
 };
