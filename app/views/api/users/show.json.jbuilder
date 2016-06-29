@@ -18,6 +18,6 @@
 json.extract! @user, :id, :username, :bio
 json.profile_picture_url_regular asset_path(@user.profile_picture.url(:regular))
 json.profile_picture_url_thumb_nail asset_path(@user.profile_picture.url(:thumb_nail))
-json.posts @user.posts do |post|
+json.posts @user.posts.order(created_at: :desc) do |post|
   json.partial! 'posts/posts', post: post
 end

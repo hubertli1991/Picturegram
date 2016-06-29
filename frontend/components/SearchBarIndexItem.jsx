@@ -31,8 +31,8 @@ var SearchBarIndexItem = React.createClass({
   render: function() {
     return(
       <li className="searchbar-index-item" onClick={this.searchForUser}>
-        <div className="searchbar-username" > {this.state.user.username} </div>
         <img className="searchbar-thumbnail" src={this.state.user.profile_picture_url_thumb_nail} />
+        <div className="searchbar-username" > {this.state.user.username} </div>
       </li>
     );
   }

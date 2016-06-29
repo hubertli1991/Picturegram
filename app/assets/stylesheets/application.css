@@ -22,15 +22,19 @@
  tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure,
  figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,
  time, mark, audio, video{
+
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
   /*background: transparent;*/
   /*color: inherit;*/
-  text-decoration: none;
   display: block;
+  text-decoration: none;
   font: inherit;
+  font-size: inherit;
+
+  background: transparent;
   }
 
 button {
@@ -157,7 +161,7 @@ button {
 /*home-nav*/
 
 .nav-bar {
-  height: 50%;
+  /*height: 50%;*/
   border-bottom: 1px solid #efefef;
   background: white;
   margin-bottom: 20px;
@@ -168,6 +172,7 @@ button {
   background: white;
   margin: auto;
   padding: 25px;
+  position: relative;
 }
 
 .home-link {
@@ -181,34 +186,60 @@ button {
 }
 
 .searchbar {
-  width: 50%;
-  margin: auto;
-  background: green;
+  width: 25%;
+  border: 1px solid black;
+  /*margin*/
+  /*margin: auto;*/
+  background: #fafafa;
   height: 40px;
-  top: 25px;
+  border-radius: 5px;
+  /*top: 25px;*/
+  /*float: right;*/
+  position: absolute;
+  top: 32%;
+  right: 30%;
 }
 
 .searchbar-form {
-  width: 70%;
-  height: 40px;
+  position: relative;
+  /*margin: auto;*/
+  width: 100%;
+  height: 100%;
 }
 
 .searchbar-text{
-  width: 100%;
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  top: 10%;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+  background: #fafafa;
+  font-size: 150%;
 }
 
 .searchbar-index {
   position: absolute;
-  width: 70%;
+  width: 100%;
 }
 
 .searchbar-index-item {
+  background-color: white;
   border: 1px solid black;
   padding: 10px;
+  position: relative;
 }
 
 .searchbar-username {
-  float: right
+  position: absolute;
+  right: 50%;
+  top: 30%;
+  font-size: 20px;
+
 }
 
 .searchbar-thumbnail {

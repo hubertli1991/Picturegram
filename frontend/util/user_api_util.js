@@ -25,7 +25,7 @@ var UserApiUtil = {
       method: 'GET',
       url: '/api/users/' + id,
       success: function(userAndPosts) {
-
+        // debugger;
         // var user = {
         //   id: userAndPosts.id,
         //   username: userAndPosts.username
