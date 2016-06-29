@@ -12,11 +12,12 @@ var SearchBar = React.createClass({
   },
 
   getInitialState: function() {
-    return ( { username: "", matchedUsers: [] } );
+    return ( { username: "", matchedUsers: [], showSearchIndex: true } );
   },
 
   componentDidMount: function() {
     this.userStorelistener = UserStore.addListener(this._onChange);
+    // $(document).on("click", this.showSearchIndexToggle);
   },
 
   searchForUser: function(e) {
@@ -25,14 +26,14 @@ var SearchBar = React.createClass({
       var targetUserId = this.state.matchedUsers[0].id;
       this.context.router.push( "/users/" + targetUserId );
     }
-    this.setState( { username: "", matchedUsers: [] } );
+    this.setState( { username: "", matchedUsers: [], showSearchIndex: true  } );
   },
 
   changeSearchValue: function(e) {
     var newSearchValue = e.target.value;
     // asynchronous
     this.fetchUsersThatMatchSearch( newSearchValue );
-    this.setState( { username: newSearchValue } );
+    this.setState( { username: newSearchValue, showSearchIndex: true  } );
   },
 
   fetchUsersThatMatchSearch: function(searchValue) {
@@ -40,25 +41,43 @@ var SearchBar = React.createClass({
   },
 
   clearSearchBar: function() {
-    this.setState( { username: "" } );
+    this.setState( { username: "", showSearchIndex: true  } );
   },
 
   _onChange: function() {
-    this.setState( { matchedUsers: UserStore.all() } );
+    this.setState( { matchedUsers: UserStore.all(), showSearchIndex: true  } );
   },
 
-  render: function() {
-    return (
-      <div className="searchbar">
-        <form className="searchbar-form" onSubmit={this.searchForUser}>
-          <input className="searchbar-text" type="text" value={this.state.username} onChange={this.changeSearchValue}/>
-        </form>
+  hideSearchIndex: function() {
+    document.addEventListener("click", function(e){
+      if ( e.target !== document.getElementById("searchBarText") ) {
+        this.setState( { showSearchIndex: false } );
+      }
+    }.bind(this));
+  },
 
-        <ul className="searchbar-index group" onClick={this.clearSearchBar}>
+  showSearchBarIndexItem: function() {
+    if ( this.state.matchedUsers.length && this.state.showSearchIndex ) {
+      this.hideSearchIndex();
+      return (
+        <ul className="searchbar-index" onClick={this.clearSearchBar}>
           {this.state.matchedUsers.map(function(user, idx) {
             return (<SearchBarIndexItem user={user} key={idx}/>);
           })}
         </ul>
+      );
+    }
+  },
+
+  render: function() {
+
+    return (
+      <div className="searchbar" id="searchBar">
+        <form className="searchbar-form" id="searchBarForm" onSubmit={this.searchForUser}>
+          <input className="searchbar-text" type="text" id="searchBarText" placeholder="Search" value={this.state.username} onChange={this.changeSearchValue}/>
+        </form>
+
+        {this.showSearchBarIndexItem()}
 
       </div>
     );

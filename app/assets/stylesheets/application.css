@@ -38,20 +38,21 @@
   }
 
 button {
+    border: 0;
+    background: transparent;
     cursor: pointer;
+    outline: none;
 }
-
-
 
 body {
   font-family: 'proxima-nova','Helvetica Neue',Arial,Helvetica,sans-serif;
   background: #fafafa;
 }
 
-button {
+/*button {
   border: 0;
   background: transparent;
-}
+}*/
 
 /*clear-fix*/
 .group:after {
@@ -187,14 +188,9 @@ button {
 
 .searchbar {
   width: 25%;
-  border: 1px solid black;
-  /*margin*/
-  /*margin: auto;*/
-  background: #fafafa;
+  border: 1px solid #dbdbdb;
   height: 40px;
   border-radius: 5px;
-  /*top: 25px;*/
-  /*float: right;*/
   position: absolute;
   top: 32%;
   right: 30%;
@@ -202,44 +198,51 @@ button {
 
 .searchbar-form {
   position: relative;
-  /*margin: auto;*/
   width: 100%;
   height: 100%;
 }
 
 .searchbar-text{
   position: absolute;
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
   border: 0;
-  top: 10%;
-  bottom: 10%;
-  left: 10%;
-  right: 10%;
   background: #fafafa;
   font-size: 150%;
+  font-weight: 200;
+  outline: none;
+  text-align: center;
+}
+
+.searchbar-text:focus {
+  background-color: white;
 }
 
 .searchbar-index {
   position: absolute;
+  border: 1px solid #dbdbdb;
   width: 100%;
+  margin-top: 20px;
 }
 
 .searchbar-index-item {
   background-color: white;
-  border: 1px solid black;
-  padding: 10px;
+  border: 1px solid #dbdbdb;
+  padding: 15px;
   position: relative;
+}
+
+.searchbar-index-item:hover{
+  background: #fafafa;
 }
 
 .searchbar-username {
   position: absolute;
-  right: 50%;
+  left: 25%;
   top: 30%;
   font-size: 20px;
-
 }
 
 .searchbar-thumbnail {
@@ -316,7 +319,6 @@ button {
 .logout-modal {
   width: 100%;
   height: 100%;
-  /*background: green;*/
   font-family: 'proxima-nova','Helvetica Neue',Arial,Helvetica,sans-serif;
   text-align: center;
   /*top: 50%;*/
@@ -332,9 +334,13 @@ button {
   width: 100%;
   font-size: 20px;
   font-weight: 400;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #ccc;
   text-align: center;
   background: white;
+}
+
+.logout-modal button:hover {
+  background: #fafafa;
 }
 
 .cancel-half {
@@ -414,7 +420,6 @@ button {
 .image-preview {
   width: 100%;
   height: 100%;
-  /*border-radius: 50%;*/
 }
 
 .choose-file {

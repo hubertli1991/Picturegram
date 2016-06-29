@@ -15,6 +15,7 @@ var _Logout_Style = {
                 right           : '15%',
                 bottom          : '40%',
                 border          : '1px solid #ccc',
+                // borderRadius    : '50px',
                 padding         : '0px',
                 margin          : '0px',
                 zIndex          : 11,

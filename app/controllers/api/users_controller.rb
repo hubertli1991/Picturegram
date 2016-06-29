@@ -11,7 +11,7 @@ class Api::UsersController < ApplicationController
 
 	def search
 		# usernames are unique
-		@matched_users = User.where( "username LIKE ?", '%' + user_search_params["username"] + '%' ).limit(5)
+		@matched_users = User.where( "lower(username) LIKE ?", '%' + user_search_params["username"].downcase + '%' ).limit(5)
 		if @matched_users.length > 0;
 			render "api/users/search"
 		end
