@@ -5,20 +5,20 @@ var _Style = {
                 left            : 0,
                 right           : 0,
                 bottom          : 0,
-                backgroundColor : 'rgba(255, 255, 255, 0.75)',
+                backgroundColor : 'rgba(0, 0, 0, 0.7)',
                 zIndex          : 10
               },
               content : {
                 position        : 'fixed',
-                top             : '37px',
-                left            : '10%',
-                right           : '10%',
-                bottom          : '37px',
+                top             : '20%',
+                left            : '20%',
+                right           : '20%',
+                bottom          : '20%',
                 border          : '1px solid #ccc',
                 padding         : '0px',
                 margin          : '0px',
                 zIndex          : 11,
-                overflow        : 'none'
+                overflow        : 'none',
               }
             };
 
