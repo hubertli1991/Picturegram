@@ -70,6 +70,7 @@ body {
   margin-top: 100px;
   margin-bottom: 20px;
   padding: 40px;
+  border: 1px solid #B0B0B0;
 }
 
 .title {
@@ -90,39 +91,81 @@ body {
 .form-input label{
 }
 
-.password {
-  width: 97%;
+.password-box {
+  position: relative;
+  width: 99%;
+  height: 40px;
   margin-top: 10px;
+  border: 1px solid #B0B0B0;
+  border-radius: 5px;
+  outline: none;
+}
+
+.password {
+  position: absolute;
+  width: 80%;
+  left: 8%;
   font-size: 16px;
+  font-weight: bold;
+  border: 0;
+  outline: none;
+  /*right: 10%;*/
+  top: 15%;
+  bottom: 15%;
+}
+
+.username-box {
+  position: relative;
+  width: 99%;
+  height: 40px;
+  margin-top: 10px;
+  border: 1px solid #B0B0B0;
+  border-radius: 5px;
+  outline: none;
 }
 
 .username {
-  width: 97%;
-  margin-top: 10px;
+  position: absolute;
+  width: 80%;
+  left: 8%;
   font-size: 16px;
+  font-weight: bold;
+  border: 0;
+  outline: none;
+  /*right: 10%;*/
+  top: 15%;
+  bottom: 15%;
 }
 
 .submit-button {
   width: 100%;
+  height: 40px;
   background: #3897f0;
   font-size: 16px;
   font-weight: bold;
   color: white;
   margin-top: 20px;
+  border: 0;
+  border-radius: 5px;
+  outline: none;
 }
 
 .guest-login {
   width: 100%;
+  height: 40px;
   background: #3897f0;
   font-size: 16px;
   font-weight: bold;
   color: white;
   margin-top: 20px;
+  border-radius: 5px;
+  outline: none;
 }
 
 .signup-or-signin-box {
   width: 360px;
   margin: auto;
+  border: 1px solid #B0B0B0;
 }
 
 .signup-or-signin {
@@ -142,20 +185,30 @@ body {
   font: inherit;
 }
 
+.login-through-facebook-box {
+  width: 270px;
+  position: relative;
+  margin: auto;
+}
 .login-through-facebook {
-  width: 97%;
+  width: 100%;
+  height: 40px;
   background: #3897f0;
   font-size: 16px;
   font-weight: bold;
   color: white;
+  padding: 0;
+  /*margin: auto;*/
   margin-top: 20px;
   margin-bottom: 20px;
+  border-radius: 5px;
+  outline: none;
 }
 
 .or {
   /*background: green;*/
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   font-weight: bold;
   color: gray;
 }

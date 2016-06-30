@@ -104,7 +104,7 @@ var LoginForm = React.createClass({
 
 					<h1 className="title">Picturegram</h1>
 
-					<a href="/auth/facebook"><button className="login-through-facebook" type="button">Log in with Facebook</button></a>
+					<a href="/auth/facebook" className="login-through-facebook-box"><button className="login-through-facebook" type="button">Log in with Facebook</button></a>
 
 					<h1 className="or">OR</h1>
 
@@ -114,14 +114,14 @@ var LoginForm = React.createClass({
 
 						<div className="form-input">
 
-							<label>
+							<label className="username-box">
 			          { this.fieldErrors("username") }
-								<input type="text" placeholder="username" className="username" value={this.state.username} onChange={this.changeUsernameValue}/>
+								<input type="text" placeholder="Username" className="username" value={this.state.username} onChange={this.changeUsernameValue}/>
 							</label>
 
-							<label>
+							<label className="password-box">
 			          { this.fieldErrors("password") }
-								<input type="password" placeholder="password" className="password" value={this.state.password} onChange={this.changePasswordValue} />
+								<input type="password" placeholder="Password" className="password" value={this.state.password} onChange={this.changePasswordValue} />
 							</label>
 
 							<span>
