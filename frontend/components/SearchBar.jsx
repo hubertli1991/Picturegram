@@ -72,13 +72,17 @@ var SearchBar = React.createClass({
     }
   },
 
+  turnBackOn: function() {
+    this.setState( { showSearchIndex: true  } );
+  },
+
   // the id, name and autocomplete attributes inside <input> is there to remove the autocomplete history
   render: function() {
 
     return (
       <div className="searchbar" id="searchBar">
         <form className="searchbar-form" id="searchBarForm" onSubmit={this.searchForUser}>
-          <input className="searchbar-text" type="text" id="PreventChromeAutocomplete" name="PreventChromeAutocomplete" autocomplete="address-level4" placeholder="Search" value={this.state.username} onChange={this.changeSearchValue}/>
+          <input className="searchbar-text" type="text" id="PreventChromeAutocomplete" name="PreventChromeAutocomplete" autocomplete="address-level4" placeholder="Search" value={this.state.username} onClick={this.turnBackOn} onChange={this.changeSearchValue}/>
         </form>
 
         {this.showSearchBarIndexItem()}
