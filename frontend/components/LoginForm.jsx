@@ -116,12 +116,12 @@ var LoginForm = React.createClass({
 
 							<label className="username-box">
 			          { this.fieldErrors("username") }
-								<input type="text" placeholder="Username" className="username" value={this.state.username} onChange={this.changeUsernameValue}/>
+								<input type="text" placeholder="Username" className="username-login" value={this.state.username} onChange={this.changeUsernameValue}/>
 							</label>
 
 							<label className="password-box">
 			          { this.fieldErrors("password") }
-								<input type="password" placeholder="Password" className="password" value={this.state.password} onChange={this.changePasswordValue} />
+								<input type="password" placeholder="Password" className="password-login" value={this.state.password} onChange={this.changePasswordValue} />
 							</label>
 
 							<span>

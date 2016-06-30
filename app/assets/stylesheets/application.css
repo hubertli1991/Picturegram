@@ -101,7 +101,7 @@ body {
   outline: none;
 }
 
-.password {
+.password-login {
   position: absolute;
   width: 80%;
   left: 8%;
@@ -124,7 +124,7 @@ body {
   outline: none;
 }
 
-.username {
+.username-login {
   position: absolute;
   width: 80%;
   left: 8%;
