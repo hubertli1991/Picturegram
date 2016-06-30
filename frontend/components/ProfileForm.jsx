@@ -88,14 +88,14 @@ var ProfileForm = React.createClass({
 
           <div className="modal-body">
 
-            <p className="post-form-header">Update your profile</p>
+            <p className="post-form-header">Update Profile</p>
             <div className="image-preview-box">
               <img className="image-preview" src={this.state.imageUrl}/>
             </div>
 
             <form className="post-form-boxes" onSubmit={this.handleSubmit}>
               <input className="choose-file" type="file" placeholder="image file" onChange={this.updateFile} />
-              <input className="upload-image-caption" type="text" defaultValue={ this.state.bio } onChange={this.bioChange}/>
+              <textarea className="upload-image-caption" type="text" defaultValue={ this.state.bio } onChange={this.bioChange}/>
               <input className="post-form-submit-button" type="submit" value="Update Profile"/>
             </form>
 

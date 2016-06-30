@@ -94,7 +94,7 @@ var PostForm = React.createClass({
 
             <form className="post-form-boxes" onSubmit={this.handleSubmit}>
               <input className="choose-file" type="file" placeholder="image file" onChange={this.updateFile} />
-              <input className="upload-image-caption" type="text" placeholder="caption" value={this.state.caption} onChange={this.captionChange}/>
+              <textarea className="upload-image-caption" type="text" placeholder="Add a caption..." value={this.state.caption} onChange={this.captionChange}/>
               <input className="post-form-submit-button" type="submit" value="Add Post"/>
             </form>
 
