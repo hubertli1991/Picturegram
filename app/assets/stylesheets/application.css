@@ -192,7 +192,7 @@ body {
   width: 25%;
   border: 1px solid #dbdbdb;
   height: 50px;
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   position: absolute;
   top: 35%;
   right: 30%;
@@ -527,8 +527,9 @@ body {
   /*display: inline;*/
   position: absolute;
   border-radius: 50%;
-  top: 22.5%;
+  top: 22%;
   /*margin-top: 30%;*/
+  width: 50px;
   height: 50px;
   cursor: pointer;
 }
@@ -564,6 +565,7 @@ body {
 
 .comment {
   word-wrap: break-word;
+  height: 50%;
   margin: 10px 0 10px 0;
 }
 
@@ -633,13 +635,14 @@ body {
   border-radius: 50%;
   top: 25%;
   left: 5%;
-  height: 50%;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
 }
 
 .thumb-username-home {
   position: absolute;
-  left: 17.5%;
+  left: 15%;
   top: 37.5%;
   /*padding-left: 2.5%;*/
   font-size: 20px;
@@ -668,16 +671,17 @@ body {
   /*border-bottom: 1px solid #efefef;*/
 }
 
-.username-home {
+/*.username-home {
   display: inline;
   font-weight: bold;
   font-size: 20px;
-}
+}*/
 
 .username-home {
   display: inline;
   font-weight: bold;
   font-size: 20px;
+  left: 15%;
 }
 
 .comment-form-home {
