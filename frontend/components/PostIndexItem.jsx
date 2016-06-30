@@ -54,7 +54,7 @@ var PostIndexItem = React.createClass({
     return (
       <div>
         <li onClick={this.openModal}>
-          <img src={this.props.post.image_url_small}/>
+          <img className="index-picture" src={this.props.post.image_url_small}/>
         </li>
 
         <div>

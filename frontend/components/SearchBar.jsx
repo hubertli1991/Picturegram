@@ -49,7 +49,10 @@ var SearchBar = React.createClass({
   },
 
   hideSearchIndex: function() {
-    document.addEventListener("click", function(e){
+    document.addEventListener("click", this.hideHandler = this.hideHandler || function(e){
+      // set this.hideHandler to event handler function or itself if it has already been set
+      // remove the even listeneer as soon as even occurs
+      document.removeEventListener("click", this.hideHandler);
       if ( e.target !== document.getElementById("searchBarText") ) {
         this.setState( { showSearchIndex: false } );
       }

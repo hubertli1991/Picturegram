@@ -24,8 +24,7 @@ var CommentForm = React.createClass({
   render: function() {
     return(
         <form onSubmit={this.handleSubmit}>
-          <input type="text" value={this.state.body} onChange={this.bodyChange}></input>
-          <input type="submit" value="Add Comment"></input>
+          <input className="comment-form-text" type="text" placeholder="Add a comment..." value={this.state.body} onChange={this.bodyChange}></input>
         </form>
     );
   }

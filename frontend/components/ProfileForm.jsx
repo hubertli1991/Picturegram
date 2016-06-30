@@ -79,7 +79,7 @@ var ProfileForm = React.createClass({
 
     return(
       <div className="profile-form">
-        <button onClick={this.openModal} > Edit Profile </button>
+        <button className="profile-form-button" onClick={this.openModal} > Edit Profile </button>
 
         <Modal
           isOpen={this.state.modalOpen}
