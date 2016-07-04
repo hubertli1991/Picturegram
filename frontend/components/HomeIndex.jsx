@@ -15,7 +15,7 @@ var HomeIndex = React.createClass({
   },
 
   getInitialState: function() {
-    return {posts: PostStore.all()};
+    return { posts: [] };
   },
 
   componentDidMount: function() {

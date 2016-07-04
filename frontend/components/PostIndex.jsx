@@ -19,7 +19,7 @@ var PostIndex = React.createClass({
   },
 
   getInitialState: function() {
-    return { posts: PostStore.all(), modalOpen: false };
+    return { posts: [], modalOpen: false };
   },
 
 
