@@ -1,5 +1,6 @@
 var webpack = require("webpack");
 
+// package.json original verision
 // "scripts": {
 //   "postinstall": "./node_modules/.bin/webpack"
 // }

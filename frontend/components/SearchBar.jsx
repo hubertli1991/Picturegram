@@ -81,8 +81,8 @@ var SearchBar = React.createClass({
 
     return (
       <div className="searchbar" id="searchBar">
-        <form className="searchbar-form" id="searchBarForm" onSubmit={this.searchForUser}>
-          <input className="searchbar-text" type="text" id="PreventChromeAutocomplete" name="PreventChromeAutocomplete" autocomplete="address-level4" placeholder="Search" value={this.state.username} onClick={this.turnBackOn} onChange={this.changeSearchValue}/>
+        <form className="searchbar-form" id="searchBarForm" autocomplete="nope" onSubmit={this.searchForUser}>
+          <input className="searchbar-text" type="text" placeholder="Search" value={this.state.username} onClick={this.turnBackOn} onChange={this.changeSearchValue}/>
         </form>
 
         {this.showSearchBarIndexItem()}
