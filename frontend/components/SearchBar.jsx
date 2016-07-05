@@ -17,7 +17,12 @@ var SearchBar = React.createClass({
 
   componentDidMount: function() {
     this.userStorelistener = UserStore.addListener(this._onChange);
-    // $(document).on("click", this.showSearchIndexToggle);
+  },
+
+  componentWillUnmount: function() {
+    // Resetting instance variable to be safe. Doesn't have any effects for now
+    this.newSearchValue = "";
+    this.userStorelistener.remove();
   },
 
   searchForUser: function(e) {
@@ -26,14 +31,18 @@ var SearchBar = React.createClass({
       var targetUserId = this.state.matchedUsers[0].id;
       this.context.router.push( "/users/" + targetUserId );
     }
-    this.setState( { username: "", matchedUsers: [], showSearchIndex: true  } );
+    // Resetting instance variable to be safe. Doesn't have any effects for now 
+    this.newSearchValue = "";
+    // this.setState( { username: "", matchedUsers: [], showSearchIndex: true  } );
   },
 
   changeSearchValue: function(e) {
-    var newSearchValue = e.target.value;
-    // asynchronous
-    this.fetchUsersThatMatchSearch( newSearchValue );
-    this.setState( { username: newSearchValue, showSearchIndex: true  } );
+    this.newSearchValue = e.target.value;
+    // create this varable so we setState with it in _onChange
+    // this way we don't need to call setState in this current function
+    // avoid asynchronous conflicts
+    this.fetchUsersThatMatchSearch( this.newSearchValue );
+    // this.setState( { username: newSearchValue, showSearchIndex: true  } );
   },
 
   fetchUsersThatMatchSearch: function(searchValue) {
@@ -45,7 +54,7 @@ var SearchBar = React.createClass({
   },
 
   _onChange: function() {
-    this.setState( { matchedUsers: UserStore.all(), showSearchIndex: true  } );
+    this.setState( { username: this.newSearchValue, matchedUsers: UserStore.all(), showSearchIndex: true  } );
   },
 
   hideSearchIndex: function() {
