@@ -234,6 +234,7 @@ body {
   float: left;
   font-size: 75px;
   margin-left: 7.5%;
+  cursor: pointer;
 }
 
 .picturegram{
@@ -578,6 +579,7 @@ body {
   outline: none;
   background: #3897f0;
   text-align: center;
+  cursor: pointer;
 }
 
 /*-----------------------------------------------------------*/
@@ -774,6 +776,7 @@ body {
   font-weight: bold;
   font-size: 20px;
   left: 15%;
+  cursor: pointer;
 }
 
 .comment-form-home {

@@ -47,7 +47,8 @@ var HomeIndex = React.createClass({
                       <div className="home-index-item">
 
                         <div className="post-header-home">
-                          <img className="thumbnail-home" src={post.thumbnail}/> <p className="thumb-username-home" onClick={this.handleClick.bind(null, post.user_id)}> {post.username} </p>
+                          <img className="thumbnail-home" src={post.thumbnail} onClick={this.handleClick.bind(null, post.user_id)}/> 
+                          <p className="thumb-username-home" onClick={this.handleClick.bind(null, post.user_id)}> {post.username} </p>
                         </div>
 
                         <img className="home-picture" src={post.image_url_large} />
