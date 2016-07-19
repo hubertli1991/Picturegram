@@ -22,8 +22,8 @@ var NavBar = React.createClass({
     return(
       <div className="nav-bar" >
         <div className="nav-bar-refined group">
-          <div className="home-link">
-            <button className="fa fa-instagram" onClick={this.backToRootPage}/>
+          <div className="home-link" onClick={this.backToRootPage}>
+            <button className="fa fa-instagram"/>
             <div className="picturegram" >Picturegram</div>
           </div>
           <SearchBar/>
