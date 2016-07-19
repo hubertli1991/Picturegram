@@ -129,8 +129,8 @@ body {
   position: absolute;
   width: 80%;
   left: 8%;
+  font-family: arial;
   font-size: 16px;
-  font-weight: bold;
   border: 0;
   outline: none;
   /*right: 10%;*/
