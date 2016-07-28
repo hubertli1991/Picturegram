@@ -350,9 +350,11 @@ body {
   display: block;
   /*float: left;*/
   margin-left: 8%;
+  /*height: 250px;*/
   width: 954px;
   position: absolute;
   top: 10%;
+  bottom: 0;
   left: 30%;
   /*background: pink;*/
 }
@@ -364,6 +366,7 @@ body {
   font-family: proxima-nova, "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 50px;
   font-weight: 300;
+  /*background-color: blue;*/
 }
 
 .profile-form {
@@ -372,7 +375,7 @@ body {
   background: #3897f0;
   position: absolute;
   left: 30%;
-  top: 14%;
+  top: 5%;
   /*border: 1px solid gray;*/
   padding: 2px;
   border-radius: 10px;
@@ -395,11 +398,37 @@ body {
   /*background: green;*/
 }
 
+.user-profile-stats {
+  display: block;
+  float: left;
+  width: 100%;
+  margin-top: 2.5%;
+  font-size: 25px;
+  /*background-color: red;*/
+}
+
+.post-count {
+  /*background-color: green;*/
+}
+
+.post-count-number {
+  font-weight: bold;
+  float: left;
+  margin-right: 1%;
+  /*position: absolute;*/
+  /*left: 5%;*/
+}
+
+.post-count-unit {
+  float: left;
+}
+
 .logout-modal-button {
   position: absolute;
   font-size: 50px;
   left: 50%;
-  top: 5%;
+  /*top: 2.5%;*/
+  /*background-color: green;*/
 }
 
 .logout-modal {

@@ -67,6 +67,18 @@ var PostIndex = React.createClass({
     }
   },
 
+  renderPostCount: function() {
+    var post = "posts";
+    if (this.state.posts.length === 1) {
+      post = "post";
+    }
+    return (
+      <div className="post-count group">
+        <div className="post-count-number">{this.state.posts.length}</div> <div className="post-count-unit">{post}</div>
+      </div>
+      );
+  },
+
   render: function() {
 
     var currentPathLocation = this.props.location.pathname;
@@ -77,17 +89,24 @@ var PostIndex = React.createClass({
         <NavBar/>
 
         <div className="right-below-nav group" >
-
           <img className="profile-picture" src={user.profile_picture_url_regular}/>
 
           <div className="stuff-under-nav-top-part group">
+
             <h1 className="user-name"> {user.username} </h1>
             {this.renderProfileFormIfOnYourPage()}
+
             <div className="logout-modal-button">
               <button className="fa fa-bars" onClick={this.openModal} />
             </div>
+
             <p className="profile-bio"> {user.bio} </p>
+
+            <div className="user-profile-stats">
+              {this.renderPostCount()}
+            </div>
           </div>
+
 
         </div>
 
@@ -120,3 +139,5 @@ var PostIndex = React.createClass({
 });
 
 module.exports = PostIndex;
+
+// <div className="post-count">{this.state.posts.length} Posts </div>
