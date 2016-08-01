@@ -665,6 +665,15 @@ body {
   top: 35%;
   padding-left: 15%;
   cursor: pointer;
+  /*background-color: green;*/
+}
+
+.time-since {
+  display: inline;
+  position: absolute;
+  top: 35%;
+  right: 0;
+  color: rgb(153, 153, 153);
 }
 
 .caption-and-comments {
@@ -772,6 +781,14 @@ body {
   /*padding-left: 2.5%;*/
   font-size: 20px;
   cursor: pointer;
+}
+
+.time-since-home {
+  position: absolute;
+  right: 5%;
+  top: 37.5%;
+  font-size: 20px;
+  color: rgb(153, 153, 153);
 }
 
 .home-picture {

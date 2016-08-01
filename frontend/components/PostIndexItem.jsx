@@ -51,6 +51,21 @@ var PostIndexItem = React.createClass({
       comments = [];
     }
 
+    var millisecondDay = 1000*60*60*24;
+    var currentDate = new Date();
+    var createAtDate = new Date(this.props.post.created_at);
+    var daysSince = Math.ceil( (currentDate - createAtDate) / millisecondDay);
+    var timeSince = 0;
+    var timeUnit = 0;
+    if( daysSince/7 < 1 ) {
+      timeSince = daysSince;
+      timeUnit = "d";
+    } else {
+      timeSince = Math.floor(daysSince/7);
+      timeUnit = "w";
+    }
+
+
     return (
       <div>
         <li onClick={this.openModal}>
@@ -69,6 +84,7 @@ var PostIndexItem = React.createClass({
 
               <div className="post-header" onClick={ this.handleClick.bind(null, this.props.post.user_id) }>
                 <img className="thumbnail" src={this.props.thumbnail}/> <p className="thumb-username">{this.props.post.username}</p>
+                <div className="time-since"> {timeSince + timeUnit} </div>
               </div>
 
               <div className="caption-and-comments">
