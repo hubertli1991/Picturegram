@@ -219,9 +219,10 @@ body {
 
 .nav-bar {
   /*height: 50%;*/
+  width: 100%;
   border-bottom: 1px solid #efefef;
   background: white;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 
 .nav-bar-refined {
@@ -327,6 +328,7 @@ body {
 
 .right-below-nav {
   height: 250px;
+  /*height: 30%;*/
   /*padding: 25px;*/
   margin-top: 80px;
   margin-bottom: 30px;
@@ -338,24 +340,30 @@ body {
 
 .profile-picture {
   border-radius: 50%;
+  /*height: 250px;
+  width: 250px;*/
+  /*height: 100%;*/
   height: 250px;
-  width: 250px;
+  width: 17%;
   /*float: left;*/
   position: absolute;
   /*margin-left: 8%;*/
-  left: 17.5%;
+  /*background-color: green;*/
+  left: 9%;
 }
 
 .stuff-under-nav-top-part{
   display: block;
   /*float: left;*/
-  margin-left: 8%;
+  /*margin-left: 9%;*/
   /*height: 250px;*/
-  width: 954px;
+  /*width: 954px;*/
+  /*width: 60%;*/
   position: absolute;
   top: 10%;
   bottom: 0;
-  left: 30%;
+  left: 35%;
+  right: 2.5%;
   /*background: pink;*/
 }
 
@@ -426,7 +434,7 @@ body {
 .logout-modal-button {
   position: absolute;
   font-size: 50px;
-  left: 50%;
+  left: 55%;
   /*top: 2.5%;*/
   /*background-color: green;*/
 }
@@ -472,23 +480,29 @@ body {
 
 .user-picture-index {
   display: block;
-  width: 1506px;
-  margin: auto;
+  /*width: 1506px;*/
+  width: 100%;
+  /*margin: auto;*/
+  /*background-color: green;*/
 }
 
 .posted-picture {
   float: left;
-  margin: 25px;
-  width: 450px;
-  height: 450px;
+  margin-left: 2.5%;
+  margin-top: 2.5%;
+  /*margin: 25px;*/
+  /*width: 600px;
+  height: 600px;*/
+  width: 30%;
   background: black;
   cursor: pointer;
-  border: 1px solid #D8D8D8;
+  /*border: 1px solid #D8D8D8;*/
 }
 
 .index-picture {
-  width: 450px;
-  height: 450px;
+  /*width: 450px;
+  height: 450px;*/
+  width: 100%;
 }
 .index-picture:hover {
   opacity: 0.75;
@@ -615,9 +629,11 @@ body {
 
 /*-----------------------------------------------------------*/
 .picture {
-  float: left;
+  /*float: left;*/
   /*margin: 10px;*/
+  left: 0%;
   height: 100%;
+  position: absolute;
 }
 
 /*img {
@@ -627,22 +643,25 @@ body {
 }*/
 
 .non-picture-stuff{
-  float: right;
-  width: 40%;
+  /*float: right;*/
+  /*width: 33%;*/
   /*padding: 10px;*/
-  margin-right: 2%;
+  /*margin-right: 2%;*/
   /*margin: auto;*/
   height: 100%;
-  position: relative;
+  /*position: relative;*/
+  left: 68%;
+  right: 1%;
+  position: absolute;
 }
 
 .post-header {
   border-bottom: 1px solid #efefef;
-  padding: 3% 0 3% 0;
-  height: 10%;
+  /*padding: 3% 0 3% 0;*/
+  height: 15%;
   width: 100%;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 400;
   color: #262626;
   position: absolute;
   /*background: red;*/
@@ -652,33 +671,34 @@ body {
   /*display: inline;*/
   position: absolute;
   border-radius: 50%;
-  top: 22%;
+  top: 25%;
   /*margin-top: 30%;*/
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   cursor: pointer;
 }
 
 .thumb-username {
-  display: inline;
+  /*display: inline;*/
   position: absolute;
-  top: 35%;
-  padding-left: 15%;
+  top: 33%;
+  /*padding-left: 15%;*/
+  left: 54.5px;
   cursor: pointer;
   /*background-color: green;*/
 }
 
 .time-since {
-  display: inline;
+  /*display: inline;*/
   position: absolute;
-  top: 35%;
-  right: 0;
+  top: 33%;
+  right: 0%;
   color: rgb(153, 153, 153);
 }
 
 .caption-and-comments {
   overflow-y: scroll;
-  top: 15%;
+  top: 16%;
   height: 70%;
   width: 100%;
   /*background: pink;*/
@@ -723,8 +743,8 @@ body {
 
 .home-index-item {
   background: white;
-  width: 40%;
-  height: 1200px;
+  width: 600px;
+  height: 1000px;
   margin: auto;
   margin-bottom: 40px;
   border: 1px solid #efefef;
@@ -735,7 +755,7 @@ body {
 .post-header-home {
   padding: 1% 0 1% 0;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 400;
   color: #262626;
   height: 8%;
   width: 100%;
@@ -788,13 +808,14 @@ body {
   right: 5%;
   top: 37.5%;
   font-size: 20px;
+  font-weight: 400;
   color: rgb(153, 153, 153);
 }
 
 .home-picture {
   position: absolute;
   top: 9%;
-  width: 100%;
+  height: 60%;
   border-top: 1px solid #efefef;
   border-bottom: 1px solid #efefef;
   /*background: black;*/
@@ -803,10 +824,11 @@ body {
 
 .caption-and-comments-home {
   position: absolute;
-  top: 73.5%;
+  top: 71%;
   left: 5%;
+  bottom: 8%;
   width: 90%;
-  height: 18.5%;
+  /*height: 18.5%;*/
   font-size: 20px;
   overflow-y: scroll;
   /*background: green;*/
