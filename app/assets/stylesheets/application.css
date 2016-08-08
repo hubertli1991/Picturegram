@@ -280,12 +280,12 @@ body {
 
 .searchbar-text{
   position: absolute;
-  width: 100%;
+  width: 80%;
   height: 100%;
   margin: 0;
-  padding: 0;
+  padding: 0 10% 0 10%;
   border: 0;
-  background: #fafafa;
+  background-color: #fafafa;
   font-size: 175%;
   font-weight: 200;
   outline: none;
