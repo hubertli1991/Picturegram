@@ -107,7 +107,7 @@ body {
   width: 80%;
   left: 8%;
   font-size: 16px;
-  font-weight: bold;
+  /*font-weight: bold;*/
   border: 0;
   outline: none;
   /*right: 10%;*/
@@ -238,6 +238,12 @@ body {
   font-size: 75px;
   margin-left: 7.5%;
   cursor: pointer;
+}
+
+@font-face {
+    font-family: billabong;
+    src: url('../fonts/billabong.ttf');
+    font-weight: bold;
 }
 
 .picturegram{
