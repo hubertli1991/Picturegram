@@ -13,7 +13,7 @@ var SearchBarIndexItem = React.createClass({
   },
 
   componentDidMount: function() {
-    this.setState( { user: this.props.user } );
+    this.setState( { user: this.props.user, hoverStyle: {} } );
   },
 
   componentWillReceiveProps: function(newProps) {
@@ -28,9 +28,17 @@ var SearchBarIndexItem = React.createClass({
     ClientActions.fetchUsersThatMatchSearch("");
   },
 
+  addHoverEffect: function(idx) {
+    this.setState( {hoverStyle: {backgroundColor: "#fafafa",}} );
+  },
+
+  removeHoverEffect: function(idx) {
+    this.setState( {hoverStyle: {}} );
+  },
+
   render: function() {
     return(
-      <li className="searchbar-index-item" onClick={this.searchForUser}>
+      <li className="searchbar-index-item" onClick={this.searchForUser} style={this.state.hoverStyle}>
         <img className="searchbar-thumbnail" src={this.state.user.profile_picture_url_thumb_nail} />
         <div className="searchbar-username" > {this.state.user.username} </div>
       </li>

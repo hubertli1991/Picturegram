@@ -27,13 +27,14 @@ var SearchBar = React.createClass({
 
   searchForUser: function(e) {
     e.preventDefault();
+    if ( this.netUpDown !== 0) {return;}
     if ( this.state.matchedUsers[0] ) {
       var targetUserId = this.state.matchedUsers[0].id;
       this.context.router.push( "/users/" + targetUserId );
     }
-    // Resetting instance variable to be safe. Doesn't have any effects for now 
+    // Resetting instance variable to be safe. Doesn't have any effects for now
     this.newSearchValue = "";
-    // this.setState( { username: "", matchedUsers: [], showSearchIndex: true  } );
+    this.setState( { username: "", matchedUsers: [], showSearchIndex: true  } );
   },
 
   changeSearchValue: function(e) {
@@ -69,12 +70,13 @@ var SearchBar = React.createClass({
   },
 
   showSearchBarIndexItem: function() {
+    this.netUpDown = 0;
     if ( this.state.matchedUsers.length && this.state.showSearchIndex ) {
       this.hideSearchIndex();
       return (
         <ul className="searchbar-index" onClick={this.clearSearchBar}>
           {this.state.matchedUsers.map(function(user, idx) {
-            return (<SearchBarIndexItem user={user} key={idx}/>);
+            return (<SearchBarIndexItem user={user} key={idx} ref={user.username}/>);
           })}
         </ul>
       );
@@ -85,13 +87,48 @@ var SearchBar = React.createClass({
     this.setState( { showSearchIndex: true  } );
   },
 
+  searchUsingSearchBarIndex: function(e) {
+    // skip this function if there are no matched users
+    if ( this.state.matchedUsers.length === 0 ) { return; }
+    this.netUpDown = this.netUpDown || 0;
+    var numberOfMatchedUsers = this.state.matchedUsers.length;
+    if ( e.keyCode === 40 && this.netUpDown < numberOfMatchedUsers ) {
+      this.netUpDown = this.netUpDown + 1;
+
+      var currentTargetGoingDown = this.state.matchedUsers[this.netUpDown - 1].username;
+      this.refs[currentTargetGoingDown].addHoverEffect();
+
+      if ( this.netUpDown >= 2 ) {
+        var previousTargetGoingDown = this.state.matchedUsers[this.netUpDown - 2].username;
+        this.refs[previousTargetGoingDown].removeHoverEffect();
+      }
+    }
+    else if ( e.keyCode === 38 && this.netUpDown > 0 ) {
+      this.netUpDown = this.netUpDown - 1;
+
+      if ( this.netUpDown >= 1 ) {
+        var currentTargetGoingUp = this.state.matchedUsers[this.netUpDown - 1].username;
+        this.refs[currentTargetGoingUp].addHoverEffect();
+      }
+
+      if ( this.netUpDown <= numberOfMatchedUsers - 1 ) {
+        var previousTargetGoingUp = this.state.matchedUsers[this.netUpDown].username;
+        this.refs[previousTargetGoingUp].removeHoverEffect();
+      }
+    }
+    else if ( e.keyCode === 13 && this.netUpDown !== 0) {
+      var indexItemUsername = this.state.matchedUsers[this.netUpDown - 1].username;
+      this.refs[indexItemUsername].searchForUser();
+    }
+  },
+
   // the id, name and autocomplete attributes inside <input> is there to remove the autocomplete history
   render: function() {
 
     return (
       <div className="searchbar" id="searchBar">
         <form className="searchbar-form" id="searchBarForm" autocomplete="nope" onSubmit={this.searchForUser}>
-          <input className="searchbar-text" type="text" placeholder="Search" value={this.state.username} onClick={this.turnBackOn} onChange={this.changeSearchValue}/>
+          <input className="searchbar-text" type="text" placeholder="Search" value={this.state.username} onClick={this.turnBackOn} onKeyDown={this.searchUsingSearchBarIndex} onChange={this.changeSearchValue}/>
         </form>
 
         {this.showSearchBarIndexItem()}
