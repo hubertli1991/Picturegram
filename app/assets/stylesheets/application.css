@@ -242,7 +242,7 @@ body {
 
 @font-face {
     font-family: billabong;
-    src: url('../fonts/billabong.ttf');
+    src: url('fonts/Billabong.ttf');
     font-weight: bold;
 }
 
