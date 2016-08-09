@@ -85,7 +85,7 @@ body {
   bottom: 250px;
   /*top: 18%;
   bottom: 18%;*/
-  background-image: url(login_page_logo.png);
+  background-image: url("login_page_logo.png");
   background-size: 100% 100%;
   /*background-color: green;*/
 }
@@ -320,7 +320,7 @@ body {
   width: 100%;
   top: 18%;
   bottom: 18%;
-  background-image: url(home_link_button.png);
+  background-image: url("home_link_button.png");
   background-size: 100% 100%;
 }
 
