@@ -23,8 +23,7 @@ var NavBar = React.createClass({
       <div className="nav-bar" >
         <div className="nav-bar-refined group">
           <div className="home-link" onClick={this.backToRootPage}>
-            <button className="fa fa-instagram"/>
-            <div className="picturegram" >Picturegram</div>
+            <a className="home-link-button"></a>
           </div>
           <SearchBar/>
           <div className="your-page-link">
@@ -37,3 +36,8 @@ var NavBar = React.createClass({
 });
 
 module.exports = NavBar;
+
+// <button className="fa fa-instagram"/>
+// <div className="picturegram" >Picturegram</div>
+
+// <img src="<%= asset_path('picturegram.png')%>" />

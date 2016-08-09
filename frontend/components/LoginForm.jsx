@@ -102,36 +102,37 @@ var LoginForm = React.createClass({
 			<div>
 				<div className="login_box">
 
-					<h1 className="title">Picturegram</h1>
+					<a className="login-title"></a>
 
 					<a href="/auth/facebook" className="login-through-facebook-box"><button className="login-through-facebook" type="button">Log in with Facebook</button></a>
 
 					<h1 className="or">OR</h1>
 
-					<form onSubmit={this.handleSubmit}>
+						<form onSubmit={this.handleSubmit}>
 
-		        { this.fieldErrors("base") }
+							{ this.fieldErrors("base") }
 
-						<div className="form-input">
+							<div className="form-input">
 
-							<label className="username-box">
-			          { this.fieldErrors("username") }
-								<input type="text" placeholder="Username" className="username-login" value={this.state.username} onChange={this.changeUsernameValue}/>
-							</label>
+								<label className="username-box">
+									{ this.fieldErrors("username") }
+									<input type="text" placeholder="Username" className="username-login" value={this.state.username} onChange={this.changeUsernameValue}/>
+								</label>
 
-							<label className="password-box">
-			          { this.fieldErrors("password") }
-								<input type="password" placeholder="Password" className="password-login" value={this.state.password} onChange={this.changePasswordValue} />
-							</label>
+								<label className="password-box">
+									{ this.fieldErrors("password") }
+									<input type="password" placeholder="Password" className="password-login" value={this.state.password} onChange={this.changePasswordValue} />
+								</label>
 
-							<span>
-								<input type="submit" className="submit-button" value={ this.formType } />
-							</span>
+								<span>
+									<input type="submit" className="submit-button" value={ this.formType } />
+								</span>
 
-							<button className="guest-login" onClick={this.guestLogin}> Guest Log in </button>
-						</div>
+								<button className="guest-login" onClick={this.guestLogin}> Guest Log in </button>
+							</div>
 
-					</form>
+						</form>
+
 				</div>
 
 				<div className="signup-or-signin-box">
@@ -146,3 +147,28 @@ var LoginForm = React.createClass({
 });
 
 module.exports = LoginForm;
+
+// <form onSubmit={this.handleSubmit}>
+//
+// 	{ this.fieldErrors("base") }
+//
+// 	<div className="form-input">
+//
+// 		<label className="username-box">
+// 			{ this.fieldErrors("username") }
+// 			<input type="text" placeholder="Username" className="username-login" value={this.state.username} onChange={this.changeUsernameValue}/>
+// 		</label>
+//
+// 		<label className="password-box">
+// 			{ this.fieldErrors("password") }
+// 			<input type="password" placeholder="Password" className="password-login" value={this.state.password} onChange={this.changePasswordValue} />
+// 		</label>
+//
+// 		<span>
+// 			<input type="submit" className="submit-button" value={ this.formType } />
+// 		</span>
+//
+// 		<button className="guest-login" onClick={this.guestLogin}> Guest Log in </button>
+// 	</div>
+//
+// </form>
