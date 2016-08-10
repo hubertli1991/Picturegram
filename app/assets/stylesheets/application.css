@@ -372,6 +372,7 @@ body {
   border: 1px solid #dbdbdb;
   padding: 15px;
   position: relative;
+  cursor: pointer;
 }
 
 .searchbar-index-item:hover{
@@ -612,12 +613,15 @@ body {
 }
 
 .post-form-header {
+  /*background-color: green;*/
+  position: absolute;
+  top: 2.5%;
+  bottom: 92%;
+  left: 0%;
+  right: 0%;
   text-align: center;
-  width: 50%;
-  margin: auto;
+  font-size: 200%;
   font-weight: 200;
-  font-size: 30px;
-  padding-top: 2%;
   /*color: #B0B0B0;*/
 }
 
@@ -649,6 +653,8 @@ body {
   /*top: 10%;*/
   /*margin-bottom: 1%;*/
   background: #fafafa;
+  /*background-color: green;*/
+  font-size: 90%;
   font-weight: bold;
   outline: none;
   /*font-size: 20px;*/
@@ -680,18 +686,19 @@ body {
 
 .post-form-submit-button {
   position: absolute;
-  width: 40%;
+  width: 50%;
   height: 30%;
-  left: 30%;
+  left: 25%;
   top: 60%;
   bottom: 25%;
-  font-size: 20px;
+  font-size: 90%;
   font-weight: bold;
   color: white;
   border: 1px solid #B0B0B0;
   border-radius: 10px;
   outline: none;
   background: #3897f0;
+  /*background-color: green;*/
   text-align: center;
   cursor: pointer;
 }
@@ -766,7 +773,7 @@ body {
 }
 
 .caption-and-comments {
-  overflow-y: scroll;
+  overflow-y: auto;
   top: 16%;
   height: 70%;
   width: 100%;
@@ -899,7 +906,7 @@ body {
   width: 90%;
   /*height: 18.5%;*/
   font-size: 20px;
-  overflow-y: scroll;
+  overflow-y: auto;
   /*background: green;*/
   /*border-bottom: 1px solid #efefef;*/
 }
