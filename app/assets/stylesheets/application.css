@@ -378,19 +378,21 @@ body {
   background: #fafafa;
 }
 
-.searchbar-username {
-  position: absolute;
-  left: 25%;
-  top: 30%;
-  font-size: 20px;
-}
-
 .searchbar-thumbnail {
   display: inline;
   border-radius: 50%;
   height: 50px;
   width: 50px;
   cursor: pointer;
+}
+
+.searchbar-username {
+  position: absolute;
+  left: 80px;
+  right: 15px;
+  top: 30%;
+  font-size: 20px;
+  /*background-color: green;*/
 }
 
 /*logout modal*/
@@ -452,7 +454,7 @@ body {
   background: #3897f0;
   padding: 2px;
   border-radius: 10px;
-  margin-top: 15px;
+  margin-top: 12px;
   margin-left: 5%;
 }
 
@@ -467,7 +469,7 @@ body {
 .logout-modal-button {
   float: left;
   font-size: 44px;
-  margin-top: 8px;
+  margin-top: 7px;
   margin-left: 5%;
   /*background-color: purple;*/
 }
