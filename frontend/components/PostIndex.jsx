@@ -91,13 +91,15 @@ var PostIndex = React.createClass({
         <div className="right-below-nav group" >
           <img className="profile-picture" src={user.profile_picture_url_regular}/>
 
-          <div className="stuff-under-nav-top-part group">
+          <div className="stuff-under-nav-top-part">
 
-            <h1 className="user-name"> {user.username} </h1>
-            {this.renderProfileFormIfOnYourPage()}
+            <div className="username-and-buttons group">
+              <h1 className="user-name"> {user.username} </h1>
+              {this.renderProfileFormIfOnYourPage()}
 
-            <div className="logout-modal-button">
-              <button className="fa fa-bars" onClick={this.openModal} />
+              <div className="logout-modal-button">
+                <button className="fa fa-bars" onClick={this.openModal} />
+              </div>
             </div>
 
             <p className="profile-bio"> {user.bio} </p>
