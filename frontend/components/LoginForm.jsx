@@ -66,7 +66,7 @@ var LoginForm = React.createClass({
 		e.preventDefault();
 
 		var guestData = {
-			username: 'guest',
+			username: 'Guest',
 			password: 1234567
 		};
 		SessionApiUtil.login(guestData);
