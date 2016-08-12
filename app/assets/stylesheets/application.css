@@ -560,7 +560,8 @@ body {
 .posted-picture {
   float: left;
   margin-left: 2.5%;
-  margin-top: 2.5%;
+  /*margin-top: 2.5%;*/
+  margin-bottom: 2.5%;
   /*margin: 25px;*/
   /*width: 600px;
   height: 600px;*/
@@ -590,6 +591,7 @@ body {
   font-size: 75px;
   width: 5%;
   margin: auto;
+  margin-bottom: 2.5%;
 }
 
 .modal-body {
