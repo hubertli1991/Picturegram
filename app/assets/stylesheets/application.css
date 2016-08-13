@@ -67,7 +67,7 @@ body {
   background: white;
   margin: auto;
   width: 300px;
-  height: 310px;
+  height: 420px;
   margin-top: 100px;
   margin-bottom: 20px;
   padding: 20px;
@@ -83,7 +83,7 @@ body {
   left: 60px;
   right: 60px;
   top: 20px;
-  bottom: 250px;
+  bottom: 360px;
   /*top: 18%;
   bottom: 18%;*/
   background-image: url("login_page_logo.png");
@@ -97,8 +97,8 @@ body {
   /*margin: auto;*/
   left: 20px;
   right: 20px;
-  top: 110px;
-  bottom: 210px;
+  top: 120px;
+  bottom: 300px;
 }
 
 .login-through-facebook {
@@ -120,8 +120,8 @@ body {
   /*background: green;*/
   position: absolute;
   font-size: 20px;
-  top: 150px;
-  bottom: 180px;
+  top: 180px;
+  bottom: 260px;
   left: 45.75%;
   right: 45.75%;
   /*text-align: center;*/
@@ -135,7 +135,7 @@ body {
   position: absolute;
   left: 20px;
   right: 20px;
-  top: 180px;
+  top: 220px;
   bottom: 20px;
   border: 0;
   padding: 0;
@@ -147,7 +147,7 @@ body {
 .username-box {
   position: absolute;
   top: 0px;
-  bottom: 120px;
+  bottom: 180px;
   width: 99%;
   /*height: 40px;*/
   /*margin-top: 10px;*/
@@ -173,8 +173,8 @@ body {
 
 .password-box {
   position: absolute;;
-  top: 40px;
-  bottom: 80px;
+  top: 60px;
+  bottom: 120px;
   width: 99%;
   /*height: 30px;*/
   /*margin-top: 2.5%;*/
@@ -200,8 +200,8 @@ body {
 
 .guest-login {
   position: absolute;
-  top: 80px;
-  bottom: 40px;
+  top: 120px;
+  bottom: 60px;
   width: 100%;
   /*height: 40px;*/
   background: #3897f0;
@@ -215,7 +215,7 @@ body {
 
 .submit-button {
   position: absolute;
-  top: 120px;
+  top: 180px;
   bottom: 0px;
   width: 100%;
   /*height: 40px;*/
@@ -234,16 +234,17 @@ body {
   width: 340px;
   margin: auto;
   border: 1px solid #B0B0B0;
+  margin-top: 40px;
 }
 
 .signup-or-signin {
   text-align: center;
-  margin-top: 50px;
+  /*margin-top: 50px;*/
   background: white;
   font-size: 20px;
   font-weight: 300;
   margin: auto;
-  padding: 10px 20px 10px 20px;
+  padding: 20px;
 }
 
 .signin-signup-toggle {
