@@ -100,11 +100,12 @@ var LoginForm = React.createClass({
 
 		return (
 			<div>
+
 				<div className="login_box">
 
 					<a className="login-title"></a>
 
-					<a href="/auth/facebook" className="login-through-facebook-box"><button className="login-through-facebook" type="button">Log in with Facebook</button></a>
+					<a href="/auth/facebook" className="login-through-facebook-box"><button className="login-through-facebook" type="button"><i className="fa fa-facebook-official fa-lg">&nbsp;</i> Log in with Facebook</button></a>
 
 					<h1 className="or">OR</h1>
 

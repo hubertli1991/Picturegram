@@ -116,6 +116,12 @@ body {
   outline: none;
 }
 
+.fa.fa-facebook-official.fa-lg {
+  font-size: 1.33333333em;
+  line-height: 0.75em;
+  vertical-align: -5%;
+}
+
 .or {
   /*background: green;*/
   position: absolute;
