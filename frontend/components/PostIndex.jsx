@@ -115,6 +115,7 @@ var PostIndex = React.createClass({
         <div>
           <PostForm userId={SessionStore.currentUser().id}/>
         </div>
+        <div className="spacing-below-post-form"></div>
 
         <Modal
           isOpen={this.state.modalOpen}

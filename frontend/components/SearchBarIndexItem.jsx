@@ -29,7 +29,7 @@ var SearchBarIndexItem = React.createClass({
   },
 
   addHoverEffect: function(idx) {
-    this.setState( {hoverStyle: {backgroundColor: "#fafafa",}} );
+    this.setState( {hoverStyle: {backgroundColor: "#ededed",}} );
   },
 
   removeHoverEffect: function(idx) {

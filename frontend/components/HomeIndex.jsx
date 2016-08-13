@@ -39,7 +39,9 @@ var HomeIndex = React.createClass({
 
     return(
       <div>
+        <div className="spacing-above-post-form-home"></div>
         <PostForm userId={SessionStore.currentUser().id}/>
+        <div className="spacing-below-post-form-home"></div>
         <ul>
           {this.state.posts.map( function(post, idx) {
 

@@ -47,7 +47,7 @@ button {
 body {
   font-family: 'proxima-nova','Helvetica Neue',Arial,Helvetica,sans-serif;
   background: #fafafa;
-  /*background-color: #e1e1e1;*/
+  /*background-color: #ededed;*/
 }
 
 /*button {
@@ -260,7 +260,8 @@ body {
 .nav-bar {
   /*height: 50%;*/
   width: 100%;
-  border-bottom: 1px solid #efefef;
+  /*border-bottom: 1px solid #efefef;*/
+  border-bottom: 1px solid #dbdbdb;
   background: white;
   height: 140px;
   /*margin-bottom: 20px;*/
@@ -370,6 +371,7 @@ body {
 
 .searchbar-index-item {
   background-color: white;
+  /*background-color: green;*/
   border: 1px solid #dbdbdb;
   padding: 15px;
   position: relative;
@@ -377,7 +379,7 @@ body {
 }
 
 .searchbar-index-item:hover{
-  background: #fafafa;
+  background: #ededed;
 }
 
 .searchbar-thumbnail {
@@ -584,14 +586,31 @@ body {
 
 .post-form {
   /*position: absolute;*/
-  margin: auto;
+  /*margin: auto;*/
+  /*margin-bottom: 2.5%;*/
+}
+
+.post-form-home {
+
 }
 
 .post-form-button {
   font-size: 75px;
   width: 5%;
   margin: auto;
+  /*margin-bottom: 2.5%;*/
+}
+
+.spacing-below-post-form {
   margin-bottom: 2.5%;
+}
+
+.spacing-above-post-form-home {
+  height: 10px;
+}
+
+.spacing-below-post-form-home {
+  height: 10px;
 }
 
 .modal-body {
@@ -599,6 +618,7 @@ body {
   position: relative;
   height: 100%;
   background: #fafafa;
+  /*background: #ededed;*/
 }
 
 .post-form-boxes {
@@ -713,6 +733,7 @@ body {
   left: 0%;
   height: 100%;
   position: absolute;
+  border-right: 1px solid #dbdbdb;
 }
 
 /*img {
@@ -735,7 +756,8 @@ body {
 }
 
 .post-header {
-  border-bottom: 1px solid #efefef;
+  /*border-bottom: 1px solid #efefef;*/
+  border-bottom: 1px solid #dbdbdb;
   /*padding: 3% 0 3% 0;*/
   height: 15%;
   width: 100%;
@@ -814,7 +836,8 @@ body {
   /*background: red;*/
   /*padding: 15px;*/
   /*font-size: 20px;*/
-  border-top: 1px solid #efefef;
+  /*border-top: 1px solid #efefef;*/
+  border-top: 1px solid #dbdbdb;
 }
 
 
@@ -826,7 +849,8 @@ body {
   height: 1000px;
   margin: auto;
   margin-bottom: 40px;
-  border: 1px solid #efefef;
+  /*border: 1px solid #efefef;*/
+  border: 1px solid #dbdbdb;
   border-radius: 10px;
   position: relative;
 }
@@ -895,8 +919,10 @@ body {
   position: absolute;
   top: 9%;
   height: 60%;
-  border-top: 1px solid #efefef;
-  border-bottom: 1px solid #efefef;
+  /*border-top: 1px solid #efefef;*/
+  border-top: 1px solid #dbdbdb;
+  /*border-bottom: 1px solid #efefef;*/
+  border-bottom: 1px solid #dbdbdb;
   /*background: black;*/
   /*width: 50%;*/
 }
@@ -937,7 +963,8 @@ body {
   /*background: pink;*/
   /*padding: 15px;
   margin: auto;*/
-  border-top: 1px solid #efefef;
+  /*border-top: 1px solid #efefef;*/
+  border-top: 1px solid #dbdbdb;
 }
 
 .comment-form-text {
