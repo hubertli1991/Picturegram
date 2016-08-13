@@ -67,7 +67,7 @@ body {
   background: white;
   margin: auto;
   width: 300px;
-  height: 420px;
+  height: 430px;
   margin-top: 100px;
   margin-bottom: 20px;
   padding: 20px;
@@ -83,7 +83,7 @@ body {
   left: 60px;
   right: 60px;
   top: 20px;
-  bottom: 360px;
+  bottom: 370px;
   /*top: 18%;
   bottom: 18%;*/
   background-image: url("login_page_logo.png");
@@ -98,7 +98,7 @@ body {
   left: 20px;
   right: 20px;
   top: 120px;
-  bottom: 300px;
+  bottom: 310px;
 }
 
 .login-through-facebook {
@@ -121,7 +121,7 @@ body {
   position: absolute;
   font-size: 20px;
   top: 180px;
-  bottom: 260px;
+  bottom: 270px;
   left: 45.75%;
   right: 45.75%;
   /*text-align: center;*/
@@ -136,7 +136,7 @@ body {
   left: 20px;
   right: 20px;
   top: 220px;
-  bottom: 20px;
+  bottom: 30px;
   border: 0;
   padding: 0;
 }
