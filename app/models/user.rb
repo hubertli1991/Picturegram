@@ -5,9 +5,6 @@ class User < ActiveRecord::Base
   validates :session_token, presence: true
   validates :password, length: {minimum: 6, allow_nil: true}
 
-  validates :username, uniqueness: true
-  validates :username, length: {minimum: 1}
-
   has_attached_file :profile_picture, styles: { regular: "150x150>", thumb_nail: "50x50>" }, default_url: "facebook-profile-picture-silhouette-i3.jpg"
   validates_attachment_content_type :profile_picture, content_type: /\Aimage\/.*\Z/
 
