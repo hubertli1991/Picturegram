@@ -8,12 +8,6 @@ var ErrorActions = {
       form: form,
       errors: errors
     });
-  },
-
-  clearErrors: function () {
-    AppDispatcher.dispatch({
-      actionType: ErrorConstants.CLEAR_ERRORS
-    });
   }
 };
 

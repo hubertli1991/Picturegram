@@ -47,6 +47,10 @@ var LoginForm = React.createClass({
   //   }
   // },
 
+	// _onChange: function() {
+	// 	this.setState();
+	// },
+
 	handleSubmit: function (e) {
 		e.preventDefault();
 
@@ -54,6 +58,8 @@ var LoginForm = React.createClass({
 			username: this.state.username,
 			password: this.state.password
 		};
+
+		ErrorStore.clearErrors();
 
     if (this.state.login) {
       SessionApiUtil.login(formData);
@@ -72,19 +78,28 @@ var LoginForm = React.createClass({
 		SessionApiUtil.login(guestData);
 	},
 
-  fieldErrors: function (field) {
-    var errors = ErrorStore.formErrors(this.formType);
-    if (!errors[field]) { return; }
+  // fieldErrors: function (field) {
+  //   var errors = ErrorStore.formErrors(this.formType);
+  //   if (!errors[field]) { return; }
+	//
+  //   var messages = errors[field].map(function (errorMsg, i) {
+  //     return <li key={ i }>{ errorMsg }</li>;
+  //   });
+	//
+  //   return <ul>{ messages }</ul>;
+  // },
 
-    var messages = errors[field].map(function (errorMsg, i) {
-      return <li key={ i }>{ errorMsg }</li>;
-    });
-
-    return <ul>{ messages }</ul>;
-  },
+	renderErrors: function(errorType) {
+		var errorMessage = ErrorStore.extractErrorMessage(errorType);
+		// console.log( errorMessage );
+		if ( errorMessage ) {
+			return (<p className="login-form-error">{errorMessage}</p>);
+		}
+	},
 
   toggleForm: function (e) {
 		e.preventDefault();
+		ErrorStore.clearErrors();
     this.setState({login: !this.state.login});
   },
 
@@ -111,23 +126,25 @@ var LoginForm = React.createClass({
 
 						<form onSubmit={this.handleSubmit}>
 
-							{ this.fieldErrors("base") }
-
 							<div className="form-input">
 
 								<label className="username-box">
-									{ this.fieldErrors("username") }
 									<input type="text" placeholder="Username" className="username-login" value={this.state.username} onChange={this.changeUsernameValue}/>
 								</label>
 
+								{ this.renderErrors("usernameError") }
+
 								<label className="password-box">
-									{ this.fieldErrors("password") }
 									<input type="password" placeholder="Password" className="password-login" value={this.state.password} onChange={this.changePasswordValue} />
 								</label>
+
+								{ this.renderErrors("passwordError") }
 
 								<span>
 									<input type="submit" className="submit-button" value={ this.formType } />
 								</span>
+
+								{ this.renderErrors("loginError") }
 
 								<button className="guest-login" onClick={this.guestLogin}> Guest Log in </button>
 							</div>
@@ -148,28 +165,3 @@ var LoginForm = React.createClass({
 });
 
 module.exports = LoginForm;
-
-// <form onSubmit={this.handleSubmit}>
-//
-// 	{ this.fieldErrors("base") }
-//
-// 	<div className="form-input">
-//
-// 		<label className="username-box">
-// 			{ this.fieldErrors("username") }
-// 			<input type="text" placeholder="Username" className="username-login" value={this.state.username} onChange={this.changeUsernameValue}/>
-// 		</label>
-//
-// 		<label className="password-box">
-// 			{ this.fieldErrors("password") }
-// 			<input type="password" placeholder="Password" className="password-login" value={this.state.password} onChange={this.changePasswordValue} />
-// 		</label>
-//
-// 		<span>
-// 			<input type="submit" className="submit-button" value={ this.formType } />
-// 		</span>
-//
-// 		<button className="guest-login" onClick={this.guestLogin}> Guest Log in </button>
-// 	</div>
-//
-// </form>

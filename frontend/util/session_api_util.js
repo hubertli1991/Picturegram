@@ -8,11 +8,10 @@ var SessionApiUtil = {
 			url: '/api/session',
 			data: {user: credentials},
 			success: function (currentUser) {
-				// debugger;
         SessionActions.receiveCurrentUser(currentUser);
       },
 			error: function (xhr) {
-        var errors = xhr.responseJSON;
+        var errors = xhr.responseJSON.errors;
 	      ErrorActions.setErrors("login", errors);
 			}
 		});
@@ -49,11 +48,11 @@ var SessionApiUtil = {
 				// PostActions.receiveAllPostsFromUser(currentUserAndPosts.posts);
 			},
 			error: function (xhr) {
-			},
-
-      complete: function() {
-				complete && complete();
 			}
+			//
+      // complete: function() {
+			// 	complete && complete();
+			// }
 		});
 	}
 };

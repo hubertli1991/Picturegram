@@ -24,7 +24,16 @@ class Api::UsersController < ApplicationController
 			login(@user)
 			render "api/users/show"
 		else
-			render json: @user.errors, status: 422
+			if User.find_by_username(user_params[:username])
+				@username_error = "Username has already been taken"
+			elsif user_params[:username] == ""
+				@username_error = "Username cannot be blank"
+			end
+
+			if user_params[:password].length < 6
+				@password_error = "Password must have at least 6 characters"
+			end
+			render "api/shared/error", status: 500
 		end
 	end
 

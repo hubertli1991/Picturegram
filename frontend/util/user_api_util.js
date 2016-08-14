@@ -14,7 +14,7 @@ var UserApiUtil = {
         SessionActions.receiveCurrentUser(currentUser);
       },
       error: function (xhr) {
-        var errors = xhr.responseJSON;
+        var errors = xhr.responseJSON.errors;
         ErrorActions.setErrors("signup", errors);
       }
     });
