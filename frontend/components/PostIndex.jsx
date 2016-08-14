@@ -83,7 +83,6 @@ var PostIndex = React.createClass({
 
     var currentPathLocation = this.props.location.pathname;
     var user = PostStore.fetchUser();
-
     return (
       <div>
         <NavBar/>

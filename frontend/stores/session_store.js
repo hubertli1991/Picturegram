@@ -32,7 +32,6 @@ SessionStore.isUserLoggedIn = function () {
 SessionStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case SessionConstants.LOGIN:
-    // debugger;
     _login(payload.currentUser);
     SessionStore.__emitChange();
     break;

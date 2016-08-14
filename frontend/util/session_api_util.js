@@ -29,7 +29,7 @@ var SessionApiUtil = {
 		});
 	},
 
-	fetchCurrentUser: function(complete) {
+	fetchCurrentUser: function(redirectIfNotLoggedIn) {
 		$.ajax({
       method: 'GET',
 			url: '/api/session',
@@ -43,7 +43,7 @@ var SessionApiUtil = {
 					profile_picture_url_regular: currentUserAndPosts.profile_picture_url_regular
 				};
 				SessionActions.receiveCurrentUser(currentUser);
-
+				redirectIfNotLoggedIn();
 				// send all current user's posts to post store
 				// PostActions.receiveAllPostsFromUser(currentUserAndPosts.posts);
 			},

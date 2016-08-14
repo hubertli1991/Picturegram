@@ -75,6 +75,7 @@ var LoginForm = React.createClass({
 			username: 'Guest',
 			password: 1234567
 		};
+		ErrorStore.clearErrors();
 		SessionApiUtil.login(guestData);
 	},
 

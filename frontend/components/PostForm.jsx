@@ -70,6 +70,7 @@ var PostForm = React.createClass({
   },
 
   backToUserPage: function() {
+
     this.context.router.push("/users/" + this.state.user_id);
   },
 
