@@ -12,8 +12,8 @@ module.exports = {
     PostApiUtil.fetchAllPosts();
   },
 
-  createOnePost: function(formData, backToUserPage) {
-    PostApiUtil.createOnePost(formData, backToUserPage);
+  createOnePost: function(formData, backToUserPage, closeModal) {
+    PostApiUtil.createOnePost(formData, backToUserPage, closeModal);
   },
 
   updateOnePost: function(caption) {
@@ -28,8 +28,8 @@ module.exports = {
     CommentApiUtil.createOneComment(commentFormData);
   },
 
-  updateCurrentUser: function(currentUserId, profileFormData) {
-    UserApiUtil.updateUserProfile(currentUserId, profileFormData);
+  updateCurrentUser: function(currentUserId, profileFormData, closeModal) {
+    UserApiUtil.updateUserProfile(currentUserId, profileFormData, closeModal);
   },
 
   fetchUsersThatMatchSearch: function(searchValue) {

@@ -79,7 +79,6 @@ var PostIndex = React.createClass({
   },
 
   render: function() {
-
     var currentPathLocation = this.props.location.pathname;
     var user = PostStore.fetchUser();
 

@@ -15,13 +15,40 @@ class Api::PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.user_id = current_user.id
-    if @post.save
-      render "api/posts/show"
+    if post_params[:image] == "null" || post_params[:caption] == "null" || post_params[:caption] == ""
+      
+      if post_params[:image] == "null"
+        @post_image_error = "Please upload an image"
+      end
+
+      if post_params[:caption] == "null" || post_params[:caption] == ""
+        @post_caption_error = "Please write a caption"
+      end
+
+      render "api/shared/error", status: 500
     else
-      render json: @post.errors
+      @post = Post.new(post_params)
+      @post.user_id = current_user.id
+      if @post.save
+        render "api/posts/show"
+      end
     end
+
+    # @post = Post.new(post_params)
+    # @post.user_id = current_user.id
+    # if post_params[:image] && @post.save
+    #   render "api/posts/show"
+    # else
+    #   if !post_params[:image]
+    #     @post_image_error = "Please upload an image"
+    #   end
+    #
+    #   if post_params[:caption].nil? || post_params[:caption] == ""
+    #     @post_caption_error = "Please write a caption"
+    #   end
+    #
+    #   render "api/shared/error", status: 500
+    # end
   end
 
   def update

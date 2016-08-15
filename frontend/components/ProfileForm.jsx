@@ -1,6 +1,7 @@
 var React = require('react');
 var PostStore = require('../stores/post_store');
 var SessionStore = require('../stores/session_store');
+var ErrorStore = require('./../stores/error_store');
 var ClientActions = require('../actions/client_actions');
 // Modal Require Start
 var Modal = require("react-modal");
@@ -18,15 +19,23 @@ var ProfileForm = React.createClass({
     // parseInt(this.props.userId)
     return {
       user_id: this.props.user.id,
-      bio: this.props.user.bio,
+      bio: this.props.user.bio || "",
       imageFile: this.props.user.profile_picture_url_regular,
       imageUrl: this.props.user.profile_picture_url_regular,
       modalOpen: false
     };
   },
-  
+
+  componentDidMount: function () {
+    this.errorListener = ErrorStore.addListener(this.forceUpdate.bind(this));
+  },
+
+  componentWillUnmount: function () {
+    this.errorListener.remove();
+  },
 
   closeModal: function(){
+    ErrorStore.clearErrors();
     this.setState({ modalOpen: false, bio: this.props.user.bio });
   },
   openModal: function(){
@@ -55,18 +64,24 @@ var ProfileForm = React.createClass({
     }
   },
 
+  renderErrors: function(errorType) {
+    var errorMessage = ErrorStore.extractErrorMessage(errorType);
+		if ( errorMessage ) {
+			return (<p className="login-form-error">{errorMessage}</p>);
+		}
+  },
+
   handleSubmit: function(e) {
     e.preventDefault();
     // var newPost = {
     //   image_url: this.state.imageFile,
     //   caption: this.state.caption
     // };
-    this.closeModal();
     var profileFormData = new FormData();
     // profileFormData.append("post[user_id]", this.state.user_id);
     profileFormData.append("user[bio]", this.state.bio);
     profileFormData.append("user[profile_picture]", this.state.imageFile );
-    ClientActions.updateCurrentUser(this.state.user_id, profileFormData);
+    ClientActions.updateCurrentUser(this.state.user_id, profileFormData, this.closeModal);
   },
 
   render: function() {
@@ -93,6 +108,7 @@ var ProfileForm = React.createClass({
               <form className="post-form-boxes" onSubmit={this.handleSubmit}>
                 <input className="choose-file" type="file" placeholder="image file" onChange={this.updateFile} />
                 <textarea className="upload-image-caption" type="text" placeholder="Personal Blurb" defaultValue={ this.state.bio } onChange={this.bioChange}/>
+                { this.renderErrors("profileError") }
                 <input className="post-form-submit-button" type="submit" value="Update Profile"/>
               </form>
             </div>

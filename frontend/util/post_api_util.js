@@ -1,4 +1,5 @@
 var ServerActions = require('../actions/server_actions');
+var ErrorActions = require('./../actions/error_actions');
 
 var PostApiUtil = {
 
@@ -12,7 +13,7 @@ var PostApiUtil = {
     });
   },
 
-  createOnePost: function(formData, backToUserPage) {
+  createOnePost: function(formData, backToUserPage, closeModal) {
     $.ajax({
       method: 'POST',
       url: 'api/posts',
@@ -21,9 +22,14 @@ var PostApiUtil = {
       processData: false,
       data: formData,
       success: function(userPost) {
+        closeModal();
         // ServerActions.receiveNewPostFromUser(userPost);
         // send client to the user homepage
         backToUserPage();
+      },
+      error: function(xhr) {
+        var errors = xhr.responseJSON.errors;
+        ErrorActions.setErrors("post", errors);
       }
     });
   },

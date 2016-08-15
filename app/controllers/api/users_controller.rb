@@ -41,8 +41,6 @@ class Api::UsersController < ApplicationController
 		@user = User.find(params[:id])
 		if @user.update(user_profile_params)
 			render "api/users/show"
-		else
-			render json: @user.errors
 		end
 	end
 

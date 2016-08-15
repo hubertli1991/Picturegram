@@ -42,7 +42,7 @@ var UserApiUtil = {
     });
   },
 
-  updateUserProfile: function(currentUserId, profileFormData) {
+  updateUserProfile: function(currentUserId, profileFormData, closeModal) {
     $.ajax({
       url: '/api/users/' + currentUserId,
       method: 'PATCH',
@@ -51,7 +51,16 @@ var UserApiUtil = {
       processData: false,
       data: profileFormData,
       success: function(userAndPosts) {
+        closeModal();
+        // not going to allow for null's
+        if ( userAndPosts.bio === "null" ) {
+          userAndPosts.bio = "";
+        }
         ServerActions.receiveUserAndAllPosts(userAndPosts);
+      },
+      error: function(xhr) {
+        var errors = { "profileError": "Please upload a profile image"};
+        ErrorActions.setErrors("profile", errors);
       }
     });
   },

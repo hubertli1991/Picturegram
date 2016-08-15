@@ -1,5 +1,6 @@
 var React = require('react');
 var PostStore = require('../stores/post_store');
+var ErrorStore = require('./../stores/error_store');
 var ClientActions = require('../actions/client_actions');
 // Modal Require Start
 var Modal = require("react-modal");
@@ -25,9 +26,18 @@ var PostForm = React.createClass({
     };
   },
 
+  componentDidMount: function () {
+    this.errorListener = ErrorStore.addListener(this.forceUpdate.bind(this));
+  },
+
+  componentWillUnmount: function () {
+    this.errorListener.remove();
+  },
+
 
   closeModal: function(){
-    this.setState({ modalOpen: false, caption: "" });
+    ErrorStore.clearErrors();
+    this.setState({ modalOpen: false, caption: "", imageUrl: null, imageFile: null });
   },
   openModal: function(){
     this.setState({ modalOpen: true });
@@ -54,19 +64,24 @@ var PostForm = React.createClass({
     }
   },
 
+  renderErrors: function(errorType) {
+    var errorMessage = ErrorStore.extractErrorMessage(errorType);
+    if ( errorMessage ) {
+      return (<p className="login-form-error">{errorMessage}</p>);
+    }
+  },
+
   handleSubmit: function(e) {
     e.preventDefault();
     // var newPost = {
     //   image_url: this.state.imageFile,
     //   caption: this.state.caption
     // };
-    this.closeModal();
     var formData = new FormData();
     // formData.append("post[user_id]", this.state.user_id);
     formData.append("post[caption]", this.state.caption);
     formData.append("post[image]", this.state.imageFile);
-    ClientActions.createOnePost(formData, this.backToUserPage);
-    this.setState({caption: "", imageFile: "", imageUrl: ""});
+    ClientActions.createOnePost(formData, this.backToUserPage, this.closeModal);
   },
 
   backToUserPage: function() {
@@ -95,7 +110,9 @@ var PostForm = React.createClass({
               <p className="post-form-header">Post a Picture</p>
               <form className="post-form-boxes" onSubmit={this.handleSubmit}>
                 <input className="choose-file" type="file" placeholder="image file" onChange={this.updateFile} />
+                { this.renderErrors("postImageError") }
                 <textarea className="upload-image-caption" type="text" placeholder="Add a caption..." value={this.state.caption} onChange={this.captionChange}/>
+                { this.renderErrors("postCaptionError") }
                 <input className="post-form-submit-button" type="submit" value="Add Post"/>
               </form>
             </div>

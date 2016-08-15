@@ -10,4 +10,12 @@ json.errors do
   if @password_error
     json.passwordError @password_error
   end
+
+  if @post_image_error
+    json.postImageError @post_image_error
+  end
+
+  if @post_caption_error
+    json.postCaptionError @post_caption_error
+  end
 end
