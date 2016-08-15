@@ -9,16 +9,26 @@ var _Post_Modal_Style = {
                 zIndex          : 10
               },
               content : {
+                // position        : 'fixed',
+                // top             : '13%',
+                // left            : '30%',
+                // right           : '30%',
+                // bottom          : '13%',
+                // backgroundColor : 'green',
+                // border          : '1px solid #ccc',
+                // padding         : '0px',
+                // margin          : '0px',
+                // zIndex          : 11,
+                // overflow        : 'none'
                 position        : 'fixed',
-                top             : '13%',
-                left            : '30%',
-                right           : '30%',
-                bottom          : '13%',
+                top             : '5%',
+                width           : '900px',
+                height          : '600px',
                 border          : '1px solid #ccc',
                 padding         : '0px',
-                margin          : '0px',
+                margin          : 'auto',
                 zIndex          : 11,
-                overflow        : 'none'
+                overflow        : 'none',
               }
             };
 

@@ -43,7 +43,10 @@ var SessionApiUtil = {
 					profile_picture_url_regular: currentUserAndPosts.profile_picture_url_regular
 				};
 				SessionActions.receiveCurrentUser(currentUser);
-				redirectIfNotLoggedIn();
+				// this callback allows us to refresh the page
+				if ( redirectIfNotLoggedIn ) {
+					redirectIfNotLoggedIn();
+				}
 				// send all current user's posts to post store
 				// PostActions.receiveAllPostsFromUser(currentUserAndPosts.posts);
 			},

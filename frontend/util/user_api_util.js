@@ -25,7 +25,6 @@ var UserApiUtil = {
       method: 'GET',
       url: '/api/users/' + id,
       success: function(userAndPosts) {
-        // debugger;
         // var user = {
         //   id: userAndPosts.id,
         //   username: userAndPosts.username
@@ -43,7 +42,7 @@ var UserApiUtil = {
     });
   },
 
-  updateUserProfile: function(currentUserId, profileFormData, backToUserPage) {
+  updateUserProfile: function(currentUserId, profileFormData) {
     $.ajax({
       url: '/api/users/' + currentUserId,
       method: 'PATCH',
@@ -68,7 +67,6 @@ var UserApiUtil = {
         dataType: 'json',
         data: {user: {username: searchValue}},
         success: function(matchedUsers) {
-          // console.log(matchedUsers);
           ServerActions.fetchUsersThatMatchSearch(matchedUsers);
         }
       });

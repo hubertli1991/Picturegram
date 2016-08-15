@@ -60,7 +60,6 @@ var PostIndex = React.createClass({
 // < PostIndexItem post={post} />
 // <h1> Hello </h1>
 
-
   renderProfileFormIfOnYourPage: function() {
     if (parseInt(this.props.params.id) === SessionStore.currentUser().id) {
       return <ProfileForm user={SessionStore.currentUser()} userId={SessionStore.currentUser().id}/>;
@@ -83,6 +82,7 @@ var PostIndex = React.createClass({
 
     var currentPathLocation = this.props.location.pathname;
     var user = PostStore.fetchUser();
+
     return (
       <div>
         <NavBar/>

@@ -35,7 +35,6 @@ ErrorStore.extractErrorMessage = function(errorType) {
 };
 
 ErrorStore.clearErrors = function() {
-  // debugger;
     _errors = {};
     _form = "";
 };

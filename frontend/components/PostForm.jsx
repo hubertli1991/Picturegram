@@ -27,7 +27,7 @@ var PostForm = React.createClass({
 
 
   closeModal: function(){
-    this.setState({ modalOpen: false });
+    this.setState({ modalOpen: false, caption: "" });
   },
   openModal: function(){
     this.setState({ modalOpen: true });
@@ -70,7 +70,6 @@ var PostForm = React.createClass({
   },
 
   backToUserPage: function() {
-
     this.context.router.push("/users/" + this.state.user_id);
   },
 
@@ -88,16 +87,18 @@ var PostForm = React.createClass({
 
           <div className="modal-body">
 
-            <p className="post-form-header">Share a Picture</p>
             <div className="image-preview-box">
               <img className="image-preview" src={this.state.imageUrl}/>
             </div>
 
-            <form className="post-form-boxes" onSubmit={this.handleSubmit}>
-              <input className="choose-file" type="file" placeholder="image file" onChange={this.updateFile} />
-              <textarea className="upload-image-caption" type="text" placeholder="Add a caption..." value={this.state.caption} onChange={this.captionChange}/>
-              <input className="post-form-submit-button" type="submit" value="Add Post"/>
-            </form>
+            <div className="post-form-text">
+              <p className="post-form-header">Post a Picture</p>
+              <form className="post-form-boxes" onSubmit={this.handleSubmit}>
+                <input className="choose-file" type="file" placeholder="image file" onChange={this.updateFile} />
+                <textarea className="upload-image-caption" type="text" placeholder="Add a caption..." value={this.state.caption} onChange={this.captionChange}/>
+                <input className="post-form-submit-button" type="submit" value="Add Post"/>
+              </form>
+            </div>
 
           </div>
 

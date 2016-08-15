@@ -24,9 +24,10 @@ var ProfileForm = React.createClass({
       modalOpen: false
     };
   },
+  
 
   closeModal: function(){
-    this.setState({ modalOpen: false });
+    this.setState({ modalOpen: false, bio: this.props.user.bio });
   },
   openModal: function(){
     this.setState({ modalOpen: true });
@@ -43,8 +44,8 @@ var ProfileForm = React.createClass({
     // setup preview
     // FileReader is a constructor built into Javascript
     var fileReader = new FileReader();
-    var imageUrlValue = fileReader.result || this.state.imageUrl;
     fileReader.onloadend = function() {
+      var imageUrlValue = fileReader.result || this.state.imageUrl;
       this.setState({ imageFile: file, imageUrl: imageUrlValue });
     }.bind(this);
 
@@ -65,12 +66,7 @@ var ProfileForm = React.createClass({
     // profileFormData.append("post[user_id]", this.state.user_id);
     profileFormData.append("user[bio]", this.state.bio);
     profileFormData.append("user[profile_picture]", this.state.imageFile );
-    ClientActions.updateCurrentUser(this.state.user_id, profileFormData, this.backToUserPage);
-    this.setState({bio: "", imageFile: "", imageUrl: ""});
-  },
-
-  backToUserPage: function() {
-    this.context.router.push("/users/" + this.state.user_id);
+    ClientActions.updateCurrentUser(this.state.user_id, profileFormData);
   },
 
   render: function() {
@@ -88,16 +84,18 @@ var ProfileForm = React.createClass({
 
           <div className="modal-body">
 
-            <p className="post-form-header">Update Profile</p>
             <div className="image-preview-box">
               <img className="image-preview" src={this.state.imageUrl}/>
             </div>
 
-            <form className="post-form-boxes" onSubmit={this.handleSubmit}>
-              <input className="choose-file" type="file" placeholder="image file" onChange={this.updateFile} />
-              <textarea className="upload-image-caption" type="text" defaultValue={ this.state.bio } onChange={this.bioChange}/>
-              <input className="post-form-submit-button" type="submit" value="Update Profile"/>
-            </form>
+            <div className="post-form-text">
+              <p className="post-form-header">Update Profile</p>
+              <form className="post-form-boxes" onSubmit={this.handleSubmit}>
+                <input className="choose-file" type="file" placeholder="image file" onChange={this.updateFile} />
+                <textarea className="upload-image-caption" type="text" placeholder="Personal Blurb" defaultValue={ this.state.bio } onChange={this.bioChange}/>
+                <input className="post-form-submit-button" type="submit" value="Update Profile"/>
+              </form>
+            </div>
 
           </div>
 

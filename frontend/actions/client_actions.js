@@ -28,8 +28,8 @@ module.exports = {
     CommentApiUtil.createOneComment(commentFormData);
   },
 
-  updateCurrentUser: function(currentUserId, profileFormData, backToUserPage) {
-    UserApiUtil.updateUserProfile(currentUserId, profileFormData, backToUserPage);
+  updateCurrentUser: function(currentUserId, profileFormData) {
+    UserApiUtil.updateUserProfile(currentUserId, profileFormData);
   },
 
   fetchUsersThatMatchSearch: function(searchValue) {

@@ -92,7 +92,6 @@ var LoginForm = React.createClass({
 
 	renderErrors: function(errorType) {
 		var errorMessage = ErrorStore.extractErrorMessage(errorType);
-		// console.log( errorMessage );
 		if ( errorMessage ) {
 			return (<p className="login-form-error">{errorMessage}</p>);
 		}
