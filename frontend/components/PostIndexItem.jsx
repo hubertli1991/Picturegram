@@ -89,17 +89,34 @@ var PostIndexItem = React.createClass({
   },
 
   renderArrows: function() {
+    var arrows = { left: { callback: this.renderLeft, status: true }, right: { callback: this.renderRight, status: true } };
+
     if ( this.state.postNumber >= this.props.postCount - 1 ) {
-      return ( <div className="modal-click-left" onClick={ this.clickLeft }/> );
-    } else if ( this.state.postNumber <= 0 ) {
-      return ( <div className="modal-click-right" onClick={ this.clickRight }/> );
-    } else {
-      return (
-        <div>
-          <div className="modal-click-right" onClick={ this.clickRight }/>
-          <div className="modal-click-left" onClick={ this.clickLeft }/>
-        </div>
-      );
+      arrows.right.status = false;
+    }
+    if ( this.state.postNumber <= 0 ) {
+      arrows.left.status = false;
+    }
+
+    return (
+      <div>
+        { Object.keys(arrows).map( function(direction, idx) {
+            return ( arrows[direction].callback( arrows[direction].status, idx ) );
+          }
+        ) }
+      </div>
+    );
+  },
+
+  renderLeft: function(status, idx) {
+    if ( status ) {
+      return <div className="modal-click-left" key={idx} onClick={ this.clickLeft }/>;
+    }
+  },
+
+  renderRight: function(status, idx) {
+    if ( status ) {
+      return <div className="modal-click-right" key={idx} onClick={ this.clickRight }/>;
     }
   },
 
@@ -171,7 +188,7 @@ var PostIndexItem = React.createClass({
             </div>
 
             { this.renderArrows() }
-            
+
           </Modal>
         </div>
       </div>
