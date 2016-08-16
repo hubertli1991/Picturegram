@@ -644,6 +644,30 @@ body {
   /*background: #ededed;*/
 }
 
+.modal-click-right {
+  /*background-color: green;*/
+  position: absolute;;
+  top: 145px;
+  right: -130px;
+  height: 300px;
+  width: 125px;
+  background-image: url("right_arrow.png");
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
+.modal-click-left {
+  /*background-color: green;*/
+  position: absolute;;
+  top: 155px;
+  left: -130px;
+  height: 300px;
+  width: 125px;
+  background-image: url("left_arrow.png");
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
 .image-preview-box {
   /*display: block;
   position: absolute;

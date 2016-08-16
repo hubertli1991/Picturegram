@@ -42,6 +42,10 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
    }
  };
 
+ PostStore.fetcherPostByArrayIndex = function(postNumber) {
+   return _posts[postNumber];
+ };
+
  PostStore.fetchUser = function() {
    var user = {};
    if (this.userAndPosts) {

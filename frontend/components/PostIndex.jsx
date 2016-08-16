@@ -81,7 +81,7 @@ var PostIndex = React.createClass({
   render: function() {
     var currentPathLocation = this.props.location.pathname;
     var user = PostStore.fetchUser();
-
+    var postCount = this.state.posts.length;
     return (
       <div>
         <NavBar/>
@@ -121,14 +121,14 @@ var PostIndex = React.createClass({
           style={_Logout_Style}>
           <div className="logout-modal" >
             <button className="logout-half" onClick={ this.handleLogOut }> Log out </button>
-            <button className="cancel-half" onClick={this.closeModal}> Cancel </button>
+            <button className="cancel-half" onClick={ this.closeModal }> Cancel </button>
           </div>
         </Modal>
 
         <div className="user-picture-index group">
           <ul>
             {this.state.posts.map(function(post, idx) {
-              return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} thumbnail={user.profile_picture_url_thumb_nail} path={currentPathLocation}/></div>);
+              return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} postNumber={idx} postCount={postCount} thumbnail={user.profile_picture_url_thumb_nail} path={currentPathLocation}/></div>);
             })}
           </ul>
         </div>

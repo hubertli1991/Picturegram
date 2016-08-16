@@ -15,45 +15,106 @@ var PostIndexItem = React.createClass({
   },
 
   //modal function start
-  getInitialState: function(){
-    return({ modalOpen: false });
+  getInitialState: function() {
+    return({ modalOpen: false, post: this.props.post, postNumber: this.props.postNumber });
+    // Note this.state.post is the post object the modal gets.
+    // This.props.post the the post object PostIndexItem uses to render on the PostIndex page.
+    // I could have gotten rid of this.state.post and only used postNumbers and had this component
+    // invoke PostStore.fetcherPostByArrayIndex(this.state.postNumber) to get the post object, but I wanted
+    // to minimize the interactions with the PostStore.
+    // This way, there is a default post object the modal uses and calls on the PostStore
+    // ONLY when there are changes made to the store or when the user navigates posts using the left and right arrows.
   },
-  closeModal: function(){
-    this.setState({ modalOpen: false });
+
+  componentDidMount: function() {
+    this.postStorelistener = PostStore.addListener(this._onChange);
   },
-  openModal: function(){
+
+  componentWillUnmount: function() {
+    this.postStorelistener.remove();
+  },
+
+  _onChange: function() {
+    // otherwise when comments are added, the PostIndex will recieve the updated Post objects
+    // but the PostIndexItem will not
+    this.setState( {post: PostStore.fetcherPostByArrayIndex(this.state.postNumber)} );
+  },
+
+  closeModal: function() {
+    document.removeEventListener("keydown", this.handleKeyDown);
+    this.setState({ modalOpen: false, post: this.props.post, postNumber: this.props.postNumber });
+  },
+  openModal: function() {
+    document.addEventListener("keydown", this.handleKeyDown);
     this.setState({ modalOpen: true });
   },
   //modal function end
-
-  // When PostStore __emitChange, PostIndex will re-render, thus updating this.props.post
-  //
-  // componentDidMount: function() {
-  //   var postStorelistener = PostStore.addListener(this.onChange);
-  // },
-  //
-  // _onChange: function() {
-  //   this.setState({ comments: PostStore.fetchSinglePost(this.props.post.id).comments });
-  // },
 
   handleClick: function(id) {
     this.closeModal();
     this.context.router.push( "/users/" + id );
   },
 
-  // <img src={this.props.post.image_url}/>
-  render: function() {
+  handleKeyDown: function(e) {
+    if ( e.keyCode === 39 && this.state.postNumber < this.props.postCount - 1 ) {
+      this.switchPost( "right" );
+    }
+    if ( e.keyCode === 37 && this.state.postNumber > 0 ) {
+      this.switchPost( "left" );
+    }
+  },
 
+  clickLeft: function() {
+    this.switchPost( "left" );
+  },
+
+  clickRight: function() {
+    this.switchPost( "right" );
+  },
+
+  switchPost: function( direction ) {
+    if ( direction === "left" ) {
+      this.state.postNumber --;
+      this.renderNextPost( this.state.postNumber );
+    }
+    if ( direction === "right" ) {
+      this.state.postNumber ++;
+      this.renderNextPost( this.state.postNumber );
+    }
+  },
+
+  renderNextPost: function(nextPostId) {
+    var nextPost = PostStore.fetcherPostByArrayIndex(nextPostId);
+    this.setState( { post: nextPost } );
+  },
+
+  renderArrows: function() {
+    if ( this.state.postNumber >= this.props.postCount - 1 ) {
+      return ( <div className="modal-click-left" onClick={ this.clickLeft }/> );
+    } else if ( this.state.postNumber <= 0 ) {
+      return ( <div className="modal-click-right" onClick={ this.clickRight }/> );
+    } else {
+      return (
+        <div>
+          <div className="modal-click-right" onClick={ this.clickRight }/>
+          <div className="modal-click-left" onClick={ this.clickLeft }/>
+        </div>
+      );
+    }
+  },
+
+  // <img src={this.state.post.image_url}/>
+  render: function() {
     var comments = [];
-    if (this.props.post.comments) {
-      comments = this.props.post.comments;
+    if (this.state.post.comments) {
+      comments = this.state.post.comments;
     } else {
       comments = [];
     }
 
     var millisecondDay = 1000*60*60*24;
     var currentDate = new Date();
-    var createAtDate = new Date(this.props.post.created_at);
+    var createAtDate = new Date(this.state.post.created_at);
     var daysSince = Math.ceil( (currentDate - createAtDate) / millisecondDay);
     var timeSince = 0;
     var timeUnit = 0;
@@ -78,19 +139,19 @@ var PostIndexItem = React.createClass({
             onRequestClose={this.closeModal}
             style={_Style}>
 
-            <img className="picture" src={this.props.post.image_url_large}/>
+            <img className="picture" src={this.state.post.image_url_large}/>
 
             <div className="non-picture-stuff" >
 
-              <div className="post-header" onClick={ this.handleClick.bind(null, this.props.post.user_id) }>
-                <img className="thumbnail" src={this.props.thumbnail}/> <p className="thumb-username">{this.props.post.username}</p>
+              <div className="post-header" onClick={ this.handleClick.bind(null, this.state.post.user_id) }>
+                <img className="thumbnail" src={this.props.thumbnail}/> <p className="thumb-username">{this.state.post.username}</p>
                 <div className="time-since"> {timeSince + timeUnit} </div>
               </div>
 
               <div className="caption-and-comments">
                 <div className="caption">
-                  <div> <p className="username" onClick={ this.handleClick.bind(null, this.props.post.user_id) }> {this.props.post.username} </p>
-                    {this.props.post.caption} </div>
+                  <div> <p className="username" onClick={ this.handleClick.bind(null, this.state.post.user_id) }> {this.state.post.username} </p>
+                    {this.state.post.caption} </div>
                 </div>
 
                 <ul className="comment-list">
@@ -104,11 +165,13 @@ var PostIndexItem = React.createClass({
               </div>
 
               <div className="comment-form">
-                <CommentForm postId={this.props.post.id}/>
+                <CommentForm postId={this.state.post.id}/>
               </div>
 
-          </div>
+            </div>
 
+            { this.renderArrows() }
+            
           </Modal>
         </div>
       </div>
