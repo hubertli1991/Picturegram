@@ -19,8 +19,9 @@ var PostIndexItem = React.createClass({
   //modal function start
   getInitialState: function() {
     return({ modalOpen: false, post: this.props.post, postNumber: this.props.postNumber });
-    // Note this.state.post is the post object the modal gets.
-    // This.props.post the the post object PostIndexItem uses to render on the PostIndex page.
+    // Note this.state.post is the post object the MODAL gets.
+    // This.props.post is the the post object PostIndexItem uses to render the squaare image on the PostIndex page.
+    // Thus, can't just change the props and invoke componentWillReceiveProps here
     // I could have gotten rid of this.state.post and only used postNumbers and had this component
     // invoke PostStore.fetcherPostByArrayIndex(this.state.postNumber) to get the post object, but I wanted
     // to minimize the interactions with the PostStore.
@@ -186,7 +187,7 @@ var PostIndexItem = React.createClass({
               </div>
 
 
-              <LikeButton postId={this.state.post.id}/>
+              <LikeButton postId={this.state.post.id} caption={this.state.post.caption}/>
               <div className="comment-form">
                 <CommentForm postId={this.state.post.id}/>
               </div>
