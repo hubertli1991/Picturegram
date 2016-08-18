@@ -20,6 +20,11 @@ var LikeCount = React.createClass({
     this.LikeStoreListener.remove();
   },
 
+  // Don't need a componentWillReceiveProps because we have alistener attached to the LikeStore
+  // LikeButton already triggered teh change that we would otherwise call for when props change
+  // Think of LikeCount and LikeButton as the some component. We split them because I want to place
+  // them under different parent tags.
+
   _onChange: function() {
     var likeObject = LikeStore.fetchLikeObject(this.props.postId);
     this.setState({count: likeObject.count});
