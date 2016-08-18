@@ -6,6 +6,8 @@ var _Style = require("../modal_styles/modal_styles");
 // Modal Require End
 var PostStore = require("../stores/post_store");
 var CommentForm = require("./CommentForm");
+var LikeButton = require('./LikeButton');
+var LikeCount = require('./LikeCount');
 
 
 var PostIndexItem = React.createClass({
@@ -74,11 +76,11 @@ var PostIndexItem = React.createClass({
 
   switchPost: function( direction ) {
     if ( direction === "left" ) {
-      this.state.postNumber --;
+      this.state.postNumber--;
       this.renderNextPost( this.state.postNumber );
     }
     if ( direction === "right" ) {
-      this.state.postNumber ++;
+      this.state.postNumber++;
       this.renderNextPost( this.state.postNumber );
     }
   },
@@ -165,6 +167,8 @@ var PostIndexItem = React.createClass({
                 <div className="time-since"> {timeSince + timeUnit} </div>
               </div>
 
+              <LikeCount postId={this.state.post.id}/>
+
               <div className="caption-and-comments">
                 <div className="caption">
                   <div> <p className="username" onClick={ this.handleClick.bind(null, this.state.post.user_id) }> {this.state.post.username} </p>
@@ -181,6 +185,8 @@ var PostIndexItem = React.createClass({
                 </ul>
               </div>
 
+
+              <LikeButton postId={this.state.post.id}/>
               <div className="comment-form">
                 <CommentForm postId={this.state.post.id}/>
               </div>

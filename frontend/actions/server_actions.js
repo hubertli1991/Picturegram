@@ -1,4 +1,5 @@
 var UserAndPostConstants = require('../constants/user_and_post_constants');
+var LikeConstants = require('../constants/like_constants');
 var AppDispatcher = require('../dispatcher/dispatcher');
 
 var ServerActions = {
@@ -46,6 +47,29 @@ var ServerActions = {
     AppDispatcher.dispatch({
       actionType: UserAndPostConstants.BRING_DOWN_MATCHED_USERS,
       matchedUsers: matchedUsers
+    });
+  },
+
+// Like or Unlike
+
+  fetchLikes: function(likeObject) {
+    AppDispatcher.dispatch({
+      actionType: LikeConstants.FETCH_LIKE_OBJECT,
+      likeObject: likeObject
+    });
+  },
+
+  like: function(likeObject) {
+    AppDispatcher.dispatch({
+      actionType: LikeConstants.LIKE,
+      likeObject: likeObject
+    });
+  },
+
+  unlike: function(likeObject) {
+    AppDispatcher.dispatch({
+      actionType: LikeConstants.UNLIKE,
+      likeObject: likeObject
     });
   }
 };

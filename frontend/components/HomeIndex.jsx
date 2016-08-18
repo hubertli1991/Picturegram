@@ -20,6 +20,15 @@ var HomeIndex = React.createClass({
 
   componentDidMount: function() {
     this.postStorelistener = PostStore.addListener(this._onChange);
+    // infinte scroll -start
+    // this.infiniteScrollCallback = function(e) {
+    //   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    //     console.log("test");
+          // ClientActions.fetchSomePosts(5);
+    //   }
+    // }.bind(this);
+    // window.addEventListener("scroll", this.infiniteScrollCallback);
+    // infinte scroll -end
     ClientActions.fetchAllPosts();
   },
 
@@ -36,7 +45,6 @@ var HomeIndex = React.createClass({
   },
 
   render: function() {
-
     return(
       <div>
         <div className="spacing-above-post-form-home"></div>

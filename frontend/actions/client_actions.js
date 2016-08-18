@@ -1,6 +1,7 @@
 var PostApiUtil = require('../util/post_api_util');
 var UserApiUtil = require('../util/user_api_util');
 var CommentApiUtil = require('../util/comment_api_util');
+var LikeApiUtil = require('../util/like_api_util');
 
 module.exports = {
 
@@ -34,5 +35,18 @@ module.exports = {
 
   fetchUsersThatMatchSearch: function(searchValue) {
     UserApiUtil.fetchUsersThatMatchSearch(searchValue);
+  },
+
+  fetchLikes: function(postId) {
+    LikeApiUtil.fetchLikes(postId);
+  },
+
+  like: function(postId) {
+    LikeApiUtil.like(postId);
+  },
+
+  unlike: function(postId) {
+    // debugger;
+    LikeApiUtil.unlike(postId);
   }
 };

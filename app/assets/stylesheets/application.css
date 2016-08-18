@@ -888,22 +888,29 @@ body {
 
 .caption-and-comments {
   overflow-y: auto;
-  top: 16%;
-  height: 70%;
+  top: 25%;
+  bottom: 15%;
+  /*height: 70%;*/
   width: 100%;
+  font-size: 20px;
+  font-weight: 400;
   /*background: pink;*/
   position: absolute;
+  border-bottom: 1px solid #dbdbdb;
 }
 
 .caption {
-  color: #262626;
-  margin: 10px 0 10px 0;
+  /*color: #262626;*/
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  font-weight: 400;
+  /*background-color: green;*/
 }
 
 .username {
   display: inline;
   font-weight: 600;
-  color: #262626;
+  /*color: #262626;*/
   cursor: pointer;
 }
 
@@ -917,18 +924,63 @@ body {
   /*border-bottom: 1px solid #efefef;*/
 }
 
+.like-button-container{
+  position: absolute;
+  /*background-color: green;*/
+  top: 85%;
+  left: 0%;
+  right: 80%;
+  /*height: 15%;*/
+  bottom: 0%;
+  cursor: pointer;
+}
+
+.like-button-like {
+  position: absolute;
+  left: 5%;
+  top: 25%;
+  width: 90%;
+  height: 50%;
+  background-image: url("heart-outline.png");
+  background-size: 100% 100%;
+}
+
+.like-button-unlike {
+  position: absolute;
+  left: 5%;
+  top: 25%;
+  width: 90%;
+  height: 50%;
+  background-image: url("pink-heart.png");
+  background-size: 100% 100%;
+  /*background-color: green;*/
+}
+
+.like-count{
+  position: absolute;
+  /*background-color: red;*/
+  font-size: 20px;
+  font-weight: 600;
+  padding-top: 7%;
+  padding-bottom: 7%;
+  top: 15%;
+  /*bottom: 60%;*/
+}
+
 .comment-form {
   position: absolute;
   top: 85%;
+  left: 20%;
   height: 15%;
-  width: 100%;
+  right: 0%;
+  /*width: 85%;*/
+  /*left: 15%;*/
   /*background: red;*/
   /*padding: 15px;*/
   /*font-size: 20px;*/
   /*border-top: 1px solid #efefef;*/
-  border-top: 1px solid #dbdbdb;
+  /*border-top: 1px solid #dbdbdb;*/
 }
-
 
 /*Home Index Items */
 
@@ -1022,6 +1074,8 @@ body {
   left: 5%;
   bottom: 8%;
   width: 90%;
+  font-size: 20px;
+  font-weight: 400;
   /*height: 18.5%;*/
   font-size: 20px;
   overflow-y: auto;
@@ -1053,14 +1107,15 @@ body {
   /*padding: 15px;
   margin: auto;*/
   /*border-top: 1px solid #efefef;*/
-  border-top: 1px solid #dbdbdb;
+  /*border-top: 1px solid #dbdbdb;*/
 }
 
 .comment-form-text {
   position: absolute;
-  top: 33%;
+  top: 30%;
   width: 90%;
   border: 0;
+  margin: 2%;
   outline: none;
   font-size: 20px;
   /*margin: auto;*/

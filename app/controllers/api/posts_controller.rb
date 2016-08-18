@@ -16,7 +16,7 @@ class Api::PostsController < ApplicationController
 
   def create
     if post_params[:image] == "null" || post_params[:caption] == "null" || post_params[:caption] == ""
-      
+
       if post_params[:image] == "null"
         @post_image_error = "Please upload an image"
       end
