@@ -624,6 +624,7 @@ body {
   height: 78px;
   margin: auto;
   /*background-color: green;*/
+  padding-top: 0px;
   /*margin-bottom: 2.5%;*/
 }
 
@@ -632,7 +633,7 @@ body {
 }
 
 .spacing-above-post-form-home {
-  height: 10px;
+  height: 1px;
 }
 
 .spacing-below-post-form-home {
