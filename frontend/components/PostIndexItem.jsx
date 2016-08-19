@@ -187,7 +187,7 @@ var PostIndexItem = React.createClass({
               </div>
 
 
-              <LikeButton postId={this.state.post.id} caption={this.state.post.caption}/>
+              <LikeButton postId={this.state.post.id} caption={this.state.post.caption} location={"userPage"}/>
               <div className="comment-form">
                 <CommentForm postId={this.state.post.id}/>
               </div>

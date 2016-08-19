@@ -34,6 +34,10 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
    return _posts;
  };
 
+ PostStore.fetchFive = function(idx) {
+   return _posts.slice(idx, idx + 5);
+ };
+
  PostStore.fetchSinglePost = function(postId) {
    for (var i = 0; i < _posts.length; i++) {
      if (_posts[i].id === postId) {

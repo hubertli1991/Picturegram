@@ -982,6 +982,18 @@ body {
   /*border-top: 1px solid #dbdbdb;*/
 }
 
+.comment-form-text {
+  position: absolute;
+  top: 30%;
+  width: 90%;
+  border: 0;
+  margin: 2% 2% 2% 4%;
+  outline: none;
+  font-size: 20px;
+  /*margin: auto;*/
+  /*background: green;*/
+}
+
 /*Home Index Items */
 
 .home-index-item {
@@ -1068,9 +1080,27 @@ body {
   /*width: 50%;*/
 }
 
+.like-count-home {
+  position: absolute;
+  /*background-color: red;*/
+  /*font-size: 20px;
+  font-weight: 600;
+  padding-top: 7%;
+  padding-bottom: 7%;
+  top: 15%;*/
+  top: 692px;
+  left: 5%;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 18px 0px 16px 0px;
+  /*bottom: 60%;*/
+}
+
 .caption-and-comments-home {
   position: absolute;
-  top: 71%;
+  /*top: 71%;*/
+  /*top: 744px;*/
+  top: 750px;
   left: 5%;
   bottom: 8%;
   width: 90%;
@@ -1079,6 +1109,7 @@ body {
   /*height: 18.5%;*/
   font-size: 20px;
   overflow-y: auto;
+  border-bottom: 1px solid #dbdbdb;
   /*background: green;*/
   /*border-bottom: 1px solid #efefef;*/
 }
@@ -1101,23 +1132,33 @@ body {
   position: absolute;
   top: 92%;
   height: 8%;
-  width: 90%;
-  left: 5%;
-  /*background: pink;*/
+  /*width: 90%;*/
+  right: 5%;
+  left: 15%;
+  /*background-color: blue;*/
   /*padding: 15px;
   margin: auto;*/
   /*border-top: 1px solid #efefef;*/
   /*border-top: 1px solid #dbdbdb;*/
 }
 
-.comment-form-text {
+.like-button-container-home {
   position: absolute;
-  top: 30%;
+  top: 92%;
+  left: 5%;
+  right: 85%;
+  bottom: 0%;
+  /*background-color: green;*/
+}
+
+.comment-form-text-home {
+  position: absolute;
+  top: 22%;
   width: 90%;
   border: 0;
   margin: 2%;
   outline: none;
   font-size: 20px;
   /*margin: auto;*/
-  /*background: green;*/
+  /*background: red;*/
 }

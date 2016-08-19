@@ -5,7 +5,11 @@ var ClientActions = require('../actions/client_actions');
 var CommentForm = React.createClass({
 
   getInitialState: function() {
-    return {body: ""};
+    var className = "comment-form-text";
+    if ( this.props.location === "home" ) {
+      className = "comment-form-text-home";
+    }
+    return {body: "", className: className};
   },
 
   bodyChange: function(e) {
@@ -24,7 +28,7 @@ var CommentForm = React.createClass({
   render: function() {
     return(
         <form onSubmit={this.handleSubmit}>
-          <input className="comment-form-text" type="text" placeholder="Add a comment..." value={this.state.body} onChange={this.bodyChange}></input>
+          <input className={this.state.className} type="text" placeholder="Add a comment..." value={this.state.body} onChange={this.bodyChange}></input>
         </form>
     );
   }

@@ -9,7 +9,10 @@ var LikeApiUtil = {
       url: 'api/likes/fetch_with_postId/' + postId,
       dataType: 'json',
       success: function(likeObject) {
-        // debugger;
+        // if ( Object.keys(likeObject)[0] === 114) {
+        //   console.log( "YES!");
+        // }
+        // console.log( likeObject );
         ServerActions.fetchLikes(likeObject);
       }
     });

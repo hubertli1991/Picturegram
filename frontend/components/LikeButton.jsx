@@ -6,11 +6,32 @@ var ClientActions = require('../actions/client_actions');
 
 var LikeButton = React.createClass({
   getInitialState: function() {
-    return { postId: this.props.postId, caption: this.props.caption, permissionToLike: true, className: "like-button-like" };
+    var className = this.className().permissionGranted;
+    return { postId: this.props.postId, caption: this.props.caption, permissionToLike: true,
+      className: className };
+  },
+
+  className: function() {
+    if ( this.props.location === "home" ) {
+      return {
+        container: "like-button-container-home",
+        permissionGranted: "like-button-like",
+        permissionDenied: "like-button-unlike"
+      };
+    }
+    return {
+      container: "like-button-container",
+      permissionGranted: "like-button-like",
+      permissionDenied: "like-button-unlike"
+    };
   },
 
   componentDidMount: function() {
     this.likeListener = LikeStore.addListener(this._onChange);
+    // if ( this.state.postId === 114 ) {
+    //   debugger;
+    // }
+    // console.log(this.state.postId);
     ClientActions.fetchLikes(this.state.postId);
   },
 
@@ -30,25 +51,38 @@ var LikeButton = React.createClass({
   },
 
   _onChange: function() {
+
     var likeObject = LikeStore.fetchLikeObject(this.state.postId);
-    var className = "like-button-unlike";
-    if ( likeObject.permissionToLike ) {
-      className = "like-button-like";
+    // if ( likeObject === undefined ) {
+    //   debugger;
+    // }
+    // debugger;
+    // var className = "like-button-unlike";
+    if ( likeObject && (likeObject.permissionToLike !== this.state.permissionToLike) ) {
+      // className = "like-button-like";
+      var className = this.likeButtonClassName( likeObject.permissionToLike );
+      this.setState({ permissionToLike: likeObject.permissionToLike, className: className });
     }
-    this.setState({ permissionToLike: likeObject.permissionToLike, className: className });
+  },
+
+  likeButtonClassName: function(status) {
+    if ( status ) {
+      return this.className().permissionGranted;
+    }
+    return this.className().permissionDenied;
   },
 
   like: function() {
     ClientActions.like(this.state.postId);
-    this.setState({className: "like-button-unlike"});
+    this.setState({className: this.className().permissionDenied});
   },
 
   unlike: function() {
     ClientActions.unlike(this.state.postId);
-    this.setState({className: "like-button-like"});
+    this.setState({className: this.className().permissionGranted});
   },
 
-  likeOrUnlike: function() {
+  handleClick: function() {
     if ( this.state.permissionToLike ) {
       this.like();
     } else {
@@ -59,7 +93,7 @@ var LikeButton = React.createClass({
   render: function() {
 
     return(
-      <div className="like-button-container"><div className={this.state.className} onClick={this.likeOrUnlike}></div></div>
+      <div className={this.className().container}><div className={this.state.className} onClick={this.handleClick}></div></div>
     );
   }
 });

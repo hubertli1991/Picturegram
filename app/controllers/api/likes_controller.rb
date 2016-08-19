@@ -4,7 +4,6 @@ class Api::LikesController < ApplicationController
   end
 
   def show_with_post_id
-    # debugger
     @likes = Like.where(post_id: params[:id])
     count = @likes.count
     postId = params[:id].to_sym
@@ -14,6 +13,9 @@ class Api::LikesController < ApplicationController
         @return_object[postId][:permissionToLike] = false
       end
     end
+    # if params[:id] == "117"
+    #   puts "117 hit!"
+    # end
     render json: @return_object
   end
 

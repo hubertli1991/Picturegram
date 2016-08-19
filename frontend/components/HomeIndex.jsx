@@ -6,6 +6,8 @@ var ClientActions = require('../actions/client_actions');
 var CommentForm = require("./CommentForm");
 var NavBar = require('./NavBar');
 var PostForm = require('./PostForm');
+var LikeButton = require('./LikeButton');
+var LikeCount = require('./LikeCount');
 var SessionStore = require('../stores/session_store');
 
 var HomeIndex = React.createClass({
@@ -33,7 +35,7 @@ var HomeIndex = React.createClass({
   },
 
   _onChange: function() {
-    this.setState( {posts: PostStore.all() } );
+    this.setState( {posts: PostStore.fetchFive(0) } );
   },
 
   handleClick: function(id) {
@@ -80,6 +82,8 @@ var HomeIndex = React.createClass({
 
                         <img className="home-picture" src={post.image_url_large} />
 
+                        <LikeCount postId={post.id} location={"home"}/>
+
                         <div className="caption-and-comments-home" >
                           <div className="caption">
                             <div> <p className="username-home" onClick={ this.handleClick.bind(null, post.user_id) }> {post.username} </p>
@@ -96,11 +100,12 @@ var HomeIndex = React.createClass({
                           </ul>
                         </div>
 
+                        <LikeButton postId={post.id} caption={post.caption} key={idx} location={"home"}/>
+
                         <div className="comment-form-home">
-                          <CommentForm postId={post.id}/>
+                          <CommentForm postId={post.id} location={"home"}/>
                         </div>
                       </div>
-
 
                     </li>
                   );
