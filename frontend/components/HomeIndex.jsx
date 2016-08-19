@@ -35,7 +35,21 @@ var HomeIndex = React.createClass({
   },
 
   _onChange: function() {
-    this.setState( {posts: PostStore.fetchFive(0) } );
+    this.setState( { posts: PostStore.fetchFive(0) } );
+  },
+
+  fetchFive: function() {
+    var idx = this.state.posts.length;
+    var fivePosts = PostStore.fetchFive(idx);
+    this.setState( {posts: this.state.posts.concat(fivePosts)} );
+  },
+
+  renderFetchFive: function() {
+    if ( PostStore.all().length > this.state.posts.length ) {
+      return (
+        <div className="fetch-five" onClick={this.fetchFive}></div>
+      );
+    }
   },
 
   handleClick: function(id) {
@@ -111,6 +125,8 @@ var HomeIndex = React.createClass({
                   );
             }.bind(this) )}
         </ul>
+
+        {this.renderFetchFive()}
 
       </div>
     );

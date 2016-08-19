@@ -611,6 +611,7 @@ body {
   /*position: absolute;*/
   /*margin: auto;*/
   /*margin-bottom: 2.5%;*/
+
 }
 
 .post-form-home {
@@ -619,8 +620,10 @@ body {
 
 .post-form-button {
   font-size: 75px;
-  width: 5%;
+  width: 93px;
+  height: 92px;
   margin: auto;
+  /*background-color: green;*/
   /*margin-bottom: 2.5%;*/
 }
 
@@ -1161,4 +1164,15 @@ body {
   font-size: 20px;
   /*margin: auto;*/
   /*background: red;*/
+}
+
+.fetch-five {
+  /*background-color: green;*/
+  cursor: pointer;
+  background-image: url('load-more.png');
+  background-size: 100% 100%;
+  width: 125px;
+  height: 125px;
+  margin: auto;
+  margin-bottom: 40px;
 }
