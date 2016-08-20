@@ -1209,6 +1209,7 @@ body {
   left: 5%;
   right: 85%;
   bottom: 0%;
+  cursor: pointer;
   /*background-color: green;*/
 }
 

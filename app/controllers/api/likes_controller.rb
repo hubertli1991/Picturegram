@@ -20,14 +20,22 @@ class Api::LikesController < ApplicationController
   end
 
   def create
-    @like = Like.new(like_params)
-    @like.user_id = current_user.id
-    @like.username = current_user.username
-    if @like.save
-      puts "saved"
-      count = Like.where(post_id: @like.post_id).count
+    # debugger
+    @green = Like.where(post_id: like_params[:post_id], user_id: current_user.id)
+    if @green[0]
+      # user has already liked the post
+      # do nothing silently
+    else
+      # create like object, save and render
+      @like = Like.new(like_params)
+      @like.user_id = current_user.id
+      @like.username = current_user.username
+      if @like.save
+        puts "saved"
+        count = Like.where(post_id: @like.post_id).count
 
-      render json: {like_params[:post_id].to_sym => { postId: @like.post_id, count: count, permissionToLike: false }}
+        render json: {like_params[:post_id].to_sym => { postId: @like.post_id, count: count, permissionToLike: false }}
+      end
     end
   end
 
