@@ -593,6 +593,7 @@ body {
   width: 30%;
   background: black;
   cursor: pointer;
+  position: relative;
   /*border: 1px solid #D8D8D8;*/
 }
 
@@ -600,9 +601,65 @@ body {
   /*width: 450px;
   height: 450px;*/
   width: 100%;
+  /*position: relative;*/
 }
-.index-picture:hover {
+
+.posted-picture:hover .index-picture {
   opacity: 0.6;
+}
+
+.posted-picture:hover .index-picture-icons {
+  z-index: 1;
+}
+
+.index-picture-icons{
+  position: absolute;
+  top: 45%;
+  bottom: 45%;
+  left: 27%;
+  right: 27%;
+  /*background-color: green;*/
+  z-index: -1;
+}
+
+.fa.fa-heart {
+  float: left;
+  padding-right: 8%;
+}
+
+.like-count-index {
+  float: left;
+}
+
+.like-count-with-icon-index {
+  position: absolute;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 50%;
+  font-size: 3vw;
+  color: white;
+  /*background-color: red;*/
+}
+
+.fa.fa-comment {
+  float: right;
+  padding-right: 8%;
+}
+
+.comment-count-index {
+  float: right;
+}
+
+.comment-count-with-icon-index {
+  position: absolute;
+  top: 0%;
+  bottom: 0%;
+  right: 0%;
+  left: 50%;
+  font-size: 3vw;
+  color: white;
+  /*text-align: right;*/
 }
 
 /*PostForm*/

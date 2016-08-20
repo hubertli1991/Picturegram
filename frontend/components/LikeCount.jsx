@@ -10,6 +10,8 @@ var LikeCount = React.createClass({
     var className = "like-count";
     if ( this.props.location === "home" ) {
       className = "like-count-home";
+    } else if ( this.props.location === "index-page" ) {
+      className = "like-count-index";
     }
     return({count: 0, className: className});
   },
@@ -39,6 +41,9 @@ var LikeCount = React.createClass({
     var unit = "Likes";
     if ( this.state.count === 1 ) {
       unit = "Like";
+    }
+    if ( this.props.location === "index-page" ) {
+      unit = null;
     }
     return <p className={this.state.className}>{this.state.count} {unit}</p>;
   }
