@@ -17,12 +17,19 @@ var LikeCount = React.createClass({
   },
 
   componentDidMount: function() {
+    if ( this.props.postId ) {
+      console.log("in!!!");
+    }
     this.LikeStoreListener = LikeStore.addListener(this._onChange);
     ClientActions.fetchLikes(this.props.postId);
   },
 
   componentWillUnmount: function() {
     this.LikeStoreListener.remove();
+  },
+
+  componentWillReceiveProps: function(newProps) {
+    ClientActions.fetchLikes(newProps.postId);
   },
 
   // Don't need a componentWillReceiveProps because we have a listener attached to the LikeStore
@@ -32,6 +39,9 @@ var LikeCount = React.createClass({
 
   _onChange: function() {
     var likeObject = LikeStore.fetchLikeObject(this.props.postId);
+    if ( this.props.postId === 113 ) {
+      console.log(likeObject);
+    }
     if ( likeObject ) {
       this.setState({count: likeObject.count});
     }

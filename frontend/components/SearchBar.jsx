@@ -126,6 +126,7 @@ var SearchBar = React.createClass({
       }
     }
     else if ( e.keyCode === 13 && this.netUpDown !== 0) {
+      // ENTER key
       // var indexItemUsername = this.state.matchedUsers[this.netUpDown - 1].username;
       this.refs[this.currentTarget].searchForUser();
     }
