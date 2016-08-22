@@ -13,15 +13,12 @@ var LikeCount = React.createClass({
     } else if ( this.props.location === "index-page" ) {
       className = "like-count-index";
     }
-    return({count: 0, className: className});
+    return({count: 0, postId: this.props.postId, className: className});
   },
 
   componentDidMount: function() {
-    if ( this.props.postId ) {
-      console.log("in!!!");
-    }
     this.LikeStoreListener = LikeStore.addListener(this._onChange);
-    ClientActions.fetchLikes(this.props.postId);
+    ClientActions.fetchLikes(this.state.postId);
   },
 
   componentWillUnmount: function() {
@@ -29,7 +26,9 @@ var LikeCount = React.createClass({
   },
 
   componentWillReceiveProps: function(newProps) {
-    ClientActions.fetchLikes(newProps.postId);
+    // this.setState({postId: newProps.postId});
+    this.state.postId = newProps.postId;
+    ClientActions.fetchLikes(this.state.postId);
   },
 
   // Don't need a componentWillReceiveProps because we have a listener attached to the LikeStore
@@ -38,10 +37,7 @@ var LikeCount = React.createClass({
   // them under different parent tags.
 
   _onChange: function() {
-    var likeObject = LikeStore.fetchLikeObject(this.props.postId);
-    if ( this.props.postId === 113 ) {
-      console.log(likeObject);
-    }
+    var likeObject = LikeStore.fetchLikeObject(this.state.postId);
     if ( likeObject ) {
       this.setState({count: likeObject.count});
     }
