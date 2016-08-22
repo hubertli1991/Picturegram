@@ -8,6 +8,7 @@ var NavBar = require('./NavBar');
 var PostForm = require('./PostForm');
 var LikeButton = require('./LikeButton');
 var LikeCount = require('./LikeCount');
+var LikeStore = require('../stores/like_store');
 var SessionStore = require('../stores/session_store');
 
 var HomeIndex = React.createClass({
@@ -72,7 +73,7 @@ var HomeIndex = React.createClass({
             var millisecondDay = 1000*60*60*24;
             var currentDate = new Date();
             var createAtDate = new Date(post.created_at);
-            var daysSince = Math.ceil( (currentDate - createAtDate) / millisecondDay);
+            var daysSince = Math.ceil( (currentDate - createAtDate) / millisecondDay );
             var timeSince = 0;
             var timeUnit = 0;
             if( daysSince/7 < 1 ) {
@@ -94,7 +95,9 @@ var HomeIndex = React.createClass({
                           <div className="time-since-home"> {timeSince + timeUnit} </div>
                         </div>
 
-                        <img className="home-picture" src={post.image_url_large} />
+                        <div className="home-picture-container">
+                          <img className="home-picture" src={post.image_url_large}/>
+                        </div>
 
                         <LikeCount postId={post.id} location={"home"}/>
 
@@ -132,5 +135,7 @@ var HomeIndex = React.createClass({
     );
   }
 });
+
+// <div className="home-picture-underneath" id={idx}></div>
 
 module.exports = HomeIndex;

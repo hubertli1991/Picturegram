@@ -106,7 +106,7 @@ var LoginForm = React.createClass({
 	render: function () {
     var navButton;
     if (this.state.login) {
-      navButton = <p>Don't have an account? <button onClick={this.toggleForm} className="signin-signup-toggle" >Sign up</button></p>;
+      navButton = <p>{"Don't have an account?"} <button onClick={this.toggleForm} className="signin-signup-toggle" >Sign up</button></p>;
 			this.formType = 'Log in';
     } else {
       navButton = <p>Have an account? <button onClick={this.toggleForm} className="signin-signup-toggle" >Log in</button></p>;

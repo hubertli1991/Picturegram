@@ -604,6 +604,11 @@ body {
   /*position: relative;*/
 }
 
+@-webkit-keyframes fadeinout {
+  0%, 100% {opacity: 0;}
+  50% {opacity: 1;}
+}
+
 .posted-picture:hover .index-picture {
   opacity: 0.6;
 }
@@ -616,8 +621,8 @@ body {
   position: absolute;
   top: 45%;
   bottom: 45%;
-  left: 27%;
-  right: 27%;
+  left: 25%;
+  right: 25%;
   /*background-color: green;*/
   z-index: -1;
 }
@@ -1129,7 +1134,7 @@ body {
   color: rgb(153, 153, 153);
 }
 
-.home-picture {
+.home-picture-container {
   position: absolute;
   top: 9%;
   height: 60%;
@@ -1139,6 +1144,11 @@ body {
   border-bottom: 1px solid #dbdbdb;
   /*background: black;*/
   /*width: 50%;*/
+  /*background-color: red;*/
+}
+
+.home-picture {
+  width: 100%;
 }
 
 .like-count-home {
