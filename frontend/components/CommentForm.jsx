@@ -12,6 +12,10 @@ var CommentForm = React.createClass({
     return {body: "", className: className};
   },
 
+  componentWillReceiveProps: function() {
+    this.setState( { body: "" } );
+  },
+
   bodyChange: function(e) {
     var newBody = e.target.value;
     this.setState( {body: newBody} );

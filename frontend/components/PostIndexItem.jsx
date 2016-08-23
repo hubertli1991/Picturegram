@@ -60,6 +60,7 @@ var PostIndexItem = React.createClass({
   },
 
   handleKeyDown: function(e) {
+    if ( e.target.className === "comment-form-text" ) { return; }
     if ( e.keyCode === 39 && this.state.postNumber < this.props.postCount - 1 ) {
       this.switchPost( "right" );
     }
