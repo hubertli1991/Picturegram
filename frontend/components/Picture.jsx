@@ -15,7 +15,8 @@ var Picture = React.createClass({
       postId: this.props.postId,
       containerClassName: className.container,
       pictureClassName: className.initial,
-      animationType: "picture-underneath"
+      animationType: "picture-underneath",
+      inAnimation: false
     };
   },
 
@@ -33,7 +34,11 @@ var Picture = React.createClass({
   },
 
   componentWillReceiveProps: function(newProp) {
-    this.setState( { imageUrl: newProp.imageUrl, postId: newProp.postId, animationType: "picture-underneath" } );
+    if ( this.timeoutId ) {
+      clearTimeout(this.timeoutId);
+    }
+    this.setState( { imageUrl: newProp.imageUrl, postId: newProp.postId,
+      animationType: "picture-underneath", inAnimation: false } );
   },
 
   className: function() {
@@ -70,10 +75,10 @@ var Picture = React.createClass({
     this.state.animationType = "like-animation";
 
     this.state.inAnimation = true;
-    setTimeout(function() {
+    this.timeoutId = setTimeout(function() {
       this.stripClass();
       this.state.inAnimation = false;
-    }.bind(this), 2550);
+    }.bind(this), 2500);
 
     ClientActions.like(this.state.postId);
   },
@@ -82,10 +87,10 @@ var Picture = React.createClass({
     this.state.animationType = "unlike-animation";
 
     this.state.inAnimation = true;
-    setTimeout(function() {
+    this.timeoutId = setTimeout(function() {
       this.stripClass();
       this.state.inAnimation = false;
-    }.bind(this), 2550);
+    }.bind(this), 2500);
 
     ClientActions.unlike(this.state.postId);
   },
