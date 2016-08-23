@@ -38,10 +38,6 @@ module.exports = {
   },
 
   fetchLikes: function(postId) {
-    // console.log("client actions: " + postId );
-    // if ( postId === 113 ) {
-    //   debugger;
-    // }
     LikeApiUtil.fetchLikes(postId);
   },
 
@@ -50,7 +46,6 @@ module.exports = {
   },
 
   unlike: function(postId) {
-    // debugger;
     LikeApiUtil.unlike(postId);
   }
 };

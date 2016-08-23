@@ -604,9 +604,51 @@ body {
   /*position: relative;*/
 }
 
-@-webkit-keyframes fadeinout {
+@keyframes fadeinout {
   0%, 100% {opacity: 0;}
+  43% {opacity: 1;}
+  45% {opacity: 1;}
+  47% {opacity: 1;}
   50% {opacity: 1;}
+  53% {opacity: 1;}
+  55% {opacity: 1;}
+  57% {opacity: 1;}
+}
+
+.picture-underneath {
+  position: absolute;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  /*background-color: green;*/
+  opacity: 0.5;
+}
+
+.like-animation {
+  position: absolute;
+  top: 39%;
+  bottom: 39%;
+  left: 37%;
+  right: 37%;
+  /*background-color: blue;*/
+  background-image: url("heart.png");
+  background-size: 100% 100%;
+  opacity: 0;
+  animation: fadeinout 2.5s linear;
+}
+
+.unlike-animation {
+  position: absolute;
+  top: 36%;
+  bottom: 36%;
+  left: 36%;
+  right: 36%;
+  /*background-color: red;*/
+  background-image: url("broken-heart.png");
+  background-size: 100% 100%;
+  opacity: 0;
+  animation: fadeinout 2.5s linear;
 }
 
 .posted-picture:hover .index-picture {
@@ -882,13 +924,20 @@ body {
 }
 
 /*-----------------------------------------------------------*/
-.picture {
-  /*float: left;*/
-  /*margin: 10px;*/
+.picture-container {
+  position: absolute;
   left: 0%;
   height: 100%;
-  position: absolute;
   border-right: 1px solid #dbdbdb;
+  cursor: pointer;
+}
+
+.picture {
+  /*position: absolute;
+  left: 0%;
+  height: 100%;
+  border-right: 1px solid #dbdbdb;*/
+  width: 100%;
 }
 
 /*img {
@@ -1145,6 +1194,7 @@ body {
   /*background: black;*/
   /*width: 50%;*/
   /*background-color: red;*/
+  cursor: pointer;
 }
 
 .home-picture {

@@ -20,7 +20,6 @@ class Api::LikesController < ApplicationController
   end
 
   def create
-    # debugger
     @green = Like.where(post_id: like_params[:post_id], user_id: current_user.id)
     if @green[0]
       # user has already liked the post

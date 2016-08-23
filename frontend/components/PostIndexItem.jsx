@@ -8,6 +8,7 @@ var PostStore = require("../stores/post_store");
 var CommentForm = require("./CommentForm");
 var LikeButton = require('./LikeButton');
 var LikeCount = require('./LikeCount');
+var Picture = require('./Picture');
 
 
 var PostIndexItem = React.createClass({
@@ -123,6 +124,10 @@ var PostIndexItem = React.createClass({
     }
   },
 
+  // <div className="picture-container">
+  //   <img className="picture" src={this.state.post.image_url_large}/>
+  // </div>
+
   // <img src={this.state.post.image_url}/>
   render: function() {
     var comments = [];
@@ -162,7 +167,7 @@ var PostIndexItem = React.createClass({
             onRequestClose={this.closeModal}
             style={_Style}>
 
-            <img className="picture" src={this.state.post.image_url_large}/>
+            <Picture imageUrl={this.state.post.image_url_large} postId={this.state.post.id} location="post-index-item"/>
 
             <div className="non-picture-stuff" >
 

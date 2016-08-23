@@ -9,12 +9,9 @@ var _likes = {};
 var updatePostLikes = function(likeObject) {
   var postId = Object.keys(likeObject)[0];
   _likes[postId] = likeObject[postId];
-  // debugger;
 };
 
 LikeStore.fetchLikeObject = function(postId) {
-  // console.log(postId);
-  // console.log(_likes[postId]);
   return _likes[postId];
 };
 

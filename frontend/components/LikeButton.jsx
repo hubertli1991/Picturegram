@@ -28,10 +28,6 @@ var LikeButton = React.createClass({
 
   componentDidMount: function() {
     this.likeListener = LikeStore.addListener(this._onChange);
-    // if ( this.state.postId === 114 ) {
-    //   debugger;
-    // }
-    // console.log(this.state.postId);
     ClientActions.fetchLikes(this.state.postId);
   },
 
@@ -40,26 +36,15 @@ var LikeButton = React.createClass({
   },
 
   componentWillReceiveProps: function(newProps) {
-    // console.log(this.props);
-    // console.log(newProps);
-    // console.log(this.state);
     this.state.postId = newProps.postId;
     this.state.caption = newProps.caption;
-    // console.log(this.state);
-    // this._onChange();
     ClientActions.fetchLikes(this.state.postId);
   },
 
   _onChange: function() {
 
     var likeObject = LikeStore.fetchLikeObject(this.state.postId);
-    // if ( likeObject === undefined ) {
-    //   debugger;
-    // }
-    // debugger;
-    // var className = "like-button-unlike";
     if ( likeObject && (likeObject.permissionToLike !== this.state.permissionToLike) ) {
-      // className = "like-button-like";
       var className = this.likeButtonClassName( likeObject.permissionToLike );
       this.setState({ permissionToLike: likeObject.permissionToLike, className: className });
     }
