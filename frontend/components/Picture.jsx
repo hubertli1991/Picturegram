@@ -33,7 +33,7 @@ var Picture = React.createClass({
   },
 
   componentWillReceiveProps: function(newProp) {
-    this.setState( { imageUrl: newProp.imageUrl, postId: newProp.postId } );
+    this.setState( { imageUrl: newProp.imageUrl, postId: newProp.postId, animationType: "picture-underneath" } );
   },
 
   className: function() {
