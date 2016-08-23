@@ -9,11 +9,11 @@ var CommentForm = React.createClass({
     if ( this.props.location === "home" ) {
       className = "comment-form-text-home";
     }
-    return {body: "", className: className};
+    return {body: "", className: className, postId: this.props.postId};
   },
 
-  componentWillReceiveProps: function() {
-    this.setState( { body: "" } );
+  componentWillReceiveProps: function(newProp) {
+    this.setState( { body: "", postId: newProp.postId } );
   },
 
   bodyChange: function(e) {
@@ -24,7 +24,7 @@ var CommentForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
     // "post_id" is writen this way because in the controller, the variable is post_id
-    var commentFormData = { body: this.state.body, post_id: this.props.postId };
+    var commentFormData = { body: this.state.body, post_id: this.state.postId };
     ClientActions.createOneComment(commentFormData);
     this.setState( {body: ""} );
   },
