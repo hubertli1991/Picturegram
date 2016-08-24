@@ -6,6 +6,8 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
 
  var _posts = [];
 
+ var _updatedIndex = null;
+
  var addAllUserPosts = function(userPosts) {
    _posts = userPosts;
  };
@@ -22,6 +24,7 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
    for (var i = 0; i < _posts.length; i++) {
      if (_posts[i].id === post.id) {
        _posts[i] = post;
+       _updatedIndex = i;
      }
    }
  };
@@ -44,6 +47,10 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
        return _posts[i];
      }
    }
+ };
+
+ PostStore.fetchMostUpdatedPost = function() {
+   return _posts[_updatedIndex];
  };
 
  PostStore.fetcherPostByArrayIndex = function(postNumber) {

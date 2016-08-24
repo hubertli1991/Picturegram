@@ -37,7 +37,19 @@ var HomeIndex = React.createClass({
   },
 
   _onChange: function() {
-    this.setState( { posts: PostStore.fetchFive(0) } );
+    if ( this.state.posts.length === 0 ) {
+      this.setState( { posts: PostStore.fetchFive(0) } );
+    } else {
+      var updatedPost = PostStore.fetchMostUpdatedPost();
+      var idx = null;
+      for (var i = 0; i < this.state.posts.length; i++) {
+        if ( this.state.posts[i].id === updatedPost.id ) {
+          this.state.posts[i] = updatedPost;
+          break;
+        }
+      }
+      this.setState( { posts: this.state.posts } );
+    }
   },
 
   fetchFive: function() {
