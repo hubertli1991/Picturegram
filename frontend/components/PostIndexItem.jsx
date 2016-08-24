@@ -153,12 +153,16 @@ var PostIndexItem = React.createClass({
       timeUnit = "w";
     }
 
+    // for hover effect ONLY
+      var hoverPostId = this.props.post.id;
+      var hoverCommentCount = this.props.post.comments.length;
+
     return (
       <div>
         <li onClick={this.openModal}>
           <div className="index-picture-icons">
-            <div className="like-count-with-icon-index group"> <i className="fa fa-heart" aria-hidden="true"></i> <LikeCount postId={this.state.post.id} location={"index-page"}/> </div>
-            <div className="comment-count-with-icon-index"> <div className="comment-count-index">{comments.length}</div> <i className="fa fa-comment" aria-hidden="true"></i> </div>
+            <div className="like-count-with-icon-index group"> <i className="fa fa-heart" aria-hidden="true"></i> <LikeCount postId={hoverPostId} location={"index-page"}/> </div>
+            <div className="comment-count-with-icon-index"> <div className="comment-count-index">{hoverCommentCount}</div> <i className="fa fa-comment" aria-hidden="true"></i> </div>
           </div>
           <img className="index-picture" src={this.props.post.image_url_small}/>
         </li>
