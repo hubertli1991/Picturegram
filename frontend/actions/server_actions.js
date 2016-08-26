@@ -11,6 +11,13 @@ var ServerActions = {
     });
   },
 
+  fetchFive: function(fivePosts) {
+    AppDispatcher.dispatch({
+      actionType: UserAndPostConstants.FIVE_POSTS,
+      fivePosts: fivePosts
+    });
+  },
+
 // fetching a single user and all of his/her posts
 
   receiveUserAndAllPosts: function(userAndPosts) {

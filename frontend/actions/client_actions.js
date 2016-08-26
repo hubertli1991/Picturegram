@@ -13,6 +13,10 @@ module.exports = {
     PostApiUtil.fetchAllPosts();
   },
 
+  fetchFive: function(postId) {
+    PostApiUtil.fetchFive(postId);
+  },
+
   createOnePost: function(formData, backToUserPage, closeModal) {
     PostApiUtil.createOnePost(formData, backToUserPage, closeModal);
   },

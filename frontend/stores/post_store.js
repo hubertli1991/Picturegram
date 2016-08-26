@@ -16,6 +16,10 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
    _posts = allPosts;
  };
 
+ var addFivePosts = function(fivePosts) {
+   _posts = _posts.concat(fivePosts);
+ };
+
  var addNewUserPost = function(post) {
    _posts = _posts.concat(post);
  };
@@ -72,6 +76,11 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
      case UserAndPostConstants.ALL_POSTS:
       var allPosts = payload.allPosts.posts;
       addAllPosts(allPosts);
+      PostStore.__emitChange();
+      break;
+     case UserAndPostConstants.FIVE_POSTS:
+      var fivePosts = payload.fivePosts.posts;
+      addFivePosts(fivePosts);
       PostStore.__emitChange();
       break;
      case UserAndPostConstants.ADD_USER_OR_ALL_HIS_POSTS:

@@ -5,6 +5,22 @@ class Api::PostsController < ApplicationController
     render "api/posts/index"
   end
 
+  def fetch_five
+
+    @all_posts = Post.all.order( created_at: :desc )
+    if params[:id] == 'first'
+      start_index = 0
+      # debugger
+    elsif @last_post = Post.find(params[:id])
+      start_index = @all_posts.index(@last_post) + 1
+    end
+
+    if start_index && start_index <= @all_posts.length - 1
+      @posts = @all_posts[ start_index.. start_index + 4 ]
+      render "api/posts/index"
+    end
+  end
+
   def show
     @post = Post.find(param[:id])
     if @post

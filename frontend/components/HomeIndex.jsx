@@ -33,29 +33,40 @@ var HomeIndex = React.createClass({
     // }.bind(this);
     // window.addEventListener("scroll", this.infiniteScrollCallback);
     // infinte scroll -end
-    ClientActions.fetchAllPosts();
+
+    // ClientActions.fetchAllPosts();
+
+    ClientActions.fetchFive();
   },
 
   _onChange: function() {
-    if ( this.state.posts.length === 0 ) {
-      this.setState( { posts: PostStore.fetchFive(0) } );
-    } else {
-      var updatedPost = PostStore.fetchMostUpdatedPost();
-      var idx = null;
-      for (var i = 0; i < this.state.posts.length; i++) {
-        if ( this.state.posts[i].id === updatedPost.id ) {
-          this.state.posts[i] = updatedPost;
-          break;
-        }
-      }
-      this.setState( { posts: this.state.posts } );
-    }
+    // if ( this.state.posts.length === 0 ) {
+    //   this.setState( { posts: PostStore.fetchFive(0) } );
+    // } else {
+    //   var updatedPost = PostStore.fetchMostUpdatedPost();
+    //   var idx = null;
+    //   for (var i = 0; i < this.state.posts.length; i++) {
+    //     if ( this.state.posts[i].id === updatedPost.id ) {
+    //       this.state.posts[i] = updatedPost;
+    //       break;
+    //     }
+    //   }
+    //   this.setState( { posts: this.state.posts } );
+    // }
+
+    // var allPosts = PostStore.all();
+    // debugger;
+
+    // console.log(PostStore.all());
+    this.setState( { posts: PostStore.all() } );
   },
 
   fetchFive: function() {
-    var idx = this.state.posts.length;
-    var fivePosts = PostStore.fetchFive(idx);
-    this.setState( {posts: this.state.posts.concat(fivePosts)} );
+    // var idx = this.state.posts.length;
+    // var fivePosts = PostStore.fetchFive(idx);
+    // this.setState( {posts: this.state.posts.concat(fivePosts)} );
+    var lastPost = this.state.posts[ this.state.posts.length - 1 ];
+    ClientActions.fetchFive(lastPost.id);
   },
 
   renderFetchFive: function() {
@@ -107,7 +118,7 @@ var HomeIndex = React.createClass({
             }.bind(this) )}
         </ul>
 
-        {this.renderFetchFive()}
+        <div className="fetch-five" onClick={this.fetchFive}></div>
 
       </div>
     );

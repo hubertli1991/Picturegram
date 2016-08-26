@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   get '/auth/facebook/callback', to: "api/sessions#create_with_facebook"
   get 'api/likes/fetch_with_postId/:id', to: "api/likes#show_with_post_id"
+  get 'api/posts/fetch_five/:id', to: "api/posts#fetch_five" 
+
   delete 'api/likes/delete_with_postId/:id', to: "api/likes#destroy_with_post_id"
 
   root to: "static_pages#root"

@@ -13,6 +13,22 @@ var PostApiUtil = {
     });
   },
 
+  fetchFive: function(postId) {
+    var id = postId;
+    if ( postId === undefined ) {
+      id = "first";
+    }
+
+    $.ajax({
+      method: 'GET',
+      url: 'api/posts/fetch_five/' + id,
+      dataType: 'json',
+      success: function(fivePosts) {
+        ServerActions.fetchFive(fivePosts);
+      }
+    });
+  },
+
   createOnePost: function(formData, backToUserPage, closeModal) {
     $.ajax({
       method: 'POST',
