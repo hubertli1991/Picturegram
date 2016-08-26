@@ -36,7 +36,7 @@ var HomeIndex = React.createClass({
 
     // ClientActions.fetchAllPosts();
 
-    ClientActions.fetchFive();
+    ClientActions.fetchFive(null, true);
   },
 
   _onChange: function() {

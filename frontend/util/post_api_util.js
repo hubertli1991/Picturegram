@@ -13,9 +13,9 @@ var PostApiUtil = {
     });
   },
 
-  fetchFive: function(postId) {
+  fetchFive: function(postId, replaceStore) {
     var id = postId;
-    if ( postId === undefined ) {
+    if ( postId === null ) {
       id = "first";
     }
 
@@ -24,7 +24,7 @@ var PostApiUtil = {
       url: 'api/posts/fetch_five/' + id,
       dataType: 'json',
       success: function(fivePosts) {
-        ServerActions.fetchFive(fivePosts);
+        ServerActions.fetchFive(fivePosts, replaceStore);
       }
     });
   },

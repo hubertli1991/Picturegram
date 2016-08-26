@@ -11,10 +11,11 @@ var ServerActions = {
     });
   },
 
-  fetchFive: function(fivePosts) {
+  fetchFive: function(fivePosts, replaceStore) {
     AppDispatcher.dispatch({
       actionType: UserAndPostConstants.FIVE_POSTS,
-      fivePosts: fivePosts
+      fivePosts: fivePosts,
+      replaceStore: replaceStore
     });
   },
 
