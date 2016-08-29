@@ -1,6 +1,7 @@
 var AppDispatcher = require('../dispatcher/dispatcher.js');
 var Store = require('flux/utils').Store;
 var UserAndPostConstants = require('../constants/user_and_post_constants');
+var HashtagAndPostConstants = require('../constants/hashtag_and_post_constants');
 
  var PostStore = new Store(AppDispatcher);
 
@@ -10,6 +11,10 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
 
  var addAllUserPosts = function(userPosts) {
    _posts = userPosts;
+ };
+
+ var addAllHashtagPosts = function(hashtagPosts) {
+  _posts = hashtagPosts;
  };
 
  var addAllPosts = function(allPosts) {
@@ -75,6 +80,16 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
    return user;
  };
 
+ PostStore.fetchHashtag = function() {
+  var hashtag = {};
+  if (this.hashtagAndPosts) {
+    ["hashtag", "id", "count"].map( function(key) {
+      hashtag[key] = this.hashtagAndPosts[key];
+    }.bind(this));
+  }
+  return hashtag;
+ };
+
  PostStore.__onDispatch = function(payload) {
    switch(payload.actionType) {
      case UserAndPostConstants.ALL_POSTS:
@@ -103,6 +118,12 @@ var UserAndPostConstants = require('../constants/user_and_post_constants');
       break;
      case UserAndPostConstants.DELETE_USER_POST:
       DeleteUserPost(payload.userPost);
+      PostStore.__emitChange();
+      break;
+     case HashtagAndPostConstants.ADD_HASHTAG_AND_POSTS:
+      this.hashtagAndPosts = payload.hashtagAndPosts;
+      var hashtagPosts = payload.hashtagAndPosts.posts;
+      addAllHashtagPosts(hashtagPosts);
       PostStore.__emitChange();
       break;
     //  case UserConstants.USER_RECEIVED:

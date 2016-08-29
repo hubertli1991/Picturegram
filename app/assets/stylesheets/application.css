@@ -711,6 +711,10 @@ body {
 
 /*PostForm*/
 
+.hashtag-post-form {
+  background-color: green;
+}
+
 .post-form {
   /*position: absolute;*/
   /*margin: auto;*/
@@ -729,11 +733,22 @@ body {
   margin: auto;
   /*background-color: green;*/
   padding-top: 0px;
+  position: relative;
   /*margin-bottom: 2.5%;*/
+}
+
+.fa.fa-camera {
+  position: absolute;
+  top: 7%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  /*background-color: blue;*/
 }
 
 .spacing-below-post-form {
   margin-bottom: 2.5%;
+  /*background-color: blue;*/
 }
 
 .spacing-above-post-form-home {
@@ -1022,6 +1037,46 @@ body {
   /*background-color: green;*/
 }
 
+.caption-text {
+  /*background-color: green;*/
+  display: inline;
+}
+
+.hashtag-header {
+  height: 200px;
+  /*height: 30%;*/
+  /*padding: 25px;*/
+  /*margin-top: 80px;*/
+  /*margin-bottom: 30px;*/
+  /*background: green;*/
+  font-family: proxima-nova, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 21px;
+  position: relative;
+}
+
+.hashtag-title {
+  position: absolute;
+  color: black;
+  /*background-color: blue;*/
+  left: 0%;
+  right: 0%;
+  top: 30%;
+  text-align: center;
+  margin: auto;
+  font-size: 55px;
+  font-weight: 300;
+}
+
+.hashtag-post-count {
+  position: absolute;
+  /*background-color: red;*/
+  left: 0%;
+  right: 0%;
+  top: 75%;
+  text-align: center;
+  font-size: 25px;
+}
+
 .username {
   display: inline;
   font-weight: 600;
@@ -1037,6 +1092,12 @@ body {
 
 .comment-list {
   /*border-bottom: 1px solid #efefef;*/
+}
+
+.hashtag {
+  display: inline;
+  color: blue;
+  cursor: pointer;
 }
 
 .like-button-container{

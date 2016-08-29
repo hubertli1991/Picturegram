@@ -9,7 +9,9 @@ var CommentForm = require("./CommentForm");
 var LikeButton = require('./LikeButton');
 var LikeCount = require('./LikeCount');
 var Picture = require('./Picture');
+var Hashtag = require("./Hashtag");
 
+var Helpers = require('../helpers/helpers');
 
 var PostIndexItem = React.createClass({
 
@@ -36,6 +38,10 @@ var PostIndexItem = React.createClass({
 
   componentWillUnmount: function() {
     this.postStorelistener.remove();
+  },
+
+  componentWillReceiveProps: function(newProp) {
+    this.setState({modalOpen: false, post: newProp.post, postNumber: newProp.postNumber});
   },
 
   _onChange: function() {
@@ -130,6 +136,25 @@ var PostIndexItem = React.createClass({
   //   <img className="picture" src={this.state.post.image_url_large}/>
   // </div>
 
+  renderCaption: function() {
+    hashtagsArray = Helpers.parseHashtags(this.state.post.caption, this.state.post.hashtags);
+
+    if ( hashtagsArray.length ) {
+      var caption = this.state.post.caption;
+      var idx = 0;
+      var final = [];
+      for (var i = 0; i < hashtagsArray.length; i++) {
+        final[idx] = caption.slice(idx, hashtagsArray[i][1]);
+        final[hashtagsArray[i][1]] = <Hashtag hashtag={hashtagsArray[i][0]} hashtagId={hashtagsArray[i][2]} key={i}/>;
+        idx = hashtagsArray[i][1] + hashtagsArray[i][0].length;
+      }
+      final[idx] = caption.slice(idx, caption.length);
+      return <div className="caption-text">{final}</div>;
+    } else {
+      return <div className="caption-text">{this.state.post.caption}</div>;
+    }
+  },
+
   // <img src={this.state.post.image_url}/>
   render: function() {
     var comments = [];
@@ -187,7 +212,7 @@ var PostIndexItem = React.createClass({
               <div className="caption-and-comments">
                 <div className="caption">
                   <div> <p className="username" onClick={ this.handleClick.bind(null, this.state.post.user_id) }> {this.state.post.username} </p>
-                    {this.state.post.caption} </div>
+                    {this.renderCaption()} </div>
                 </div>
 
                 <ul className="comment-list">

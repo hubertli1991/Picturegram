@@ -4,6 +4,7 @@ var Router = require('react-router').Router;
 var ClientActions = require('../actions/client_actions');
 var CommentForm = require("./CommentForm");
 var Picture = require("./Picture");
+var Hashtag = require("./Hashtag");
 
 var PostStore = require("../stores/post_store");
 var LikeStore = require("../stores/like_store");
@@ -11,6 +12,7 @@ var LikeStore = require("../stores/like_store");
 var LikeButton = require('./LikeButton');
 var LikeCount = require('./LikeCount');
 
+var Helpers = require('../helpers/helpers');
 
 var HomeIndexItem = React.createClass({
 
@@ -32,6 +34,25 @@ var HomeIndexItem = React.createClass({
     this.context.router.push( "/users/" + id );
   },
 
+  renderCaption: function() {
+    hashtagsArray = Helpers.parseHashtags(this.state.post.caption, this.state.post.hashtags);
+
+    if ( hashtagsArray.length ) {
+      var caption = this.state.post.caption;
+      var idx = 0;
+      var final = [];
+      for (var i = 0; i < hashtagsArray.length; i++) {
+        final[idx] = caption.slice(idx, hashtagsArray[i][1]);
+        final[hashtagsArray[i][1]] = <Hashtag hashtag={hashtagsArray[i][0]} hashtagId={hashtagsArray[i][2]} key={i}/>;
+        idx = hashtagsArray[i][1] + hashtagsArray[i][0].length;
+      }
+      final[idx] = caption.slice(idx, caption.length);
+      return <div className="caption-text">{final}</div>;
+    } else {
+      return <div className="caption-text">{this.state.post.caption}</div>;
+    }
+  },
+
   render: function() {
     return (
       <div className="home-index-item">
@@ -49,7 +70,7 @@ var HomeIndexItem = React.createClass({
         <div className="caption-and-comments-home" >
           <div className="caption">
             <div> <p className="username-home" onClick={ this.handleClick.bind(null, this.state.post.user_id) }> {this.state.post.username} </p>
-              {this.state.post.caption} </div>
+              {this.renderCaption()} </div>
           </div>
 
           <ul className="comment-list-home">

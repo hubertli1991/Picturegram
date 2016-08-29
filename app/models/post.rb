@@ -10,4 +10,19 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :likes
 
+  has_many(
+    :post_hashtag_relationships,
+    primary_key: :id,
+    foreign_key: :post_id,
+    class_name: "PostHashtagRelationship"
+  )
+
+  has_many(
+    :hashtags,
+    through: :post_hashtag_relationships,
+    source: :hashtag
+  )
+
+  # has_many :post_hashtag_relationships
+  # has_many :hashtags, through: :post_hashtag_relationships
 end

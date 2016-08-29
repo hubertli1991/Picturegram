@@ -14,6 +14,7 @@ var PostIndex = require('./components/PostIndex');
 var PostForm = require('./components/PostForm');
 var HomeIndex = require('./components/HomeIndex');
 var NavBar = require('./components/NavBar');
+var HashtagIndex = require('./components/HashtagIndex');
 //Auth
 var SessionStore = require('./stores/session_store');
 var SessionApiUtil = require('./util/session_api_util');
@@ -85,6 +86,7 @@ var _Router = (
   <Router history={hashHistory}>
     <Route path="/" component={App}/>
     <Route path="/users/:id" component={ PostIndex } onEnter={ _ensureLoggedIn }/>
+    <Route path="/hashtag/:id" component={ HashtagIndex } onEnter={ _ensureLoggedIn }/>
   </Router>
 );
 

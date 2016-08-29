@@ -29,7 +29,13 @@ var PostApiUtil = {
     });
   },
 
-  createOnePost: function(formData, backToUserPage, closeModal) {
+  createOnePost: function(formData, backToUserPage, closeModal, hashtagsArray) {
+
+    // if ( formData ) {
+    //   console.log(hashtags);
+    //   return;
+    // }
+
     $.ajax({
       method: 'POST',
       url: 'api/posts',
@@ -38,14 +44,47 @@ var PostApiUtil = {
       processData: false,
       data: formData,
       success: function(userPost) {
-        closeModal();
+        this.createHashtags( backToUserPage, closeModal, hashtagsArray, userPost.id );
+        // closeModal();
         // ServerActions.receiveNewPostFromUser(userPost);
         // send client to the user homepage
-        backToUserPage();
-      },
+        // backToUserPage();
+      }.bind(this),
       error: function(xhr) {
         var errors = xhr.responseJSON.errors;
         ErrorActions.setErrors("post", errors);
+      }
+    });
+  },
+
+  createHashtags: function( backToUserPage, closeModal, hashtagsArray, postId ) {
+    // in case there are no hashtags
+    if (hashtagsArray.length === 0) {
+      closeModal();
+      backToUserPage();
+      return;
+    }
+
+    $.ajax({
+      method: 'POST',
+      url: 'api/hashtags',
+      dataType: 'json',
+      data: {hashtags: {post_id: postId, hashtags_array: hashtagsArray}},
+      success: function(relationships) {
+        this.createPostHashtagRelationship(backToUserPage, closeModal, relationships);
+      }.bind(this)
+    });
+  },
+
+  createPostHashtagRelationship: function(backToUserPage, closeModal, relationships) {
+    $.ajax({
+      method: 'POST',
+      url: 'api/posthashtagrelationships',
+      dataType: 'json',
+      data: {post_hashtag: {post_id: relationships.post_id, hashtag_id_array: relationships.hashtag_id_array}},
+      success: function() {
+        closeModal();
+        backToUserPage();
       }
     });
   },

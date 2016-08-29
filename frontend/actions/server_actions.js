@@ -1,5 +1,6 @@
 var UserAndPostConstants = require('../constants/user_and_post_constants');
 var LikeConstants = require('../constants/like_constants');
+var HashtagAndPostConstants = require('../constants/hashtag_and_post_constants');
 var AppDispatcher = require('../dispatcher/dispatcher');
 
 var ServerActions = {
@@ -27,6 +28,13 @@ var ServerActions = {
       userAndPosts: userAndPosts
     });
   },
+
+fetchHashtagAndPosts: function(hashtagAndPosts) {
+  AppDispatcher.dispatch({
+    actionType: HashtagAndPostConstants.ADD_HASHTAG_AND_POSTS,
+    hashtagAndPosts: hashtagAndPosts
+  });
+},
 
 // Individual user post
 

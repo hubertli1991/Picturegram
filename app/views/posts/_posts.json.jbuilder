@@ -9,6 +9,10 @@ json.thumbnail asset_path(User.find(post.user_id).profile_picture.url(:thumb_nai
 #   json.userName User.find(comment.user_id).username
 # end
 
+json.hashtags do
+  json.partial! 'hashtags/hashtags', hashtags: post.hashtags
+end
+
 json.comments do
   json.partial! 'comments/comments', comments: post.comments
 end

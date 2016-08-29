@@ -2,11 +2,16 @@ var PostApiUtil = require('../util/post_api_util');
 var UserApiUtil = require('../util/user_api_util');
 var CommentApiUtil = require('../util/comment_api_util');
 var LikeApiUtil = require('../util/like_api_util');
+var HashtagApiUtil = require('../util/hashtag_api_util');
 
 module.exports = {
 
   fetchUserAndPosts: function(id) {
     UserApiUtil.fetchUserAndPosts(id);
+  },
+
+  fetchHashtagAndPosts: function(hashtagId) {
+    HashtagApiUtil.fetchHashtagAndPosts(hashtagId);
   },
 
   fetchAllPosts: function() {
@@ -17,8 +22,8 @@ module.exports = {
     PostApiUtil.fetchFive(postId, replaceStore);
   },
 
-  createOnePost: function(formData, backToUserPage, closeModal) {
-    PostApiUtil.createOnePost(formData, backToUserPage, closeModal);
+  createOnePost: function(formData, backToUserPage, closeModal, hashtagsArray) {
+    PostApiUtil.createOnePost(formData, backToUserPage, closeModal, hashtagsArray);
   },
 
   updateOnePost: function(caption) {
