@@ -35,6 +35,16 @@ var PostIndexItem = React.createClass({
     this.postStorelistener = PostStore.addListener(this._onChange);
   },
 
+  componentWillReceiveProps: function(newProp) {
+    // need this function when redirecting to new userpage or hashtag page
+    if (newProp.postNumber === this.state.postNumber) {
+      // only call setState when modal state is the same as props
+      // otherwise after every comment, the modal's post (after arrow navigation) will switch back to the original post
+      // after redirecting we reset (modal) state to match props so we get into the if statement
+      this.setState({post: newProp.post, postNumber: newProp.postNumber, postCount: newProp.postCount});
+    }
+  },
+
   componentWillUnmount: function() {
     this.postStorelistener.remove();
   },
@@ -42,12 +52,14 @@ var PostIndexItem = React.createClass({
   _onChange: function() {
     // otherwise when comments are added, the PostIndex will recieve the updated Post objects
     // but the PostIndexItem will not
-    this.setState( {post: PostStore.fetcherPostByArrayIndex(this.state.postNumber)} );
+    var updatedPost = PostStore.fetcherPostByArrayIndex(this.state.postNumber);
+    this.setState( {post: updatedPost} );
   },
 
   closeModal: function() {
     document.removeEventListener("keydown", this.handleKeyDown);
-    this.setState({ modalOpen: false, post: this.props.post, postNumber: this.props.postNumber });
+    // reset the state to the default after you've changed it with arrow navigation
+    this.setState({ modalOpen: false, post: this.props.post, postNumber: this.props.postNumber, postCount: this.props.postCount });
   },
   openModal: function() {
     document.addEventListener("keydown", this.handleKeyDown);
@@ -55,17 +67,19 @@ var PostIndexItem = React.createClass({
   },
   //modal function end
 
-  handleClick: function(id) {
-    // this.closeModal();
-    document.removeEventListener("keydown", this.handleKeyDown);
-    this.state.modalOpen = false;
-    this.context.router.push( "/users/" + id );
-  },
+  handleClick: function(id, type) {
+    // document.removeEventListener("keydown", this.handleKeyDown);
+    // crucial that you invoke closeModal
+    // it will remove the freefloating event listener function which drives teh console crazy
+    // also, it resets the state to the default after you've changed it with arrow navigation
+    // this will prevent problems when navigating to different pages and props get changed
+    this.closeModal();
 
-  redirectToHashtag: function(hashtagId) {
-    document.removeEventListener("keydown", this.handleKeyDown);
-    this.state.modalOpen = false;
-    this.context.router.push( "/hashtags/" + hashtagId );
+    if ( type === "user" ) {
+      this.context.router.push( "/users/" + id );
+    } else if ( type === "hashtag" ) {
+      this.context.router.push( "/hashtags/" + id );
+    }
   },
 
   handleKeyDown: function(e) {
@@ -105,7 +119,6 @@ var PostIndexItem = React.createClass({
 
   renderArrows: function() {
     var arrows = { left: { callback: this.renderLeft, status: true }, right: { callback: this.renderRight, status: true } };
-
     if ( this.state.postNumber >= this.state.postCount - 1 ) {
       arrows.right.status = false;
     }
@@ -135,10 +148,6 @@ var PostIndexItem = React.createClass({
     }
   },
 
-  // <div className="picture-container">
-  //   <img className="picture" src={this.state.post.image_url_large}/>
-  // </div>
-
   renderCaption: function() {
     hashtagsArray = Helpers.parseHashtags(this.state.post.caption, this.state.post.hashtags);
 
@@ -148,7 +157,7 @@ var PostIndexItem = React.createClass({
       var final = [];
       for (var i = 0; i < hashtagsArray.length; i++) {
         final[idx] = caption.slice(idx, hashtagsArray[i][1]);
-        final[hashtagsArray[i][1]] = <div className="hashtag" key={i} onClick={this.redirectToHashtag.bind(null, hashtagsArray[i][2])}>{hashtagsArray[i][0]}</div>;
+        final[hashtagsArray[i][1]] = <div className="hashtag" key={i} onClick={this.handleClick.bind(null, hashtagsArray[i][2], "hashtag")}>{hashtagsArray[i][0]}</div>;
         idx = hashtagsArray[i][1] + hashtagsArray[i][0].length;
       }
       final[idx] = caption.slice(idx, caption.length);
@@ -158,7 +167,6 @@ var PostIndexItem = React.createClass({
     }
   },
 
-  // <img src={this.state.post.image_url}/>
   render: function() {
     var comments = [];
     if (this.state.post.comments) {
@@ -205,7 +213,7 @@ var PostIndexItem = React.createClass({
 
             <div className="non-picture-stuff" >
 
-              <div className="post-header" onClick={ this.handleClick.bind(null, this.state.post.user_id) }>
+              <div className="post-header" onClick={ this.handleClick.bind(null, this.state.post.user_id, "user") }>
                 <img className="thumbnail" src={this.props.thumbnail}/> <p className="thumb-username">{this.state.post.username}</p>
                 <div className="time-since"> {timeSince + timeUnit} </div>
               </div>
@@ -214,14 +222,14 @@ var PostIndexItem = React.createClass({
 
               <div className="caption-and-comments">
                 <div className="caption">
-                  <div> <p className="username" onClick={ this.handleClick.bind(null, this.state.post.user_id) }> {this.state.post.username} </p>
+                  <div> <p className="username" onClick={ this.handleClick.bind(null, this.state.post.user_id, "user") }> {this.state.post.username} </p>
                     {this.renderCaption()} </div>
                 </div>
 
                 <ul className="comment-list">
                   {comments.map( function(comment, idx) {
                     return ( <li className="comment" key={idx}>
-                              <div> <p className="username" onClick={ this.handleClick.bind(null, comment.user_id) }> {comment.username} </p>
+                              <div> <p className="username" onClick={ this.handleClick.bind(null, comment.user_id, "user") }> {comment.username} </p>
                               {comment.body} </div>
                             </li> );
                   }.bind(this) )}
