@@ -25,10 +25,21 @@ class Api::HashtagsController < ApplicationController
     render json: @relationships
   end
 
+  def search
+    @matched_hashtags = Hashtag.where( "lower(hashtag) LIKE ?", '%' + hashtag_search_params["search_value"].downcase + '%' ).limit(5)
+    if @matched_hashtags.length > 0;
+      render "api/hashtags/search"
+    end
+  end
+
   def destroy
   end
 
   private
+
+  def hashtag_search_params
+    params.require(:hashtag).permit(:search_value)
+  end
 
   def hashtags_params
     hashtags_params = params.require(:hashtags).permit(:post_id)

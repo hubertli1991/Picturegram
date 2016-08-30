@@ -9,7 +9,6 @@ var CommentForm = require("./CommentForm");
 var LikeButton = require('./LikeButton');
 var LikeCount = require('./LikeCount');
 var Picture = require('./Picture');
-var Hashtag = require("./Hashtag");
 
 var Helpers = require('../helpers/helpers');
 
@@ -21,7 +20,7 @@ var PostIndexItem = React.createClass({
 
   //modal function start
   getInitialState: function() {
-    return({ modalOpen: false, post: this.props.post, postNumber: this.props.postNumber });
+    return({ modalOpen: false, post: this.props.post, postNumber: this.props.postNumber, postCount: this.props.postCount });
     // Note this.state.post is the post object the MODAL gets.
     // This.props.post is the the post object PostIndexItem uses to render the squaare image on the PostIndex page.
     // Thus, can't just change the props and invoke componentWillReceiveProps here
@@ -38,10 +37,6 @@ var PostIndexItem = React.createClass({
 
   componentWillUnmount: function() {
     this.postStorelistener.remove();
-  },
-
-  componentWillReceiveProps: function(newProp) {
-    this.setState({modalOpen: false, post: newProp.post, postNumber: newProp.postNumber});
   },
 
   _onChange: function() {
@@ -61,14 +56,22 @@ var PostIndexItem = React.createClass({
   //modal function end
 
   handleClick: function(id) {
-    this.closeModal();
+    // this.closeModal();
+    document.removeEventListener("keydown", this.handleKeyDown);
+    this.state.modalOpen = false;
     this.context.router.push( "/users/" + id );
+  },
+
+  redirectToHashtag: function(hashtagId) {
+    document.removeEventListener("keydown", this.handleKeyDown);
+    this.state.modalOpen = false;
+    this.context.router.push( "/hashtags/" + hashtagId );
   },
 
   handleKeyDown: function(e) {
     if ( e.target.className === "comment-form-text" ) { return; }
     // do nothing if the user is editing his/her text using arrow keys
-    if ( e.keyCode === 39 && this.state.postNumber < this.props.postCount - 1 ) {
+    if ( e.keyCode === 39 && this.state.postNumber < this.state.postCount - 1 ) {
       this.switchPost( "right" );
     }
     if ( e.keyCode === 37 && this.state.postNumber > 0 ) {
@@ -103,7 +106,7 @@ var PostIndexItem = React.createClass({
   renderArrows: function() {
     var arrows = { left: { callback: this.renderLeft, status: true }, right: { callback: this.renderRight, status: true } };
 
-    if ( this.state.postNumber >= this.props.postCount - 1 ) {
+    if ( this.state.postNumber >= this.state.postCount - 1 ) {
       arrows.right.status = false;
     }
     if ( this.state.postNumber <= 0 ) {
@@ -145,7 +148,7 @@ var PostIndexItem = React.createClass({
       var final = [];
       for (var i = 0; i < hashtagsArray.length; i++) {
         final[idx] = caption.slice(idx, hashtagsArray[i][1]);
-        final[hashtagsArray[i][1]] = <Hashtag hashtag={hashtagsArray[i][0]} hashtagId={hashtagsArray[i][2]} key={i}/>;
+        final[hashtagsArray[i][1]] = <div className="hashtag" key={i} onClick={this.redirectToHashtag.bind(null, hashtagsArray[i][2])}>{hashtagsArray[i][0]}</div>;
         idx = hashtagsArray[i][1] + hashtagsArray[i][0].length;
       }
       final[idx] = caption.slice(idx, caption.length);

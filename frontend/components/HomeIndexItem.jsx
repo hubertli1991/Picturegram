@@ -4,7 +4,6 @@ var Router = require('react-router').Router;
 var ClientActions = require('../actions/client_actions');
 var CommentForm = require("./CommentForm");
 var Picture = require("./Picture");
-var Hashtag = require("./Hashtag");
 
 var PostStore = require("../stores/post_store");
 var LikeStore = require("../stores/like_store");
@@ -34,6 +33,10 @@ var HomeIndexItem = React.createClass({
     this.context.router.push( "/users/" + id );
   },
 
+  redirectToHashtag: function(hashtagId) {
+    this.context.router.push( "/hashtags/" + hashtagId );
+  },
+
   renderCaption: function() {
     hashtagsArray = Helpers.parseHashtags(this.state.post.caption, this.state.post.hashtags);
 
@@ -43,7 +46,7 @@ var HomeIndexItem = React.createClass({
       var final = [];
       for (var i = 0; i < hashtagsArray.length; i++) {
         final[idx] = caption.slice(idx, hashtagsArray[i][1]);
-        final[hashtagsArray[i][1]] = <Hashtag hashtag={hashtagsArray[i][0]} hashtagId={hashtagsArray[i][2]} key={i}/>;
+        final[hashtagsArray[i][1]] = <div className="hashtag" key={i} onClick={this.redirectToHashtag.bind(null, hashtagsArray[i][2])}>{hashtagsArray[i][0]}</div>;
         idx = hashtagsArray[i][1] + hashtagsArray[i][0].length;
       }
       final[idx] = caption.slice(idx, caption.length);

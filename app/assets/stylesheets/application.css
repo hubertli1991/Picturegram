@@ -397,6 +397,7 @@ body {
   /*background-color: green;*/
   border: 1px solid #dbdbdb;
   padding: 15px;
+  /*height: 55px;*/
   position: relative;
   cursor: pointer;
 }
@@ -406,7 +407,7 @@ body {
 }
 
 .searchbar-thumbnail {
-  display: inline;
+  /*display: inline;*/
   border-radius: 50%;
   height: 50px;
   width: 50px;
@@ -420,6 +421,34 @@ body {
   top: 30%;
   font-size: 20px;
   /*background-color: green;*/
+}
+
+.searchbar-thumbnail-hashtag {
+  /*display: inline;*/
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  background-image: url('hashtag.png');
+  background-size: 100% 100%;
+  background-color: green;
+  cursor: pointer;
+}
+
+.searchbar-username-hashtag {
+  position: absolute;
+  left: 80px;
+  right: 15px;
+  top: 20%;
+  font-size: 20px;
+}
+
+.searchbar-hashtag-post-count {
+  position: absolute;
+  /*background-color: green;*/
+  left: 78px;
+  top: 50%;
+  font-size: 20px;
+  color: gray;
 }
 
 /*logout modal*/
@@ -712,7 +741,7 @@ body {
 /*PostForm*/
 
 .hashtag-post-form {
-  background-color: green;
+  /*background-color: green;*/
 }
 
 .post-form {
@@ -1049,7 +1078,7 @@ body {
   /*margin-top: 80px;*/
   /*margin-bottom: 30px;*/
   /*background: green;*/
-  font-family: proxima-nova, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: "proxima-nova", "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 21px;
   position: relative;
 }
@@ -1067,14 +1096,19 @@ body {
   font-weight: 300;
 }
 
-.hashtag-post-count {
+.hashtag-post-count-container {
   position: absolute;
   /*background-color: red;*/
   left: 0%;
   right: 0%;
-  top: 75%;
+  top: 70%;
   text-align: center;
   font-size: 25px;
+}
+
+.hashtag-post-count {
+  display: inline;
+  font-weight: bold;
 }
 
 .username {

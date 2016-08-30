@@ -59,10 +59,10 @@ fetchHashtagAndPosts: function(hashtagAndPosts) {
     });
   },
 
-  fetchUsersThatMatchSearch: function(matchedUsers) {
+  fetchUsersAndHashtagsThatMatchSearch: function(matchedResults) {
     AppDispatcher.dispatch({
-      actionType: UserAndPostConstants.BRING_DOWN_MATCHED_USERS,
-      matchedUsers: matchedUsers
+      actionType: UserAndPostConstants.BRING_DOWN_MATCHED_USERS_AND_HASHTAGS,
+      matchedResults: matchedResults
     });
   },
 

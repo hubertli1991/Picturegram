@@ -28,9 +28,12 @@ var SearchBar = React.createClass({
   searchForUser: function(e) {
     e.preventDefault();
     if ( this.netUpDown !== 0) {return;}
-    if ( this.state.matchedUsers[0] ) {
+    if ( this.state.matchedUsers[0] && this.state.matchedUsers[0].type === "user" ) {
       var targetUserId = this.state.matchedUsers[0].id;
       this.context.router.push( "/users/" + targetUserId );
+    } else if ( this.state.matchedUsers[0] && this.state.matchedUsers[0].type === "hashtag" ) {
+      var targetHashtagId = this.state.matchedUsers[0].id;
+      this.context.router.push( "/hashtags/" + targetHashtagId );
     }
     // Resetting instance variable to be safe. Doesn't have any effects for now
     this.newSearchValue = "";
@@ -61,7 +64,7 @@ var SearchBar = React.createClass({
   },
 
   _onChange: function() {
-    this.setState( { username: this.newSearchValue, matchedUsers: UserStore.all(), showSearchIndex: true  } );
+    this.setState( { username: this.newSearchValue, matchedUsers: UserStore.topSeven(), showSearchIndex: true  } );
   },
 
   hideSearchIndex: function() {
@@ -85,7 +88,7 @@ var SearchBar = React.createClass({
       return (
         <ul className="searchbar-index" onClick={this.clearSearchBar}>
           {this.state.matchedUsers.map(function(user, idx) {
-            return (<SearchBarIndexItem user={user} key={idx} ref={user.username}/>);
+            return (<SearchBarIndexItem user={user} key={idx} ref={user.username || user.hashtag}/>);
           })}
         </ul>
       );
@@ -104,11 +107,11 @@ var SearchBar = React.createClass({
     if ( e.keyCode === 40 && this.netUpDown < numberOfMatchedUsers ) {
       this.netUpDown = this.netUpDown + 1;
 
-      this.currentTarget = this.state.matchedUsers[this.netUpDown - 1].username;
+      this.currentTarget = this.state.matchedUsers[this.netUpDown - 1].username || this.state.matchedUsers[this.netUpDown - 1].hashtag;
       this.refs[this.currentTarget].addHoverEffect();
 
       if ( this.netUpDown >= 2 ) {
-        this.previousTarget = this.state.matchedUsers[this.netUpDown - 2].username;
+        this.previousTarget = this.state.matchedUsers[this.netUpDown - 2].username || this.state.matchedUsers[this.netUpDown - 2].hashtag;
         this.refs[this.previousTarget].removeHoverEffect();
       }
     }
@@ -116,12 +119,12 @@ var SearchBar = React.createClass({
       this.netUpDown = this.netUpDown - 1;
 
       if ( this.netUpDown >= 1 ) {
-        this.currentTarget = this.state.matchedUsers[this.netUpDown - 1].username;
+        this.currentTarget = this.state.matchedUsers[this.netUpDown - 1].username || this.state.matchedUsers[this.netUpDown - 1].hashtag;
         this.refs[this.currentTarget].addHoverEffect();
       }
 
       if ( this.netUpDown <= numberOfMatchedUsers - 1 ) {
-        this.previousTarget = this.state.matchedUsers[this.netUpDown].username;
+        this.previousTarget = this.state.matchedUsers[this.netUpDown].username || this.state.matchedUsers[this.netUpDown].hashtag;
         this.refs[this.previousTarget].removeHoverEffect();
       }
     }

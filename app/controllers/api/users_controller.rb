@@ -14,6 +14,8 @@ class Api::UsersController < ApplicationController
 		@matched_users = User.where( "lower(username) LIKE ?", '%' + user_search_params["username"].downcase + '%' ).limit(5)
 		if @matched_users.length > 0;
 			render "api/users/search"
+		# elsif user_search_params["username"] == "#"
+		# 	render json: []
 		end
 	end
 

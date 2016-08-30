@@ -68,7 +68,7 @@ var UserApiUtil = {
   fetchUsersThatMatchSearch: function(searchValue) {
     if (searchValue === "") {
       // skip backend if the search value is ""
-      ServerActions.fetchUsersThatMatchSearch([]);
+      ServerActions.fetchUsersAndHashtagsThatMatchSearch([]);
     } else {
       $.ajax({
         url: '/api/users/search',
@@ -76,10 +76,24 @@ var UserApiUtil = {
         dataType: 'json',
         data: {user: {username: searchValue}},
         success: function(matchedUsers) {
-          ServerActions.fetchUsersThatMatchSearch(matchedUsers);
-        }
+          this.fetchHashtagsThatMatchSearch(searchValue, matchedUsers);
+          // ServerActions.fetchUsersThatMatchSearch(matchedUsers);
+        }.bind(this)
       });
     }
+  },
+
+  fetchHashtagsThatMatchSearch: function(searchValue, matchedUsers) {
+    $.ajax({
+      url: '/api/hashtags/search',
+      method: 'GET',
+      dataType: 'json',
+      data: {hashtag: {search_value: searchValue}},
+      success: function(matchedHashtags) {
+        var matchedResults = matchedUsers.concat(matchedHashtags);
+        ServerActions.fetchUsersAndHashtagsThatMatchSearch(matchedResults);
+      }
+    });
   }
 };
 

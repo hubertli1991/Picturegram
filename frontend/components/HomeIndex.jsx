@@ -55,9 +55,7 @@ var HomeIndex = React.createClass({
     // }
 
     // var allPosts = PostStore.all();
-    // debugger;
 
-    // console.log(PostStore.all());
     this.setState( { posts: PostStore.all() } );
   },
 

@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
     resources :comments, only: [:create, :destroy]
     resources :likes, only: [:index, :create, :destroy]
-    resources :hashtags, only: [:show, :create, :destroy]
+    resources :hashtags, only: [:show, :create, :destroy] do
+      get 'search', on: :collection
+    end
 
     resource :session, only: [:create, :destroy, :show]
   end

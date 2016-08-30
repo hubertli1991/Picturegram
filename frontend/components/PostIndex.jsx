@@ -40,8 +40,8 @@ var PostIndex = React.createClass({
     ClientActions.fetchUserAndPosts(this.props.params.id);
   },
 
-  componentWillReceiveProps: function(newProps) {
-    ClientActions.fetchUserAndPosts(parseInt(newProps.params.id));
+  componentWillReceiveProps: function(newProp) {
+    ClientActions.fetchUserAndPosts(parseInt(newProp.params.id));
   },
 
   componentWillUnmount: function() {

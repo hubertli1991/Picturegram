@@ -50,7 +50,7 @@ var HashtagIndex = React.createClass({
         <NavBar/>
         <div className="hashtag-header">
           <div className="hashtag-title">{hashtag.hashtag}</div>
-          <div className="hashtag-post-count">{postCount}{unit}</div>
+          <div className="hashtag-post-count-container"><div className="hashtag-post-count">{postCount}</div>{unit}</div>
         </div>
 
         <PostForm className="hashtag-post-form" userId={SessionStore.currentUser().id}/>

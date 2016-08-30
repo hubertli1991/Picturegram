@@ -31,11 +31,6 @@ var PostApiUtil = {
 
   createOnePost: function(formData, backToUserPage, closeModal, hashtagsArray) {
 
-    // if ( formData ) {
-    //   console.log(hashtags);
-    //   return;
-    // }
-
     $.ajax({
       method: 'POST',
       url: 'api/posts',
