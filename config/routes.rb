@@ -20,9 +20,11 @@ Rails.application.routes.draw do
   get 'api/likes/fetch_with_postId/:id', to: "api/likes#show_with_post_id"
   get 'api/posts/fetch_five/:id', to: "api/posts#fetch_five"
 
-  post 'api/posthashtagrelationships', to: "api/post_hashtag_relationships#create"
+  post 'api/posthashtagrelationships', to: 'api/post_hashtag_relationships#create'
+  delete 'api/posthashtagrelationships/delete_with_postId/:post_id', to: 'api/post_hashtag_relationships#destroy'
+  delete 'api/hashtags/delete_many_hashtags/:id', to: 'api/hashtags#destroy_many_hashtags'
 
-  delete 'api/likes/delete_with_postId/:id', to: "api/likes#destroy_with_post_id"
+  delete 'api/likes/delete_with_postId/:id', to: 'api/likes#destroy_with_post_id'
 
   root to: "static_pages#root"
 

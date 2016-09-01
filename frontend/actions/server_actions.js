@@ -45,7 +45,7 @@ fetchHashtagAndPosts: function(hashtagAndPosts) {
     });
   },
 
-  updatePostFromUser: function(userPost) {
+  updateOnePost: function(userPost) {
     AppDispatcher.dispatch({
       actionType: UserAndPostConstants.UPDATE_USER_POST,
       userPost: userPost

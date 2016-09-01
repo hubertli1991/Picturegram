@@ -1177,6 +1177,80 @@ body {
   /*bottom: 60%;*/
 }
 
+.edit-caption {
+  position: absolute;
+  /*background-color: green;*/
+  border: 1px solid blue;
+  border-radius: 20%;
+  top: 17.5%;
+  padding: 2%;
+  right: 0%;
+  font-size: 20px;
+  font-weight: 300;
+  color: blue;
+  cursor: pointer;
+}
+
+.edit-caption:hover {
+  background-color: blue;
+  color: white;
+}
+
+.post-edit-form {
+  position: absolute;
+  /*background-color: #fafafa;*/
+  background-color: white;
+  top: 15%;
+  bottom: 50%;
+  left: 20%;
+  right: 320px;
+  z-index: 111;
+  opacity: 0.75;
+}
+
+.close-post-edit-form {
+  position: absolute;
+  /*background-color: green;*/
+  top: 20px;
+  /*bottom: 50%;
+  left: 70%;*/
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  background-image: url("exit.png");
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
+.close-post-edit-form:hover .edit-caption {
+  background-color: blue;
+  color: white;
+}
+
+.post-edit-form-text {
+  position: absolute;
+  outline: none;
+  border: 0px;
+  padding: 0px;
+  top: 30px;
+  bottom: 70px;
+  left: 30px;
+  /*right: 5px;*/
+  width: 310px;
+  font-size: 20px;
+  /*background-color: blue;*/
+}
+
+.post-edit-form-error {
+  position: absolute;
+  bottom: 0px;
+  top: 160px;
+  left: 125px;
+  width: 320px;
+  color: red;
+  /*background-color: green;*/
+}
+
 .comment-form {
   position: absolute;
   top: 85%;

@@ -69,10 +69,13 @@ class Api::PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    if @post.update(update_params)
-      render "api/posts/show"
-    else
-      render json: @post.errors
+    if update_params[:caption].length == 0
+      @post_caption_error = "Please write a caption"
+      render "api/shared/error", status: 500
+    # else
+    #   render json: {}
+    elsif @post.update(update_params)
+      render json: {}
     end
   end
 

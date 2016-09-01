@@ -34,12 +34,10 @@ UserStore.topSeven = function() {
       for (var k = 0; k < matches[j].length; k++) {
         topSeven.push(matches[j][k]);
         counter++;
-        // debugger;
         if (counter >= 7) { return topSeven; }
       }
     }
   }
-  // console.log(topSeven);
   return topSeven;
 };
 

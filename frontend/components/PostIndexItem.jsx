@@ -5,10 +5,13 @@ var Modal = require("react-modal");
 var _Style = require("../modal_styles/modal_styles");
 // Modal Require End
 var PostStore = require("../stores/post_store");
+var SessionStore = require("../stores/session_store");
+var ErrorStore = require('./../stores/error_store');
 var CommentForm = require("./CommentForm");
 var LikeButton = require('./LikeButton');
 var LikeCount = require('./LikeCount');
 var Picture = require('./Picture');
+var UpdateCaptionForm = require('./UpdateCaptionForm');
 
 var Helpers = require('../helpers/helpers');
 
@@ -18,9 +21,8 @@ var PostIndexItem = React.createClass({
     router: React.PropTypes.object.isRequired
   },
 
-  //modal function start
   getInitialState: function() {
-    return({ modalOpen: false, post: this.props.post, postNumber: this.props.postNumber, postCount: this.props.postCount });
+    return({ modalOpen: false, editFormOpen: false, post: this.props.post, postNumber: this.props.postNumber, postCount: this.props.postCount, path: this.props.path});
     // Note this.state.post is the post object the MODAL gets.
     // This.props.post is the the post object PostIndexItem uses to render the squaare image on the PostIndex page.
     // Thus, can't just change the props and invoke componentWillReceiveProps here
@@ -33,6 +35,7 @@ var PostIndexItem = React.createClass({
 
   componentDidMount: function() {
     this.postStorelistener = PostStore.addListener(this._onChange);
+    this.errorStoreListener = ErrorStore.addListener(this.forceUpdate.bind(this));
   },
 
   componentWillReceiveProps: function(newProp) {
@@ -41,31 +44,33 @@ var PostIndexItem = React.createClass({
       // only call setState when modal state is the same as props
       // otherwise after every comment, the modal's post (after arrow navigation) will switch back to the original post
       // after redirecting we reset (modal) state to match props so we get into the if statement
-      this.setState({post: newProp.post, postNumber: newProp.postNumber, postCount: newProp.postCount});
+      this.setState({post: newProp.post, postNumber: newProp.postNumber, postCount: newProp.postCount, path: this.props.path});
     }
   },
 
   componentWillUnmount: function() {
     this.postStorelistener.remove();
+    this.errorStoreListener.remove();
   },
 
   _onChange: function() {
     // otherwise when comments are added, the PostIndex will recieve the updated Post objects
     // but the PostIndexItem will not
     var updatedPost = PostStore.fetcherPostByArrayIndex(this.state.postNumber);
-    this.setState( {post: updatedPost} );
+    this.setState( {post: updatedPost, editFormOpen: false} );
   },
+
 
   closeModal: function() {
     document.removeEventListener("keydown", this.handleKeyDown);
     // reset the state to the default after you've changed it with arrow navigation
-    this.setState({ modalOpen: false, post: this.props.post, postNumber: this.props.postNumber, postCount: this.props.postCount });
+    this.setState({ modalOpen: false, editFormOpen: false, post: this.props.post, postNumber: this.props.postNumber, postCount: this.props.postCount, path: this.props.path });
   },
   openModal: function() {
     document.addEventListener("keydown", this.handleKeyDown);
     this.setState({ modalOpen: true });
   },
-  //modal function end
+
 
   handleClick: function(id, type) {
     // document.removeEventListener("keydown", this.handleKeyDown);
@@ -114,7 +119,7 @@ var PostIndexItem = React.createClass({
 
   renderNextPost: function(nextPostId) {
     var nextPost = PostStore.fetcherPostByArrayIndex(nextPostId);
-    this.setState( { post: nextPost } );
+    this.setState( { post: nextPost, editFormOpen: false } );
   },
 
   renderArrows: function() {
@@ -167,6 +172,48 @@ var PostIndexItem = React.createClass({
     }
   },
 
+  renderEditButton: function() {
+    if ( SessionStore.currentUser().id === this.state.post.user_id && this.state.path.slice(1,2) === "u" ) {
+      return <div className="edit-caption" onClick={this.openEditForm}> Edit </div>;
+    }
+  },
+
+  openEditForm: function() {
+    document.addEventListener("click", this.closeEditFormTwo);
+    this.setState({editFormOpen: true});
+  },
+
+  closeEditFormTwo: function(e) {
+    if ( e.target.className !== "post-edit-form" && e.target.className !== "post-edit-form-text" ) {
+      document.removeEventListener("click", this.closeEditFormTwo);
+      this.closeEditForm();
+    }
+  },
+
+  closeEditForm: function() {
+    ErrorStore.clearErrors();
+    this.setState({editFormOpen: false});
+  },
+
+  renderEditForm: function() {
+    if ( this.state.editFormOpen ) {
+      return (
+        <div className="post-edit-form">
+          <div className="close-post-edit-form" onClick={this.closeEditForm}/>
+          <UpdateCaptionForm postId={this.state.post.id} hashtags={this.state.post.hashtags}/>
+          {this.renderErrors("postCaptionError")}
+        </div>
+      );
+    }
+  },
+
+  renderErrors: function(errorType) {
+    var errorMessage = ErrorStore.extractErrorMessage(errorType);
+    if ( errorMessage ) {
+      return (<p className="post-edit-form-error">{errorMessage}</p>);
+    }
+  },
+
   render: function() {
     var comments = [];
     if (this.state.post.comments) {
@@ -193,6 +240,8 @@ var PostIndexItem = React.createClass({
       var hoverPostId = this.props.post.id;
       var hoverCommentCount = this.props.post.comments.length;
 
+      var self = this;
+
     return (
       <div>
         <li onClick={this.openModal}>
@@ -211,14 +260,19 @@ var PostIndexItem = React.createClass({
 
             <Picture imageUrl={this.state.post.image_url_large} postId={this.state.post.id} location="post-index-item"/>
 
+            {this.renderEditForm()}
+
             <div className="non-picture-stuff" >
 
-              <div className="post-header" onClick={ this.handleClick.bind(null, this.state.post.user_id, "user") }>
-                <img className="thumbnail" src={this.props.thumbnail}/> <p className="thumb-username">{this.state.post.username}</p>
+              <div className="post-header">
+                <img className="thumbnail" src={this.state.post.thumbnail} onClick={ this.handleClick.bind(null, this.state.post.user_id, "user") }/>
+                <p className="thumb-username" onClick={ this.handleClick.bind(null, this.state.post.user_id, "user") }>{this.state.post.username}</p>
                 <div className="time-since"> {timeSince + timeUnit} </div>
               </div>
 
               <LikeCount postId={this.state.post.id}/>
+
+              {this.renderEditButton()}
 
               <div className="caption-and-comments">
                 <div className="caption">

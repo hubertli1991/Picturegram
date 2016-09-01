@@ -8,6 +8,7 @@ class Api::HashtagsController < ApplicationController
   end
 
   def create
+    # debugger
     post_id = hashtags_params[:post_id]
     @relationships = {post_id: post_id, hashtag_id_array: []}
     hashtags_params[:hashtags_array].each do |pair|
@@ -32,16 +33,33 @@ class Api::HashtagsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy_many_hashtags
+    delete_many_params.each do |hashtag_id|
+      hashtag = Hashtag.find(hashtag_id)
+      if hashtag.count == 1
+        # debugger
+        hashtag.destroy
+      else
+        new_count = hashtag.count - 1
+        hashtag.update(count: new_count)
+      end
+    end
+
+    render json: {}
   end
 
   private
+
+  def delete_many_params
+    params[:hashtags][:hashtag_id_array]
+  end
 
   def hashtag_search_params
     params.require(:hashtag).permit(:search_value)
   end
 
   def hashtags_params
+    # hashtags_params = params.require(:hashtags).permit(:post_id).permit(:hashtags_array)
     hashtags_params = params.require(:hashtags).permit(:post_id)
     hashtags_params[:hashtags_array] = params[:hashtags][:hashtags_array]
     hashtags_params

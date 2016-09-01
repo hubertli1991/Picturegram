@@ -76,47 +76,8 @@ var PostForm = React.createClass({
 
   handleSubmit: function(e) {
     e.preventDefault();
-    // var newPost = {
-    //   image_url: this.state.imageFile,
-    //   caption: this.state.caption
-    // };
 
-    hashtagsArray = Helpers.parseHashtags(this.state.caption);
-
-    // //createing hashtags -BEGIN
-    // var alphabet = "abcdefghijklmnopqrstuvwxyz";
-    // var legalLetters = alphabet + alphabet.toUpperCase() + "_-'";
-    // var legalObject = {};
-    // for (var i = 0; i < legalLetters.length; i++) {
-    //   legalObject[legalLetters[i]] = true;
-    // }
-    //
-    // var hashtagsArray = [];
-    // var length = 0;
-    // var start = 0;
-    // for (var j = 0; j < this.state.caption.length; j++) {
-    //   if(this.state.caption[j] === "#") {
-    //     // to parse #hashtag1#hashtag2 => #hashtag1 #hashtag2
-    //     if ( length > 1 ) {
-    //       hashtagsArray.push( [this.state.caption.slice(start, start+length), start] );
-    //       length = 0;
-    //     }
-    //     start = j;
-    //     length += 1;
-    //   } else if ( length && legalObject[this.state.caption[j]] ) {
-    //     length += 1;
-    //     // in case caption ENDS on a hashtag ex. caption: "I love #food"
-    //     if ( j === this.state.caption.length - 1 ) {
-    //       hashtagsArray.push( [this.state.caption.slice(start, start+length), start] );
-    //       length = 0;
-    //     }
-    //   } else if ( length && legalObject[this.state.caption[j]] === undefined ) {
-    //     // detect the end of a hashtag
-    //     hashtagsArray.push( [this.state.caption.slice(start, start+length), start] );
-    //     length = 0;
-    //   }
-    // }
-    // // creating hashtags --END
+    var hashtagsArray = Helpers.parseHashtags(this.state.caption);
 
     var formData = new FormData();
     // formData.append("post[user_id]", this.state.user_id);

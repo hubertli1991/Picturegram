@@ -85,7 +85,7 @@ var App = React.createClass({
 var _Router = (
   <Router history={hashHistory}>
     <Route path="/" component={App}/>
-    <Route path="/users/:id" component={ PostIndex } onEnter={ _ensureLoggedIn }/>
+    <Route path="/users/:id" component={ PostIndex } onEnter={ _ensureLoggedIn } />
     <Route path="/hashtags/:id" component={ HashtagIndex } onEnter={ _ensureLoggedIn }/>
   </Router>
 );

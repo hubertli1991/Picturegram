@@ -26,8 +26,8 @@ module.exports = {
     PostApiUtil.createOnePost(formData, backToUserPage, closeModal, hashtagsArray);
   },
 
-  updateOnePost: function(caption) {
-    PostApiUtil.updateOnePost(caption);
+  updateOnePost: function(caption, postId, hashtagsToBeAdded, hashtagsToBeDestroyed) {
+    PostApiUtil.updateOnePost(caption, postId, hashtagsToBeAdded, hashtagsToBeDestroyed);
   },
 
   deleteOnePost: function(id) {
