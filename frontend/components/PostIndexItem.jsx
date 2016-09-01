@@ -88,7 +88,7 @@ var PostIndexItem = React.createClass({
   },
 
   handleKeyDown: function(e) {
-    if ( e.target.className === "comment-form-text" ) { return; }
+    if ( e.target.className === "comment-form-text" || e.target.className === "post-edit-form-text" || e.target.className === "post-edit-form" ) { return; }
     // do nothing if the user is editing his/her text using arrow keys
     if ( e.keyCode === 39 && this.state.postNumber < this.state.postCount - 1 ) {
       this.switchPost( "right" );
