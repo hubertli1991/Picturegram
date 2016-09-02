@@ -57,7 +57,12 @@ var PostIndexItem = React.createClass({
     // otherwise when comments are added, the PostIndex will recieve the updated Post objects
     // but the PostIndexItem will not
     var updatedPost = PostStore.fetcherPostByArrayIndex(this.state.postNumber);
-    this.setState( {post: updatedPost, editFormOpen: false} );
+
+    if ( this.state.editFormOpen ) {
+      this.closeEditForm();
+    }
+    
+    this.setState( {post: updatedPost} );
   },
 
 
@@ -78,6 +83,9 @@ var PostIndexItem = React.createClass({
     // it will remove the freefloating event listener function which drives teh console crazy
     // also, it resets the state to the default after you've changed it with arrow navigation
     // this will prevent problems when navigating to different pages and props get changed
+    if ( this.state.editFormOpen ) {
+      this.closeEditForm();
+    }
     this.closeModal();
 
     if ( type === "user" ) {
@@ -119,7 +127,10 @@ var PostIndexItem = React.createClass({
 
   renderNextPost: function(nextPostId) {
     var nextPost = PostStore.fetcherPostByArrayIndex(nextPostId);
-    this.setState( { post: nextPost, editFormOpen: false } );
+    if ( this.state.editFormOpen ) {
+      this.closeEditForm();
+    }
+    this.setState( { post: nextPost } );
   },
 
   renderArrows: function() {
@@ -179,27 +190,31 @@ var PostIndexItem = React.createClass({
   },
 
   openEditForm: function() {
-    document.addEventListener("click", this.closeEditFormTwo);
+    document.addEventListener("click", this.closeEditForm);
     this.setState({editFormOpen: true});
   },
 
-  closeEditFormTwo: function(e) {
-    if ( e.target.className !== "post-edit-form" && e.target.className !== "post-edit-form-text" ) {
-      document.removeEventListener("click", this.closeEditFormTwo);
-      this.closeEditForm();
-    }
-  },
+  // closeEditFormTwo: function(e) {
+  //   if ( e.target.className !== "post-edit-form" && e.target.className !== "post-edit-form-text" ) {
+  //     // document.removeEventListener("click", this.closeEditFormTwo);
+  //     this.closeEditForm();
+  //   }
+  // },
 
-  closeEditForm: function() {
-    ErrorStore.clearErrors();
-    this.setState({editFormOpen: false});
+  closeEditForm: function(e) {
+    //either when user clicks on another hashtag or username
+    if ( e === undefined || (e.target.className !== "post-edit-form" && e.target.className !== "post-edit-form-text") ) {
+      document.removeEventListener("click", this.closeEditForm);
+      ErrorStore.clearErrors();
+      this.setState({editFormOpen: false});
+    }
   },
 
   renderEditForm: function() {
     if ( this.state.editFormOpen ) {
       return (
         <div className="post-edit-form">
-          <div className="close-post-edit-form" onClick={this.closeEditForm}/>
+          <div className="close-post-edit-form"/>
           <UpdateCaptionForm postId={this.state.post.id} hashtags={this.state.post.hashtags}/>
           {this.renderErrors("postCaptionError")}
         </div>

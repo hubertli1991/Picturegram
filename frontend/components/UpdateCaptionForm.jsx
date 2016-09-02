@@ -10,6 +10,10 @@ var UpdateCaptionForm = React.createClass({
     return { caption: "", postId: this.props.postId, hashtags: this.props.hashtags };
   },
 
+  // componentWillRecieveProps: function(newProp) {
+  //   this.setState({ caption: "", postId: newProp.postId, hashtag: newProp.hashtags });
+  // },
+
   captionChange: function(e) {
     var newCaption = e.target.value;
     this.setState({caption: newCaption});
