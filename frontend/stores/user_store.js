@@ -26,7 +26,7 @@ UserStore.topSeven = function() {
       matches[length] = [ _users[i] ];
     }
   }
-  //take top sever
+  // take top seven
   var topSeven = [];
   var counter = 0;
   for (var j = 0; j < matches.length; j++) {

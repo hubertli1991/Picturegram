@@ -33,12 +33,17 @@ var HashtagIndex = React.createClass({
   _onChange: function() {
     // debugger;
     this.setState({posts: PostStore.all()});
+    // var hashtagId = parseInt(this.props.params.id);
+    // if ( PostStore.PostDoesNotBelong(parseInt(this.state.hashtagId)).length ) {
+    //   ClientActions.fetchHashtagAndPosts(this.state.hashtagId);
+    // }
   },
 
   render: function() {
     var hashtag = PostStore.fetchHashtag();
     var postCount = hashtag.count;
     var currentPathLocation = this.props.location.pathname;
+    // var hashtagPathId = ParseInt( this.state.hashtagId );
 
     var unit = " posts";
     if ( postCount === 1) {
@@ -60,8 +65,8 @@ var HashtagIndex = React.createClass({
         <div className="user-picture-index group">
           <ul>
             {this.state.posts.map(function(post, idx) {
-              return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} postNumber={idx} postCount={postCount} thumbnail={post.thumbnail} path={currentPathLocation}/></div>);
-            })}
+              return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} postNumber={idx} postCount={postCount} thumbnail={post.thumbnail} path={currentPathLocation} hashtagPathId={this.state.hashtagId}/></div>);
+            }.bind(this))}
           </ul>
         </div>
       </div>

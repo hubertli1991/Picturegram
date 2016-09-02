@@ -22,7 +22,7 @@ var PostIndexItem = React.createClass({
   },
 
   getInitialState: function() {
-    return({ modalOpen: false, editFormOpen: false, post: this.props.post, postNumber: this.props.postNumber, postCount: this.props.postCount, path: this.props.path});
+    return({ modalOpen: false, editFormOpen: false, post: this.props.post, postNumber: this.props.postNumber, postCount: this.props.postCount, hashtagPathId: this.props.hashtagPathId});
     // Note this.state.post is the post object the MODAL gets.
     // This.props.post is the the post object PostIndexItem uses to render the squaare image on the PostIndex page.
     // Thus, can't just change the props and invoke componentWillReceiveProps here
@@ -44,7 +44,7 @@ var PostIndexItem = React.createClass({
       // only call setState when modal state is the same as props
       // otherwise after every comment, the modal's post (after arrow navigation) will switch back to the original post
       // after redirecting we reset (modal) state to match props so we get into the if statement
-      this.setState({post: newProp.post, postNumber: newProp.postNumber, postCount: newProp.postCount, path: this.props.path});
+      this.setState({post: newProp.post, postNumber: newProp.postNumber, postCount: newProp.postCount, hashtagPathId: newProp.hashtagPathId});
     }
   },
 
@@ -61,7 +61,7 @@ var PostIndexItem = React.createClass({
     if ( this.state.editFormOpen ) {
       this.closeEditForm();
     }
-    
+
     this.setState( {post: updatedPost} );
   },
 
@@ -69,13 +69,26 @@ var PostIndexItem = React.createClass({
   closeModal: function() {
     document.removeEventListener("keydown", this.handleKeyDown);
     // reset the state to the default after you've changed it with arrow navigation
-    this.setState({ modalOpen: false, editFormOpen: false, post: this.props.post, postNumber: this.props.postNumber, postCount: this.props.postCount, path: this.props.path });
+    this.setState({ modalOpen: false, editFormOpen: false, post: this.props.post, postNumber: this.props.postNumber, postCount: this.props.postCount, hashtagPathId: this.props.hashtagPathId });
+    this.decideRefreshPage(this.state.hashtagPathId);
   },
   openModal: function() {
     document.addEventListener("keydown", this.handleKeyDown);
     this.setState({ modalOpen: true });
   },
 
+
+  decideRefreshPage: function(hashtagId) {
+    if ( PostStore.PostDoesNotBelong( hashtagId ) && PostStore.count() > 1 ) {
+      // if hastag removed from post, only refresh page AFTER closing modal
+      // Because what if user changes his/her after removing hashtag
+      this.context.router.push( "/hashtags/" + hashtagId );
+    } else if ( PostStore.PostDoesNotBelong( hashtagId ) && PostStore.count() === 1 ) {
+      // if there is only one hashtag post and it's removed
+      // route user back to HomeIndex page
+      this.context.router.push( "/" );
+    }
+  },
 
   handleClick: function(id, type) {
     // document.removeEventListener("keydown", this.handleKeyDown);
@@ -184,7 +197,7 @@ var PostIndexItem = React.createClass({
   },
 
   renderEditButton: function() {
-    if ( SessionStore.currentUser().id === this.state.post.user_id && this.state.path.slice(1,2) === "u" ) {
+    if ( SessionStore.currentUser().id === this.state.post.user_id ) {
       return <div className="edit-caption" onClick={this.openEditForm}> Edit </div>;
     }
   },
@@ -193,13 +206,6 @@ var PostIndexItem = React.createClass({
     document.addEventListener("click", this.closeEditForm);
     this.setState({editFormOpen: true});
   },
-
-  // closeEditFormTwo: function(e) {
-  //   if ( e.target.className !== "post-edit-form" && e.target.className !== "post-edit-form-text" ) {
-  //     // document.removeEventListener("click", this.closeEditFormTwo);
-  //     this.closeEditForm();
-  //   }
-  // },
 
   closeEditForm: function(e) {
     //either when user clicks on another hashtag or username

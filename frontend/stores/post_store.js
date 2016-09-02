@@ -50,6 +50,10 @@ var HashtagAndPostConstants = require('../constants/hashtag_and_post_constants')
    return _posts;
  };
 
+ PostStore.count = function() {
+   return _posts.length;
+ };
+
  PostStore.fetchFive = function(idx) {
    return _posts.slice(idx, idx + 5);
  };
@@ -88,6 +92,25 @@ var HashtagAndPostConstants = require('../constants/hashtag_and_post_constants')
     }.bind(this));
   }
   return hashtag;
+ };
+
+ PostStore.PostDoesNotBelong = function(hashtagId) {
+   // if you remove a hashtag from a post on the hashtag page
+   var list = [];
+   for (var i = 0; i < _posts.length; i++) {
+     for (var j = 0; j < _posts[i].hashtags.length; j++) {
+       if (_posts[i].hashtags[j].id === hashtagId) {
+        //  console.log(_posts[i].hashtags[j].id);
+        // debugger;
+        // console.log("in");
+         break;
+       }
+       list.push(_posts[i]);
+      //  debugger
+      //  console.log(list);
+     }
+   }
+   return list;
  };
 
  PostStore.__onDispatch = function(payload) {

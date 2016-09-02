@@ -10,7 +10,8 @@ var Helper = {
 
     //createing hashtags -BEGIN
     var alphabet = "abcdefghijklmnopqrstuvwxyz";
-    var legalLetters = alphabet + alphabet.toUpperCase() + "_-'";
+    var numbers = "0123456789";
+    var legalLetters = alphabet + alphabet.toUpperCase() + "_-'" + numbers;
     var legalObject = {};
     for (var i = 0; i < legalLetters.length; i++) {
       legalObject[legalLetters[i]] = true;
