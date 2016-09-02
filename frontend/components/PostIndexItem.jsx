@@ -70,7 +70,9 @@ var PostIndexItem = React.createClass({
     document.removeEventListener("keydown", this.handleKeyDown);
     // reset the state to the default after you've changed it with arrow navigation
     this.setState({ modalOpen: false, editFormOpen: false, post: this.props.post, postNumber: this.props.postNumber, postCount: this.props.postCount, hashtagPathId: this.props.hashtagPathId });
-    this.decideRefreshPage(this.state.hashtagPathId);
+    if ( this.state.hashtagPathId ) {
+      this.decideRefreshPage(this.state.hashtagPathId);
+    }
   },
   openModal: function() {
     document.addEventListener("keydown", this.handleKeyDown);

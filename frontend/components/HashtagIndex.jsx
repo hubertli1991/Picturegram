@@ -65,7 +65,7 @@ var HashtagIndex = React.createClass({
         <div className="user-picture-index group">
           <ul>
             {this.state.posts.map(function(post, idx) {
-              return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} postNumber={idx} postCount={postCount} thumbnail={post.thumbnail} path={currentPathLocation} hashtagPathId={this.state.hashtagId}/></div>);
+              return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} postNumber={idx} postCount={postCount} thumbnail={post.thumbnail} hashtagPathId={this.state.hashtagId}/></div>);
             }.bind(this))}
           </ul>
         </div>
