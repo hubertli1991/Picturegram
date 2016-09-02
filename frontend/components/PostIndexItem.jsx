@@ -81,11 +81,11 @@ var PostIndexItem = React.createClass({
 
 
   decideRefreshPage: function(hashtagId) {
-    if ( PostStore.PostDoesNotBelong( hashtagId ) && PostStore.count() > 1 ) {
+    if ( PostStore.PostDoesNotBelong( hashtagId )[0] && PostStore.count() > 1 ) {
       // if hastag removed from post, only refresh page AFTER closing modal
       // Because what if user changes his/her after removing hashtag
       this.context.router.push( "/hashtags/" + hashtagId );
-    } else if ( PostStore.PostDoesNotBelong( hashtagId ) && PostStore.count() === 1 ) {
+    } else if ( PostStore.PostDoesNotBelong( hashtagId )[0] && PostStore.count() === 1 ) {
       // if there is only one hashtag post and it's removed
       // route user back to HomeIndex page
       this.context.router.push( "/" );
