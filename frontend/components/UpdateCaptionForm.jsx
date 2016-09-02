@@ -7,7 +7,7 @@ var Helpers = require('../helpers/helpers');
 var UpdateCaptionForm = React.createClass({
 
   getInitialState: function() {
-    return { caption: "", postId: this.props.postId, hashtags: this.props.hashtags };
+    return { caption: this.props.caption, postId: this.props.postId, hashtags: this.props.hashtags };
   },
 
   // componentWillRecieveProps: function(newProp) {

@@ -223,7 +223,7 @@ var PostIndexItem = React.createClass({
       return (
         <div className="post-edit-form">
           <div className="close-post-edit-form"/>
-          <UpdateCaptionForm postId={this.state.post.id} hashtags={this.state.post.hashtags}/>
+          <UpdateCaptionForm postId={this.state.post.id} hashtags={this.state.post.hashtags} caption={this.state.post.caption}/>
           {this.renderErrors("postCaptionError")}
         </div>
       );
