@@ -1,4 +1,5 @@
 var ServerActions = require('../actions/server_actions');
+var PostActions = require('../actions/post_actions');
 
 var CommentApiUtil = {
   createOneComment: function(commentFormData) {
@@ -10,7 +11,7 @@ var CommentApiUtil = {
       success: function(post) {
         // Should maybe write another function like updatePost. UpdatePostFromUser
         // should be reserved for the user himself
-        ServerActions.updatePostFromUser(post);
+        PostActions.updatePostFromUser(post);
       }
     });
   }

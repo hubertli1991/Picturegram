@@ -31,7 +31,6 @@ var HashtagIndex = React.createClass({
   },
 
   _onChange: function() {
-    // debugger;
     this.setState({posts: PostStore.all()});
     // var hashtagId = parseInt(this.props.params.id);
     // if ( PostStore.PostDoesNotBelong(parseInt(this.state.hashtagId)).length ) {

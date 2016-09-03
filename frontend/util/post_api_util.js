@@ -135,7 +135,6 @@ var PostApiUtil = {
       url: 'api/posthashtagrelationships/delete_with_postId/' + postId,
       data: {post_hashtags: {hashtag_id_array: hashtagIdArray}},
       success: function(something) {
-        // debugger;
         // this.createHashtags( hashtagsToBeAdded, postId, fillerFunction, fillerFunction, fetchPost );
         this.deleteHashtag( hashtagsToBeAdded, postId, hashtagIdArray );
       }.bind(this)

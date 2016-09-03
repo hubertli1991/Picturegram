@@ -14,7 +14,6 @@ class Api::PostHashtagRelationshipsController < ApplicationController
     destroy_hashtag_params.each do |hashtag_id|
       search_values = {hashtag_id: hashtag_id, post_id: params[:post_id]}
       relation = PostHashtagRelationship.where(search_values)[0]
-      # debugger
       if relation.destroy
         deleted_relations.push(relation)
       end

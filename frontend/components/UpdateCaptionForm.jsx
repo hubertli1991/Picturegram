@@ -22,8 +22,32 @@ var UpdateCaptionForm = React.createClass({
   handleKeyDown: function(e) {
     if ( e.keyCode === 13 ) {
       e.preventDefault();
-      var hashtagsToBeAdded = Helpers.parseHashtags(this.state.caption);
-      var hashtagsToBeDestroyed = this.state.hashtags;
+      var newHashtags = Helpers.parseHashtags(this.state.caption);
+      var oldHashtags = this.state.hashtags;
+
+      var hashtagsToBeAdded = [];
+      var hashtagsToBeDestroyed = [];
+      var hashtagsToStay = {};
+
+      for (var i = 0; i < newHashtags.length; i++) {
+        for (var j = 0; j < oldHashtags.length; j++) {
+          if ( newHashtags[i][0].toLowerCase() === oldHashtags[j].hashtag.toLowerCase() ) {
+            hashtagsToStay[j] = oldHashtags[j];
+            //important to use oldHashtags and NOT newHashtags
+            break;
+          }
+          if ( j === oldHashtags.length - 1 ) {
+            hashtagsToBeAdded.push(newHashtags[i]);
+          }
+        }
+      }
+
+      for (var k = 0; k < oldHashtags.length; k++) {
+        if ( hashtagsToStay[k] === undefined ) {
+          hashtagsToBeDestroyed.push( oldHashtags[k] );
+        }
+      }
+
       ClientActions.updateOnePost(this.state.caption, this.state.postId, hashtagsToBeAdded, hashtagsToBeDestroyed);
     }
   },

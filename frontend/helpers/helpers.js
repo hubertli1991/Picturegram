@@ -18,13 +18,17 @@ var Helper = {
     }
 
     var hashtagsArray = [];
-    var length = 0;
+    var length = 0; // you can treat this as true/false
     var start = 0;
     for (var j = 0; j < caption.length; j++) {
-      if(caption[j] === "#") {
+
+      var candidate = caption.slice( start, j+1 );
+
+      if( caption[j] === "#" ) {
         // to parse #hashtag1#hashtag2 => #hashtag1 #hashtag2
         if ( length > 1 ) {
-          hashtagsArray.push( [caption.slice(start, start+length), start, hashtagsObject[caption.slice(start, start+length)]] );
+          candidate = candidate.slice( 0, candidate.length - 1 );
+          hashtagsArray.push( [candidate, start, hashtagsObject[candidate.toLowerCase()]] );
           length = 0;
         }
         start = j;
@@ -33,17 +37,30 @@ var Helper = {
         length += 1;
         // in case caption ENDS on a hashtag ex. caption: "I love #food"
         if ( j === caption.length - 1 ) {
-          hashtagsArray.push( [caption.slice(start, start+length), start, hashtagsObject[caption.slice(start, start+length)]] );
+          hashtagsArray.push( [candidate, start, hashtagsObject[candidate.toLowerCase()]] );
           length = 0;
         }
       } else if ( length && legalObject[caption[j]] === undefined ) {
         // detect the end of a hashtag
-        hashtagsArray.push( [caption.slice(start, start+length), start, hashtagsObject[caption.slice(start, start+length)]] );
+        candidate = candidate.slice( 0, candidate.length - 1 );
+        hashtagsArray.push( [candidate, start, hashtagsObject[candidate.toLowerCase()]] );
         length = 0;
       }
+
     }
     // creating hashtags --END
-    return hashtagsArray;
+
+    if ( hashtagsList !== undefined ) {
+      var filteredHashtagArray = [];
+      for (var l = 0; l < hashtagsArray.length; l++) {
+        if ( hashtagsArray[l][2] ) {
+          filteredHashtagArray.push(hashtagsArray[l]);
+        }
+      }
+      return filteredHashtagArray;
+    } else {
+      return hashtagsArray;
+    }
   }
 
 };

@@ -102,7 +102,9 @@ var HashtagAndPostConstants = require('../constants/hashtag_and_post_constants')
        if (_posts[i].hashtags[j].id === hashtagId) {
          break;
        }
-       list.push(_posts[i]);
+       if ( j === _posts[i].hashtags.length - 1 ) {
+         list.push(_posts[i]);
+       }
      }
    }
    return list;

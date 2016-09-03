@@ -71,7 +71,7 @@ var PostIndexItem = React.createClass({
     // reset the state to the default after you've changed it with arrow navigation
     this.setState({ modalOpen: false, editFormOpen: false, post: this.props.post, postNumber: this.props.postNumber, postCount: this.props.postCount, hashtagPathId: this.props.hashtagPathId });
     if ( this.state.hashtagPathId ) {
-      this.decideRefreshPage(this.state.hashtagPathId);
+      this.decideRefreshPage( parseInt(this.state.hashtagPathId) );
     }
   },
   openModal: function() {
