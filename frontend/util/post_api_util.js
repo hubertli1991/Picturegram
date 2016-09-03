@@ -54,6 +54,7 @@ var PostApiUtil = {
 
   createHashtags: function( hashtagsArray, postId, backToUserPage, closeModal, fetchPost ) {
     // in case there are no hashtags
+    console.log(hashtagsArray);
     if (hashtagsArray.length === 0 && !fetchPost) {
       closeModal();
       backToUserPage();

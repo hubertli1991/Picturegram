@@ -25,26 +25,28 @@ var UpdateCaptionForm = React.createClass({
       var newHashtags = Helpers.parseHashtags(this.state.caption);
       var oldHashtags = this.state.hashtags;
 
-      var hashtagsToBeAdded = [];
-      var hashtagsToBeDestroyed = [];
-      var hashtagsToStay = {};
+      var hashtagsToStay = { new: {}, old: {} };
 
       for (var i = 0; i < newHashtags.length; i++) {
         for (var j = 0; j < oldHashtags.length; j++) {
           if ( newHashtags[i][0].toLowerCase() === oldHashtags[j].hashtag.toLowerCase() ) {
-            hashtagsToStay[j] = oldHashtags[j];
-            //important to use oldHashtags and NOT newHashtags
+            hashtagsToStay.new[newHashtags[i]] = false;
+            hashtagsToStay.old[oldHashtags[j]] = false;
             break;
           }
-          if ( j === oldHashtags.length - 1 ) {
-            hashtagsToBeAdded.push(newHashtags[i]);
-          }
         }
+        j = 0;
       }
 
-      for (var k = 0; k < oldHashtags.length; k++) {
-        if ( hashtagsToStay[k] === undefined ) {
-          hashtagsToBeDestroyed.push( oldHashtags[k] );
+      var hashtagsToBeAdded = [];
+      var hashtagsToBeDestroyed = [];
+
+      for (var k = 0; k < Math.max(newHashtags.length, oldHashtags.length); k++) {
+        if ( newHashtags[k] && hashtagsToStay.new[newHashtags[k]] === undefined ) {
+          hashtagsToBeAdded.push(newHashtags[k]);
+        }
+        if ( oldHashtags[k] && hashtagsToStay.old[oldHashtags[k]] === undefined ) {
+          hashtagsToBeDestroyed.push(oldHashtags[k]);
         }
       }
 
