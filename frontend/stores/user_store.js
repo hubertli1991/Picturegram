@@ -22,7 +22,7 @@ UserStore.topSeven = function() {
     var length = name.length;
     // move the hashtags further back in the line
     if ( _users[i].hashtag ) {
-      length = Math.ceil(length * 1.5);
+      length = length * 2;
     }
     if ( matches[length] ) {
       matches[length].push( _users[i] );
