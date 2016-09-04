@@ -20,8 +20,12 @@ UserStore.topSeven = function() {
   for (var i = 0; i < _users.length; i++) {
     var name = _users[i].username || _users[i].hashtag;
     var length = name.length;
+    // move the hashtags further back in the line
+    if ( _users[i].hashtag ) {
+      length = Math.ceil(length * 1.5);
+    }
     if ( matches[length] ) {
-      matches[length].push(_users[i]);
+      matches[length].push( _users[i] );
     } else {
       matches[length] = [ _users[i] ];
     }
@@ -38,6 +42,7 @@ UserStore.topSeven = function() {
       }
     }
   }
+
   return topSeven;
 };
 
