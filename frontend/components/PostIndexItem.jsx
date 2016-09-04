@@ -35,7 +35,7 @@ var PostIndexItem = React.createClass({
 
   componentDidMount: function() {
     this.postStorelistener = PostStore.addListener(this._onChange);
-    this.errorStoreListener = ErrorStore.addListener(this.forceUpdate.bind(this));
+    // this.errorStoreListener = ErrorStore.addListener(this.forceUpdate.bind(this));
   },
 
   componentWillReceiveProps: function(newProp) {
@@ -50,7 +50,7 @@ var PostIndexItem = React.createClass({
 
   componentWillUnmount: function() {
     this.postStorelistener.remove();
-    this.errorStoreListener.remove();
+    // this.errorStoreListener.remove();
   },
 
   _onChange: function() {
@@ -198,6 +198,8 @@ var PostIndexItem = React.createClass({
     }
   },
 
+
+  // updating feature -begin
   renderEditButton: function() {
     if ( SessionStore.currentUser().id === this.state.post.user_id ) {
       return <div className="edit-caption" onClick={this.openEditForm}> Edit </div>;
@@ -221,21 +223,12 @@ var PostIndexItem = React.createClass({
   renderEditForm: function() {
     if ( this.state.editFormOpen ) {
       return (
-        <div className="post-edit-form">
-          <div className="close-post-edit-form"/>
-          <UpdateCaptionForm postId={this.state.post.id} hashtags={this.state.post.hashtags} caption={this.state.post.caption}/>
-          {this.renderErrors("postCaptionError")}
-        </div>
+        <UpdateCaptionForm postId={this.state.post.id} hashtags={this.state.post.hashtags} caption={this.state.post.caption}/>
       );
     }
   },
 
-  renderErrors: function(errorType) {
-    var errorMessage = ErrorStore.extractErrorMessage(errorType);
-    if ( errorMessage ) {
-      return (<p className="post-edit-form-error">{errorMessage}</p>);
-    }
-  },
+  //updading feature -end
 
   render: function() {
     var comments = [];
