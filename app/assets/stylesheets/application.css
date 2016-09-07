@@ -575,20 +575,19 @@ body {
   /*background-color: red;*/
 }
 
-.post-count {
+.user-stat {
   /*background-color: green;*/
+  float: left;
+  margin-right: 8%;
 }
 
-.post-count-number {
+.user-stat-number {
   font-weight: bold;
-  float: left;
-  margin-right: 1%;
-  /*position: absolute;*/
-  /*left: 5%;*/
+  display: inline;
 }
 
-.post-count-unit {
-  float: left;
+.user-stat-unit {
+  display: inline;
 }
 
 .logout-half {
@@ -1148,6 +1147,7 @@ body {
   word-wrap: break-word;
   height: 50%;
   margin: 10px 0 10px 0;
+  /*background-color: blue;*/
 }
 
 .comment-list {
@@ -1165,10 +1165,11 @@ body {
   /*background-color: green;*/
   top: 85%;
   left: 0%;
-  right: 80%;
+  right: 83.5%;
   /*height: 15%;*/
   bottom: 0%;
   cursor: pointer;
+  /*z-index: 200;*/
 }
 
 .like-button-like {
@@ -1218,7 +1219,7 @@ body {
   position: absolute;
   right: 0px;
   top: 29%;
-  padding: 4px 8px 5px 8px;
+  padding: 5px 8px 5px 8px;
   border-radius: 7px;
   border: 2px solid blue;
   font-size: 20px;
@@ -1356,7 +1357,7 @@ body {
 .comment-form {
   position: absolute;
   top: 85%;
-  left: 20%;
+  left: 16.5%;
   height: 15%;
   right: 0%;
   /*width: 85%;*/

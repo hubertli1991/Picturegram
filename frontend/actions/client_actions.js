@@ -63,7 +63,11 @@ module.exports = {
     FollowApiUtil.fetchFollow(userId);
   },
 
-  toggleFollow: function(userId) {
-    FollowApiUtil.toggleFollow(userId);
+  toggleFollow: function(userId, deleteId) {
+    FollowApiUtil.toggleFollow(userId, deleteId);
+  },
+
+  fetchFollowersAndFollowees: function(userId) {
+    FollowApiUtil.fetchFollowersAndFollowees(userId);
   }
 };

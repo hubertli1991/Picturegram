@@ -2,6 +2,7 @@ var React = require('react');
 var Router = require('react-router').Router;
 
 var FollowStore = require('../stores/follow_store');
+var SessionStore = require('../stores/session_store');
 var ClientActions = require('../actions/client_actions');
 
 var FollowButton = React.createClass({
@@ -20,16 +21,21 @@ var FollowButton = React.createClass({
   },
 
   componentDidMount: function() {
-    this.FollowStoreListener = FollowStore.addListener(this._onChange);
+    this.followStoreListener = FollowStore.addListener(this._onChange);
     ClientActions.fetchFollow( this.state.userId );
   },
 
   componentWillUnmount: function() {
-    this.FollowStoreListener.remove();
+    this.followStoreListener.remove();
   },
 
   _onChange: function() {
-    var currentlyFollowing = FollowStore.fetchFollowStatus( this.state.userId );
+    var currentlyFollowing;
+    if ( FollowStore.fetchFollowStatus( SessionStore.currentUser().id ) ) {
+      currentlyFollowing = true;
+    } else {
+      currentlyFollowing = false;
+    }
     this.setState({ currentlyFollowing: currentlyFollowing });
   },
 
@@ -39,7 +45,7 @@ var FollowButton = React.createClass({
   },
 
   handleClick: function() {
-    ClientActions.toggleFollow( this.state.userId );
+    ClientActions.toggleFollow( this.state.userId, SessionStore.currentUser().id );
   },
 
   style: function() {

@@ -99,10 +99,18 @@ fetchHashtagAndPosts: function(hashtagAndPosts) {
     });
   },
 
-  toggleFollow: function(followObject) {
+  toggleFollow: function(followObject, deleteId) {
     AppDispatcher.dispatch({
       actionType: FollowConstants.TOGGLE_FOLLOW,
-      followObject: followObject
+      followObject: followObject,
+      deleteId: deleteId
+    });
+  },
+
+  fetchFollowersAndFollowees: function(set) {
+    AppDispatcher.dispatch({
+      actionType: FollowConstants.ALL_FOLLOWERS_AND_FOLLOWEES,
+      set: set,
     });
   }
 };

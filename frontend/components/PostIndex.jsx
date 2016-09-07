@@ -12,6 +12,7 @@ var PostForm = require('./PostForm');
 var ProfileForm = require('./ProfileForm');
 var NavBar = require('./NavBar');
 var FollowButton = require('./FollowButton');
+var Following = require('./Following');
 
 var PostIndex = React.createClass({
 
@@ -75,23 +76,12 @@ var PostIndex = React.createClass({
     }
   },
 
-  renderPostCount: function() {
-    var post = "posts";
-    if (this.state.posts.length === 1) {
-      post = "post";
-    }
-    return (
-      <div className="post-count group">
-        <div className="post-count-number">{this.state.posts.length}</div> <div className="post-count-unit">{post}</div>
-      </div>
-      );
-  },
-
   render: function() {
     // we don't need currentPathLocation remove this and the prop later (double ckeck)
     var currentPathLocation = this.props.location.pathname;
     var user = PostStore.fetchUser();
     var postCount = this.state.posts.length;
+    // placed the post count into the Following component
     return (
       <div>
         <NavBar/>
@@ -115,9 +105,7 @@ var PostIndex = React.createClass({
 
             <p className="profile-bio"> {user.bio} </p>
 
-            <div className="user-profile-stats">
-              {this.renderPostCount()}
-            </div>
+            <Following postCount={this.state.posts.length} userId={this.state.userId} type="followers"/>
           </div>
 
 
@@ -153,5 +141,3 @@ var PostIndex = React.createClass({
 });
 
 module.exports = PostIndex;
-
-// <div className="post-count">{this.state.posts.length} Posts </div>
