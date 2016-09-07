@@ -1216,12 +1216,11 @@ body {
 
 .edit-caption {
   position: absolute;
-  /*background-color: green;*/
+  right: 0px;
+  top: 29%;
+  padding: 4px 8px 5px 8px;
+  border-radius: 7px;
   border: 2px solid blue;
-  border-radius: 20%;
-  top: 17.5%;
-  padding: 1% 2% 1% 2%;
-  left: 42%;
   font-size: 20px;
   font-weight: 400;
   color: blue;
@@ -1237,10 +1236,10 @@ body {
   position: absolute;
   /*background-color: green;*/
   border: 2px solid blue;
-  border-radius: 20%;
+  border-radius: 7px;
   top: 707px;
   padding: 0.5% 1% 0.5% 1%;
-  left: 47%;
+  left: 39.5%;
   /*left: 9%;*/
   font-size: 20px;
   font-weight: 400;
@@ -1259,8 +1258,8 @@ body {
   background-color: white;
   top: 15%;
   bottom: 50%;
-  left: 20%;
-  right: 320px;
+  left: 180px;
+  right: 420px;
   z-index: 111;
   opacity: 0.75;
 }
@@ -1297,8 +1296,8 @@ body {
   position: absolute;
   bottom: 0px;
   top: 160px;
-  left: 125px;
-  width: 320px;
+  left: 121px;
+  /*width: 320px;*/
   color: red;
   /*background-color: green;*/
 }

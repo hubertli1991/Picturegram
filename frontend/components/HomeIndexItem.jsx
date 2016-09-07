@@ -80,7 +80,7 @@ var HomeIndexItem = React.createClass({
 
   renderEditButton: function() {
     if ( SessionStore.currentUser().id === this.state.post.user_id ) {
-      return <div className="edit-caption-home" onClick={this.openEditForm}> Edit </div>;
+      return <div className="edit-caption-home" onClick={this.openEditForm}> Edit Caption </div>;
     }
   },
 

@@ -203,7 +203,7 @@ var PostIndexItem = React.createClass({
   // updating feature -begin
   renderEditButton: function() {
     if ( SessionStore.currentUser().id === this.state.post.user_id ) {
-      return <div className="edit-caption" onClick={this.openEditForm}> Edit </div>;
+      return <div className="edit-caption" onClick={this.openEditForm}> Edit Caption </div>;
     }
   },
 
@@ -290,12 +290,11 @@ var PostIndexItem = React.createClass({
                 <img className="thumbnail" src={this.state.post.thumbnail} onClick={ this.handleClick.bind(null, this.state.post.user_id, "user") }/>
                 <p className="thumb-username" onClick={ this.handleClick.bind(null, this.state.post.user_id, "user") }>{this.state.post.username}</p>
                 {this.renderFollowButton()}
+                {this.renderEditButton()}
               </div>
 
               <LikeCount postId={this.state.post.id}/>
               <div className="time-since"> {timeSince + timeUnit} </div>
-
-              {this.renderEditButton()}
 
               <div className="caption-and-comments">
                 <div className="caption">
