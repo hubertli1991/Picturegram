@@ -42,7 +42,6 @@ var LikeButton = React.createClass({
   },
 
   _onChange: function() {
-
     var likeObject = LikeStore.fetchLikeObject(this.state.postId);
     if ( likeObject && (likeObject.permissionToLike !== this.state.permissionToLike) ) {
       var className = this.likeButtonClassName( likeObject.permissionToLike );

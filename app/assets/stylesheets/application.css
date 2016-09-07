@@ -508,18 +508,34 @@ body {
 .profile-form {
   float: left;
   background: #3897f0;
-  padding: 2px;
-  border-radius: 10px;
+  padding: 4px 4px 4px 4px;
+  border-radius: 7px;
   margin-top: 12px;
   margin-left: 5%;
 }
 
 .profile-form-button {
-  font-size: 25px;
+  font-size: 20px;
   font-family: proxima-nova, "Helvetica Neue", Arial, Helvetica, sans-serif;
-  font-weight: bold;
+  font-weight: 600;
   color: white;
   /*background-color: purple;*/
+}
+
+.follow-button-index {
+  float: left;
+  margin-top: 12px;
+  padding: 4px 8px 5px 8px;
+  border-radius: 7px;
+  margin-left: 5%;
+  /*width: 100px;
+  height: 100px;*/
+  font-size: 20px;
+  font-weight: 600;
+  /*background-color: green;*/
+  color: #70c050;
+  border: 2px solid #70c050;
+  cursor: pointer;
 }
 
 .logout-modal-button {
@@ -998,8 +1014,8 @@ body {
   /*margin: auto;*/
   height: 100%;
   /*position: relative;*/
-  left: 68%;
-  right: 1%;
+  left: 62%;
+  right: 2%;
   position: absolute;
 }
 
@@ -1030,19 +1046,29 @@ body {
 .thumb-username {
   /*display: inline;*/
   position: absolute;
-  top: 33%;
+  top: 37.5%;
   /*padding-left: 15%;*/
   left: 54.5px;
   cursor: pointer;
   /*background-color: green;*/
 }
 
-.time-since {
-  /*display: inline;*/
+.follow-button-index-item {
   position: absolute;
-  top: 33%;
-  right: 0%;
-  color: rgb(153, 153, 153);
+  /*margin-top: 12px;*/
+  right: 0px;
+  top: 29%;
+  padding: 4px 8px 5px 8px;
+  border-radius: 7px;
+  /*margin-left: 5%;*/
+  /*width: 100px;
+  height: 100px;*/
+  font-size: 20px;
+  font-weight: 600;
+  /*background-color: green;*/
+  color: #70c050;
+  border: 2px solid #70c050;
+  cursor: pointer;
 }
 
 .caption-and-comments {
@@ -1177,16 +1203,27 @@ body {
   /*bottom: 60%;*/
 }
 
+.time-since {
+  /*display: inline;*/
+  position: absolute;
+  font-size: 20px;
+  padding-top: 7.25%;
+  padding-bottom: 7%;
+  top: 15%;
+  right: 0%;
+  color: rgb(153, 153, 153);
+}
+
 .edit-caption {
   position: absolute;
   /*background-color: green;*/
-  border: 1px solid blue;
+  border: 2px solid blue;
   border-radius: 20%;
   top: 17.5%;
-  padding: 2%;
-  right: 0%;
+  padding: 1% 2% 1% 2%;
+  left: 42%;
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 400;
   color: blue;
   cursor: pointer;
 }
@@ -1199,14 +1236,14 @@ body {
 .edit-caption-home {
   position: absolute;
   /*background-color: green;*/
-  border: 1px solid blue;
+  border: 2px solid blue;
   border-radius: 20%;
-  top: 704px;
-  padding: 1%;
-  right: 5%;
+  top: 707px;
+  padding: 0.5% 1% 0.5% 1%;
+  left: 47%;
   /*left: 9%;*/
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 400;
   color: blue;
   cursor: pointer;
 }
@@ -1409,13 +1446,22 @@ body {
   cursor: pointer;
 }
 
-.time-since-home {
+.follow-button-home {
   position: absolute;
+  /*margin-top: 12px;*/
   right: 5%;
-  top: 37.5%;
+  top: 30%;
+  padding: 4px 8px 5px 8px;
+  border-radius: 7px;
+  margin-left: 5%;
+  /*width: 100px;
+  height: 100px;*/
   font-size: 20px;
-  font-weight: 400;
-  color: rgb(153, 153, 153);
+  font-weight: 600;
+  /*background-color: green;*/
+  color: #70c050;
+  border: 2px solid #70c050;
+  cursor: pointer;
 }
 
 .home-picture-container {
@@ -1450,6 +1496,16 @@ body {
   font-weight: 600;
   padding: 18px 0px 16px 0px;
   /*bottom: 60%;*/
+}
+
+.time-since-home {
+  position: absolute;
+  right: 5%;
+  font-size: 20px;
+  font-weight: 400;
+  top: 692px;
+  padding: 19px 0px 16px 0px;
+  color: rgb(153, 153, 153);
 }
 
 .caption-and-comments-home {

@@ -3,6 +3,7 @@ var UserApiUtil = require('../util/user_api_util');
 var CommentApiUtil = require('../util/comment_api_util');
 var LikeApiUtil = require('../util/like_api_util');
 var HashtagApiUtil = require('../util/hashtag_api_util');
+var FollowApiUtil = require('../util/follow_api_util');
 
 module.exports = {
 
@@ -56,5 +57,13 @@ module.exports = {
 
   unlike: function(postId) {
     LikeApiUtil.unlike(postId);
+  },
+
+  fetchFollow: function(userId) {
+    FollowApiUtil.fetchFollow(userId);
+  },
+
+  toggleFollow: function(userId) {
+    FollowApiUtil.toggleFollow(userId);
   }
 };

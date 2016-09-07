@@ -11,6 +11,7 @@ var PostIndexItem = require('./PostIndexItem');
 var PostForm = require('./PostForm');
 var ProfileForm = require('./ProfileForm');
 var NavBar = require('./NavBar');
+var FollowButton = require('./FollowButton');
 
 var PostIndex = React.createClass({
 
@@ -19,7 +20,7 @@ var PostIndex = React.createClass({
   },
 
   getInitialState: function() {
-    return { posts: [], modalOpen: false };
+    return { posts: [], modalOpen: false, userId: this.props.params.id };
   },
 
 
@@ -37,11 +38,13 @@ var PostIndex = React.createClass({
 
   componentDidMount: function() {
     this.postStorelistener = PostStore.addListener(this._onChange);
-    ClientActions.fetchUserAndPosts(this.props.params.id);
+    ClientActions.fetchUserAndPosts(this.state.userId);
   },
 
   componentWillReceiveProps: function(newProp) {
-    ClientActions.fetchUserAndPosts(parseInt(newProp.params.id));
+    // this.setState({userId: newProp.params.id});
+    this.state.userId = newProp.params.id;
+    ClientActions.fetchUserAndPosts(parseInt(this.state.userId));
   },
 
   componentWillUnmount: function() {
@@ -61,8 +64,14 @@ var PostIndex = React.createClass({
 // <h1> Hello </h1>
 
   renderProfileFormIfOnYourPage: function() {
-    if (parseInt(this.props.params.id) === SessionStore.currentUser().id) {
+    if (parseInt(this.state.userId) === SessionStore.currentUser().id) {
       return <ProfileForm user={SessionStore.currentUser()} userId={SessionStore.currentUser().id}/>;
+    }
+  },
+
+  renderFollowButton: function() {
+    if (parseInt(this.state.userId) !== SessionStore.currentUser().id) {
+      return <FollowButton userId={this.state.userId} location="index"/>;
     }
   },
 
@@ -79,6 +88,7 @@ var PostIndex = React.createClass({
   },
 
   render: function() {
+    // we don't need currentPathLocation remove this and the prop later (double ckeck)
     var currentPathLocation = this.props.location.pathname;
     var user = PostStore.fetchUser();
     var postCount = this.state.posts.length;
@@ -95,9 +105,12 @@ var PostIndex = React.createClass({
               <h1 className="user-name"> {user.username} </h1>
               {this.renderProfileFormIfOnYourPage()}
 
+              {this.renderFollowButton()}
+
               <div className="logout-modal-button">
                 <button className="fa fa-bars" onClick={this.openModal} />
               </div>
+
             </div>
 
             <p className="profile-bio"> {user.bio} </p>

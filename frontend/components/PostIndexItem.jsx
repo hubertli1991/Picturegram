@@ -12,6 +12,7 @@ var LikeButton = require('./LikeButton');
 var LikeCount = require('./LikeCount');
 var Picture = require('./Picture');
 var UpdateCaptionForm = require('./UpdateCaptionForm');
+var FollowButton = require('./FollowButton');
 
 var Helpers = require('../helpers/helpers');
 
@@ -227,8 +228,13 @@ var PostIndexItem = React.createClass({
       );
     }
   },
-
   //updading feature -end
+
+  renderFollowButton: function() {
+    if ( this.state.post.user_id !== SessionStore.currentUser().id ) {
+      return <FollowButton userId={this.state.post.user_id} location="index-item"/>;
+    }
+  },
 
   render: function() {
     var comments = [];
@@ -283,10 +289,11 @@ var PostIndexItem = React.createClass({
               <div className="post-header">
                 <img className="thumbnail" src={this.state.post.thumbnail} onClick={ this.handleClick.bind(null, this.state.post.user_id, "user") }/>
                 <p className="thumb-username" onClick={ this.handleClick.bind(null, this.state.post.user_id, "user") }>{this.state.post.username}</p>
-                <div className="time-since"> {timeSince + timeUnit} </div>
+                {this.renderFollowButton()}
               </div>
 
               <LikeCount postId={this.state.post.id}/>
+              <div className="time-since"> {timeSince + timeUnit} </div>
 
               {this.renderEditButton()}
 

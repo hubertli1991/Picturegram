@@ -13,6 +13,7 @@ var ErrorStore = require("../stores/error_store");
 var LikeButton = require('./LikeButton');
 var LikeCount = require('./LikeCount');
 var UpdateCaptionForm = require('./UpdateCaptionForm');
+var FollowButton = require('./FollowButton');
 
 var Helpers = require('../helpers/helpers');
 
@@ -104,6 +105,11 @@ var HomeIndexItem = React.createClass({
     }
   },
 
+  renderFollowButton: function() {
+    if ( this.state.post.user_id !== SessionStore.currentUser().id ) {
+      return <FollowButton userId={this.state.post.user_id} location="home"/>;
+    }
+  },
 
   render: function() {
     return (
@@ -112,14 +118,15 @@ var HomeIndexItem = React.createClass({
         <div className="post-header-home">
           <img className="thumbnail-home" src={this.state.post.thumbnail} onClick={this.handleClick.bind(null, this.state.post.user_id, "user")}/>
           <p className="thumb-username-home" onClick={this.handleClick.bind(null, this.state.post.user_id, "user")}> {this.state.post.username} </p>
-          <div className="time-since-home"> {this.state.timeSincePosted} </div>
-        </div>
+          {this.renderFollowButton()}
+      </div>
 
         <Picture imageUrl={this.state.post.image_url_large} postId={this.state.post.id} location="home-index-item"/>
 
         {this.renderEditForm()}
 
         <LikeCount postId={this.state.post.id} location={"home"}/>
+        <div className="time-since-home"> {this.state.timeSincePosted} </div>
 
         {this.renderEditButton()}
 

@@ -1,6 +1,7 @@
 var UserAndPostConstants = require('../constants/user_and_post_constants');
 var LikeConstants = require('../constants/like_constants');
 var HashtagAndPostConstants = require('../constants/hashtag_and_post_constants');
+var FollowConstants = require('../constants/follow_constants');
 var AppDispatcher = require('../dispatcher/dispatcher');
 
 var ServerActions = {
@@ -86,6 +87,22 @@ fetchHashtagAndPosts: function(hashtagAndPosts) {
     AppDispatcher.dispatch({
       actionType: LikeConstants.UNLIKE,
       likeObject: likeObject
+    });
+  },
+
+// Follow or Unfollow
+
+  fetchFollow: function(followObject) {
+    AppDispatcher.dispatch({
+      actionType: FollowConstants.FETCH_FOLLOW_OBJECT,
+      followObject: followObject
+    });
+  },
+
+  toggleFollow: function(followObject) {
+    AppDispatcher.dispatch({
+      actionType: FollowConstants.TOGGLE_FOLLOW,
+      followObject: followObject
     });
   }
 };

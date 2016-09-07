@@ -11,7 +11,32 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :profile_picture, content_type: /\Aimage\/.*\Z/
 
   has_many :posts
-  has_many :followers
+
+  has_many(
+    :followings,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: "Following"
+  )
+
+  has_many(
+    :followees,
+    through: :followings,
+    source: :followee
+  )
+
+  has_many(
+    :followeds,
+    primary_key: :id,
+    foreign_key: :following_id,
+    class_name: "Following"
+  )
+
+  has_many(
+    :followers,
+    through: :followeds,
+    source: :user
+  )
 
   after_initialize :ensure_session_token
 

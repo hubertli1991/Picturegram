@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :hashtags, only: [:show, :create, :destroy] do
       get 'search', on: :collection
     end
+    resources :followings, only: [:create, :show]
 
     resource :session, only: [:create, :destroy, :show]
   end
