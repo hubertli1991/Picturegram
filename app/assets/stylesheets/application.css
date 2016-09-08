@@ -1605,7 +1605,7 @@ body {
 
 .follow-not-follow-button:hover {
   background-color: #70c050;
-  border: #70c050;
+  border: 2px solid #70c050;
   color: white;
 }
 
