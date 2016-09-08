@@ -8,7 +8,13 @@ var FollowApiUtil = {
       url: '/api/followings/' + userId,
       dataType: 'json',
       success: function(set) {
-        ServerActions.fetchFollow(set.followers[0]);
+        var followObject;
+        if ( set.followers[0] ) {
+          followObject = set.followers[0];
+        } else {
+          followObject = {};
+        }
+        ServerActions.fetchFollow(followObject, userId, null);
       }
     });
   },
@@ -20,12 +26,11 @@ var FollowApiUtil = {
       dataType: 'json',
       data: {following: {following_id: userId}},
       success: function( set ) {
-        // debugger;
         if ( set.followers[0] ) {
-          ServerActions.toggleFollow(set.followers[0]);
+          ServerActions.toggleFollow(set.followers[0], userId, null);
         } else {
           // user object associated with userId is to be destroyed
-          ServerActions.toggleFollow(set.followers[0], deleteId);
+          ServerActions.toggleFollow({}, userId, deleteId);
         }
       }
     });
@@ -38,14 +43,7 @@ var FollowApiUtil = {
       dataType: 'json',
       data: {user_id: userId},
       success: function(set) {
-        // var set = {};
-        // for (var i = 0; i < array.length; i++) {
-        //   set[array[i].id] = array[i];
-        // }
-        // console.log(array);
-        // console.log(set);
-        // console.log(object);
-        ServerActions.fetchFollowersAndFollowees(set);
+        ServerActions.fetchFollowersAndFollowees(set, userId);
       }
     });
   }

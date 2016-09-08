@@ -26,7 +26,9 @@ var Followers = React.createClass({
   },
 
   _onChange: function() {
-    var counts = FollowStore.fetchCount();
+    // may get called before fetchFollowersAndFollowees cycle is complete because FollowButton also kicks off a cycle
+    // that updates the FollowStore
+    var counts = FollowStore.fetchCount( this.state.userId );
     this.setState({ followersCount: counts.followersCount, followingCount: counts.followingCount });
   },
 

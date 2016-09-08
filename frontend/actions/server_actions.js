@@ -92,25 +92,29 @@ fetchHashtagAndPosts: function(hashtagAndPosts) {
 
 // Follow or Unfollow
 
-  fetchFollow: function(followObject) {
+  fetchFollow: function(followObject, userId, deleteId) {
     AppDispatcher.dispatch({
       actionType: FollowConstants.FETCH_FOLLOW_OBJECT,
-      followObject: followObject
-    });
-  },
-
-  toggleFollow: function(followObject, deleteId) {
-    AppDispatcher.dispatch({
-      actionType: FollowConstants.TOGGLE_FOLLOW,
       followObject: followObject,
+      userId: userId,
       deleteId: deleteId
     });
   },
 
-  fetchFollowersAndFollowees: function(set) {
+  toggleFollow: function(followObject, userId, deleteId) {
+    AppDispatcher.dispatch({
+      actionType: FollowConstants.TOGGLE_FOLLOW,
+      followObject: followObject,
+      userId: userId,
+      deleteId: deleteId
+    });
+  },
+
+  fetchFollowersAndFollowees: function(set, userId) {
     AppDispatcher.dispatch({
       actionType: FollowConstants.ALL_FOLLOWERS_AND_FOLLOWEES,
       set: set,
+      userId: userId
     });
   }
 };

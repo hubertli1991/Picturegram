@@ -30,12 +30,7 @@ var FollowButton = React.createClass({
   },
 
   _onChange: function() {
-    var currentlyFollowing;
-    if ( FollowStore.fetchFollowStatus( SessionStore.currentUser().id ) ) {
-      currentlyFollowing = true;
-    } else {
-      currentlyFollowing = false;
-    }
+    var currentlyFollowing = FollowStore.fetchFollowStatus( this.state.userId, SessionStore.currentUser().id ) ; 
     this.setState({ currentlyFollowing: currentlyFollowing });
   },
 

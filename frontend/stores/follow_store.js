@@ -10,18 +10,25 @@ var _allFollowers = {};
 
 var _allFollowing = {};
 
-var updateFollows = function(followObject, deleteId) {
-  // console.log(followObject);
-  // console.log(deleteId);
-  if ( followObject ) {
-    _allFollowers[followObject.id] = followObject;
+var updateFollows = function(followObject, userId, deleteId) {
+  if ( _allFollowers[userId] === undefined ) {
+    _allFollowers[userId] = {};
+    // to pervent fetchCount from erroring out at _allFollowing[userId]
+    // also I want user follower following object to be complete
+    _allFollowing[userId] = {};
   }
+
   if ( deleteId ) {
-    delete _allFollowers[deleteId];
+    delete _allFollowers[userId][deleteId];
+  } else {
+    if ( followObject.id ) {
+      // if followObject === {}, we do nothing
+      _allFollowers[userId][followObject.id] = followObject;
+    }
   }
 };
 
-var updatePile = function( set ) {
+var updatePile = function( set, userId ) {
   var followers = {};
   var following = {};
   var types = ["followers", "followees"];
@@ -33,30 +40,37 @@ var updatePile = function( set ) {
       }
     }
   }
-  _allFollowers = followers;
-  _allFollowing = following;
+  // looks something like allFollowers = { userId: { followerId: { his/her data }, anotherFollowerId: { his/her data } ... } }
+  _allFollowers[userId] = followers;
+  _allFollowing[userId] = following;
 };
 
-FollowStore.fetchFollowStatus = function(followingId) {
-  return _allFollowers[followingId];
+FollowStore.fetchFollowStatus = function( userId, currentUserId ) {
+  if ( _allFollowers[userId] && _allFollowers[userId][currentUserId] ) {
+    // the first condition accounts of mulitple asyn calls on Index page
+    // second condition ensures _allFollowers[userId] !== {} 
+    return true;
+  } else {
+    return false;
+  }
 };
 
-FollowStore.fetchCount = function() {
-  return { followersCount: Object.keys(_allFollowers).length, followingCount: Object.keys(_allFollowing).length };
+FollowStore.fetchCount = function( userId ) {
+  return { followersCount: Object.keys(_allFollowers[userId]).length, followingCount: Object.keys(_allFollowing[userId]).length };
 };
 
 FollowStore.__onDispatch = function(payload) {
   switch( payload.actionType ) {
     case FollowConstants.FETCH_FOLLOW_OBJECT:
-      updateFollows(payload.followObject);
+      updateFollows(payload.followObject, payload.userId, payload.deleteId);
       FollowStore.__emitChange();
     break;
     case FollowConstants.TOGGLE_FOLLOW:
-      updateFollows(payload.followObject, payload.deleteId);
+      updateFollows(payload.followObject, payload.userId, payload.deleteId);
       FollowStore.__emitChange();
     break;
     case FollowConstants.ALL_FOLLOWERS_AND_FOLLOWEES:
-      updatePile( payload.set );
+      updatePile( payload.set, payload.userId );
       FollowStore.__emitChange();
     break;
   }

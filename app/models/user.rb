@@ -38,6 +38,12 @@ class User < ActiveRecord::Base
     source: :user
   )
 
+  has_many(
+    :followees_posts,
+    through: :followees,
+    source: :posts
+  )
+
   after_initialize :ensure_session_token
 
   attr_reader :password
