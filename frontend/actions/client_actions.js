@@ -19,8 +19,8 @@ module.exports = {
     PostApiUtil.fetchAllPosts();
   },
 
-  fetchFive: function(postId, replaceStore) {
-    PostApiUtil.fetchFive(postId, replaceStore);
+  fetchFive: function(postId, followingStatus, replaceStore) {
+    PostApiUtil.fetchFive(postId, followingStatus, replaceStore);
   },
 
   createOnePost: function(formData, backToUserPage, closeModal, hashtagsArray) {

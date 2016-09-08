@@ -13,7 +13,7 @@ var PostApiUtil = {
     });
   },
 
-  fetchFive: function(postId, replaceStore) {
+  fetchFive: function(postId, followingStatus, replaceStore) {
     var id = postId;
     if ( postId === null ) {
       id = "first";
@@ -23,7 +23,9 @@ var PostApiUtil = {
       method: 'GET',
       url: 'api/posts/fetch_five/' + id,
       dataType: 'json',
+      data: {following_status: followingStatus},
       success: function(fivePosts) {
+        // debugger;
         ServerActions.fetchFive(fivePosts, replaceStore);
       }
     });

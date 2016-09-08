@@ -19,24 +19,24 @@ var HomeIndex = React.createClass({
   },
 
   getInitialState: function() {
-    return { posts: [] };
+    return { posts: [], following: true };
   },
 
   componentDidMount: function() {
     this.postStorelistener = PostStore.addListener(this._onChange);
     // infinte scroll -start
-    // this.infiniteScrollCallback = function(e) {
-    //   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-    //     console.log("test");
-          // ClientActions.fetchSomePosts(5);
-    //   }
-    // }.bind(this);
-    // window.addEventListener("scroll", this.infiniteScrollCallback);
+    this.infiniteScrollCallback = function(e) {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        // console.log("test");
+        this.fetchFive();
+      }
+    }.bind(this);
+    window.addEventListener("scroll", this.infiniteScrollCallback);
     // infinte scroll -end
 
     // ClientActions.fetchAllPosts();
 
-    ClientActions.fetchFive(null, true);
+    ClientActions.fetchFive(null, this.state.following, true);
   },
 
   _onChange: function() {
@@ -64,7 +64,8 @@ var HomeIndex = React.createClass({
     // var fivePosts = PostStore.fetchFive(idx);
     // this.setState( {posts: this.state.posts.concat(fivePosts)} );
     var lastPost = this.state.posts[ this.state.posts.length - 1 ];
-    ClientActions.fetchFive(lastPost.id);
+    // debugger;
+    ClientActions.fetchFive(lastPost.id, this.state.following, false);
   },
 
   renderFetchFive: function() {
@@ -73,6 +74,16 @@ var HomeIndex = React.createClass({
         <div className="fetch-five" onClick={this.fetchFive}></div>
       );
     }
+  },
+
+  handleSwitch: function() {
+    if ( this.state.following ) {
+      this.state.following = false;
+    } else {
+      this.state.following = true;
+    }
+    window.scrollTo(0, 0);
+    ClientActions.fetchFive(null, this.state.following, true);
   },
 
   handleClick: function(id) {
@@ -84,6 +95,13 @@ var HomeIndex = React.createClass({
   },
 
   render: function() {
+    var buttonName;
+    if ( this.state.following ) {
+      buttonName = "NOT FOLLOWING";
+    } else {
+      buttonName = "FOLLOWING";
+    }
+
     return(
       <div>
         <div className="spacing-above-post-form-home"></div>
@@ -116,8 +134,9 @@ var HomeIndex = React.createClass({
             }.bind(this) )}
         </ul>
 
-        <div className="fetch-five" onClick={this.fetchFive}></div>
+        <div className="follow-not-follow-button" onClick={this.handleSwitch}> <div className="follow-not-follow-button-text"> {buttonName} </div> </div>
 
+        <div className="floor"/>
       </div>
     );
   }

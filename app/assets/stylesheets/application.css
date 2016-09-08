@@ -281,6 +281,8 @@ body {
 /*home-nav*/
 
 .nav-bar {
+  /*position: fixed;*/
+  /*z-index: 1;*/
   /*height: 50%;*/
   width: 100%;
   /*border-bottom: 1px solid #efefef;*/
@@ -1585,4 +1587,35 @@ body {
   height: 125px;
   margin: auto;
   margin-bottom: 40px;
+}
+
+.follow-not-follow-button {
+  position: fixed;
+  right: 100px;
+  bottom: 50px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid black;
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.follow-not-follow-button:hover {
+  background-color: #70c050;
+  border: #70c050;
+  color: white;
+}
+
+.follow-not-follow-button-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.floor {
+  height: 1px;
 }

@@ -6,18 +6,35 @@ class Api::PostsController < ApplicationController
   end
 
   def fetch_five
-
-    @all_posts = Post.all.order( created_at: :desc )
+    #
+    # Post.where.not(id: User.find(8).followees_posts.map(&:id))
+    #
+    # @all_posts = Post.all.order( created_at: :desc )
     if params[:id] == 'first'
-      start_index = 0
-    elsif @last_post = Post.find(params[:id])
-      start_index = @all_posts.index(@last_post) + 1
+      # start_index = 0
+      if params[:following_status] == 'true'
+        @posts = User.find(current_user.id).followees_posts.order( created_at: :desc ).limit(5)
+      else
+        @posts = Post.where.not(id: User.find(current_user.id).followees_posts.map(&:id)).order( created_at: :desc ).limit(5)
+      end
+    # elsif @last_post = Post.find(params[:id])
+      # start_index = @all_posts.index(@last_post) + 1
+    else
+      date = Post.find(params[:id]).created_at
+      if params[:following_status] == 'true'
+        @posts = User.find(current_user.id).followees_posts.where("posts.created_at < ?", date).order( created_at: :desc ).limit(5)
+      else
+        @posts = Post.where.not(id: User.find(current_user.id).followees_posts.map(&:id)).where("posts.created_at < ?", date).order( created_at: :desc ).limit(5)
+      end
+      # @posts = Post.all.order( created_at: :desc ).where("created_at < ?", date).limit(5)
     end
 
-    if start_index && start_index <= @all_posts.length - 1
-      @posts = @all_posts[ start_index.. start_index + 4 ]
-      render "api/posts/index"
-    end
+    # if start_index && start_index <= @all_posts.length - 1
+    #   @posts = @all_posts[ start_index.. start_index + 4 ]
+    #   render "api/posts/index"
+    # end
+
+    render "api/posts/index"
   end
 
   def show
