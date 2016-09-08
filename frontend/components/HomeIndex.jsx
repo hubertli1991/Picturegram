@@ -26,45 +26,27 @@ var HomeIndex = React.createClass({
     this.postStorelistener = PostStore.addListener(this._onChange);
     // infinte scroll -start
     this.infiniteScrollCallback = function(e) {
+      if ( window.location.hash.slice(0,3) !== "#/?" ) {
+        // if we leave homeIndex page, we removeEventListener
+        window.removeEventListener("scroll", this.infiniteScrollCallback);
+        return;
+      }
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        // console.log("test");
         this.fetchFive();
       }
     }.bind(this);
     window.addEventListener("scroll", this.infiniteScrollCallback);
     // infinte scroll -end
 
-    // ClientActions.fetchAllPosts();
-
     ClientActions.fetchFive(null, this.state.following, true);
   },
 
   _onChange: function() {
-    // if ( this.state.posts.length === 0 ) {
-    //   this.setState( { posts: PostStore.fetchFive(0) } );
-    // } else {
-    //   var updatedPost = PostStore.fetchMostUpdatedPost();
-    //   var idx = null;
-    //   for (var i = 0; i < this.state.posts.length; i++) {
-    //     if ( this.state.posts[i].id === updatedPost.id ) {
-    //       this.state.posts[i] = updatedPost;
-    //       break;
-    //     }
-    //   }
-    //   this.setState( { posts: this.state.posts } );
-    // }
-
-    // var allPosts = PostStore.all();
-
     this.setState( { posts: PostStore.all() } );
   },
 
   fetchFive: function() {
-    // var idx = this.state.posts.length;
-    // var fivePosts = PostStore.fetchFive(idx);
-    // this.setState( {posts: this.state.posts.concat(fivePosts)} );
     var lastPost = this.state.posts[ this.state.posts.length - 1 ];
-    // debugger;
     ClientActions.fetchFive(lastPost.id, this.state.following, false);
   },
 
