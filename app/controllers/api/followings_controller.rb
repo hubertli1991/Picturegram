@@ -10,8 +10,9 @@ class Api::FollowingsController < ApplicationController
   def show
     following = Following.find_by( find_following_params )
     if following
-      you = User.find(params[:id]).followers.find(current_user.id)
-      @matched_users = { followers: [you] }
+      other_guy = User.find(params[:id])
+      you = other_guy.followers.find(current_user.id)
+      @matched_users = { followers: [you], followees: [other_guy] }
     else
       @matched_users = {}
     end
@@ -27,8 +28,9 @@ class Api::FollowingsController < ApplicationController
     else
       new_following = Following.new( following_id: create_destroy_following_params[:following_id], user_id: current_user.id )
       if new_following.save
-        you = User.find(create_destroy_following_params[:following_id]).followers.find(current_user.id)
-        @matched_users = { followers: [you] }
+        other_guy = User.find(create_destroy_following_params[:following_id])
+        you = other_guy.followers.find(current_user.id)
+        @matched_users = { followers: [you], followees: [other_guy] }
       end
     end
     render "/api/users/following"

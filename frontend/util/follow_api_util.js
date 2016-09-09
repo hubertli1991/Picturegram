@@ -2,24 +2,27 @@ var ServerActions = require('../actions/server_actions');
 
 var FollowApiUtil = {
 
-  fetchFollow: function(userId) {
+  fetchFollow: function(userId, currentUserId) {
     $.ajax({
       method: 'GET',
       url: '/api/followings/' + userId,
       dataType: 'json',
       success: function(set) {
-        var followObject;
+        var yourObject;
+        var otherUserObject;
         if ( set.followers[0] ) {
-          followObject = set.followers[0];
+          yourObject = set.followers[0];
+          otherUserObject = set.followees[0];
         } else {
-          followObject = {};
+          yourObject = "";
+          otherUserObject = "";
         }
-        ServerActions.fetchFollow(followObject, userId, null);
+        ServerActions.fetchFollow(yourObject, otherUserObject, userId, currentUserId);
       }
     });
   },
 
-  toggleFollow: function(userId, deleteId) {
+  toggleFollow: function(userId, currentUserId) {
     $.ajax({
       method: 'POST',
       url: '/api/followings',
@@ -27,10 +30,10 @@ var FollowApiUtil = {
       data: {following: {following_id: userId}},
       success: function( set ) {
         if ( set.followers[0] ) {
-          ServerActions.toggleFollow(set.followers[0], userId, null);
+          ServerActions.toggleFollow(set.followers[0], set.followees[0], userId, currentUserId);
         } else {
           // user object associated with userId is to be destroyed
-          ServerActions.toggleFollow({}, userId, deleteId);
+          ServerActions.toggleFollow(null, null, userId, currentUserId);
         }
       }
     });

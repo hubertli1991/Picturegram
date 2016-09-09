@@ -59,12 +59,12 @@ module.exports = {
     LikeApiUtil.unlike(postId);
   },
 
-  fetchFollow: function(userId) {
-    FollowApiUtil.fetchFollow(userId);
+  fetchFollow: function(userId, currentUserId) {
+    FollowApiUtil.fetchFollow(userId, currentUserId);
   },
 
-  toggleFollow: function(userId, deleteId) {
-    FollowApiUtil.toggleFollow(userId, deleteId);
+  toggleFollow: function(userId, currentUserId) {
+    FollowApiUtil.toggleFollow(userId, currentUserId);
   },
 
   fetchFollowersAndFollowees: function(userId) {

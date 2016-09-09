@@ -24,7 +24,7 @@ var FollowButton = React.createClass({
 
   componentDidMount: function() {
     this.followStoreListener = FollowStore.addListener(this._onChange);
-    ClientActions.fetchFollow( this.state.userId );
+    ClientActions.fetchFollow( this.state.userId, SessionStore.currentUser().id );
   },
 
   componentWillUnmount: function() {
@@ -39,7 +39,7 @@ var FollowButton = React.createClass({
   componentWillReceiveProps: function(newProp) {
     this.state.userId = newProp.userId;
     this.state.location = newProp.location;
-    ClientActions.fetchFollow( this.state.userId );
+    ClientActions.fetchFollow( this.state.userId, SessionStore.currentUser().id );
   },
 
   handleClick: function() {

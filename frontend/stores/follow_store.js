@@ -11,7 +11,7 @@ var _allFollowers = {};
 
 var _allFollowing = {};
 
-var updateFollows = function(followObject, userId, deleteId) {
+var updateFollows = function(yourObject, otherUserObject, userId, currentUserId) {
   if ( _allFollowers[userId] === undefined ) {
     _allFollowers[userId] = {};
     // to pervent fetchCount from erroring out at _allFollowing[userId]
@@ -19,20 +19,18 @@ var updateFollows = function(followObject, userId, deleteId) {
     _allFollowing[userId] = {};
   }
 
-  if ( _allFollowers[deleteId] === undefined ) {
-    _allFollowers[deleteId] = {};
-    _allFollowing[deleteId] = {};
+  if ( _allFollowers[currentUserId] === undefined ) {
+    _allFollowers[currentUserId] = {};
+    _allFollowing[currentUserId] = {};
   }
 
-  if ( deleteId ) {
-    delete _allFollowers[userId][deleteId];
-    delete _allFollowing[deleteId][userId];
-  } else {
-    if ( followObject.id ) {
-      // if followObject === {}, we do nothing
-      _allFollowers[userId][followObject.id] = followObject;
-      _allFollowing[deleteId][followObject.id] = followObject;
-    }
+  if ( yourObject ) {
+    _allFollowers[userId][currentUserId] = yourObject;
+    _allFollowing[currentUserId][userId] = otherUserObject;
+  } else if ( yourObject === null ) {
+    // MUST be null to delete
+    delete _allFollowers[userId][currentUserId];
+    delete _allFollowing[currentUserId][userId];
   }
 
 
@@ -105,11 +103,11 @@ FollowStore.fetchAllUsers = function( userId, type ) {
 FollowStore.__onDispatch = function(payload) {
   switch( payload.actionType ) {
     case FollowConstants.FETCH_FOLLOW_OBJECT:
-      updateFollows(payload.followObject, payload.userId, payload.deleteId);
+      updateFollows(payload.yourObject, payload.otherUserObject, payload.userId, payload.currentUserId);
       FollowStore.__emitChange();
     break;
     case FollowConstants.TOGGLE_FOLLOW:
-      updateFollows(payload.followObject, payload.userId, payload.deleteId);
+      updateFollows(payload.yourObject, payload.otherUserObject, payload.userId, payload.currentUserId);
       FollowStore.__emitChange();
     break;
     case FollowConstants.ALL_FOLLOWERS_AND_FOLLOWEES:
