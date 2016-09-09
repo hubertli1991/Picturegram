@@ -594,10 +594,16 @@ body {
   /*background-color: red;*/
 }
 
+.user-stat-posts {
+  float: left;
+  margin-right: 8%;
+}
+
 .user-stat {
   /*background-color: green;*/
   float: left;
   margin-right: 8%;
+  cursor: pointer;
 }
 
 .user-stat-number {
@@ -607,6 +613,65 @@ body {
 
 .user-stat-unit {
   display: inline;
+}
+
+.follow-header {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+  bottom: 90%;
+  text-align: center;
+  font-size: 20px;
+  background-color: #fafafa;
+  border-bottom: 1px solid gray;
+}
+
+.follow-header-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.follow-list {
+  position: absolute;
+  top: 10%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  background-color: #fafafa;
+}
+
+.follow-index-item {
+  /*background-color: #fafafa;*/
+  position: relative;
+  padding: 15px;
+  border-bottom: 1px solid gray;
+}
+
+.follow-index-item-username {
+  position: absolute;
+  left: 80px;
+  top: 32%;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.follow-button-follow-index-item {
+  position: absolute;
+  right: 15px;
+  top: 20px;
+  padding: 4px 8px 5px 8px;
+  border-radius: 7px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #70c050;
+  border: 2px solid #70c050;
+  cursor: pointer;
 }
 
 .logout-half {
@@ -1633,6 +1698,17 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.message {
+  position: absolute;
+  top: 150px;
+  left: 5%;
+  right: 5%;
+  text-align: center;
+  background-color: white;
+  padding: 30px;
+  font-size: 25px;
 }
 
 .floor {

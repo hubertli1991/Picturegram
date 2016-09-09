@@ -19,7 +19,7 @@ var HomeIndex = React.createClass({
   },
 
   getInitialState: function() {
-    return { posts: [], following: true };
+    return { posts: [], following: false };
   },
 
   componentDidMount: function() {
@@ -83,6 +83,17 @@ var HomeIndex = React.createClass({
     this.postStorelistener.remove();
   },
 
+  renderMessage: function() {
+    if ( this.state.following && this.state.posts.length === 0 ) {
+      return <p className="message">
+              You are not following anyone at the moment. <br/>
+              Find users to follow by clicking the button below to see the most
+              recent posts or by navigating
+              users and hashtags with the search bar.
+            </p>;
+    }
+  },
+
   render: function() {
     var buttonName;
     if ( this.state.following ) {
@@ -96,6 +107,9 @@ var HomeIndex = React.createClass({
         <div className="spacing-above-post-form-home"></div>
         <PostForm userId={SessionStore.currentUser().id}/>
         <div className="spacing-below-post-form-home"></div>
+
+        { this.renderMessage()}
+
         <ul>
           {this.state.posts.map( function(post, idx) {
 

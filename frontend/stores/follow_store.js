@@ -2,6 +2,7 @@ var Store = require('flux/utils').Store;
 var FollowConstants = require('../constants/follow_constants.js');
 var AppDispatcher = require('../dispatcher/dispatcher.js');
 
+
 var FollowStore = new Store(AppDispatcher);
 
 var _follows = {};
@@ -10,7 +11,7 @@ var _allFollowers = {};
 
 var _allFollowing = {};
 
-var updateFollows = function(followObject, userId, deleteId) {
+var updateFollows = function(followObject, userId, deleteId, onYourOwnPage) {
   if ( _allFollowers[userId] === undefined ) {
     _allFollowers[userId] = {};
     // to pervent fetchCount from erroring out at _allFollowing[userId]
@@ -18,14 +19,29 @@ var updateFollows = function(followObject, userId, deleteId) {
     _allFollowing[userId] = {};
   }
 
-  if ( deleteId ) {
-    delete _allFollowers[userId][deleteId];
+  if ( onYourOwnPage ) {
+    // deleteId is really just YOUR OWN id
+    // if you click follow button on your own page, you can ONLY affect the set of people you are FOLLOWING
+    // on other people's page, you can only affect their set of followers
+    if ( deleteId ) {
+      delete _allFollowing[deleteId][userId];
+    } else {
+      if ( followObject.id ) {
+        // if followObject === {}, we do nothing
+        _allFollowing[deleteId][followObject.id] = followObject;
+      }
+    }
   } else {
-    if ( followObject.id ) {
-      // if followObject === {}, we do nothing
-      _allFollowers[userId][followObject.id] = followObject;
+    if ( deleteId ) {
+      delete _allFollowers[userId][deleteId];
+    } else {
+      if ( followObject.id ) {
+        // if followObject === {}, we do nothing
+        _allFollowers[userId][followObject.id] = followObject;
+      }
     }
   }
+
 };
 
 var updatePile = function( set, userId ) {
@@ -48,7 +64,7 @@ var updatePile = function( set, userId ) {
 FollowStore.fetchFollowStatus = function( userId, currentUserId ) {
   if ( _allFollowers[userId] && _allFollowers[userId][currentUserId] ) {
     // the first condition accounts of mulitple asyn calls on Index page
-    // second condition ensures _allFollowers[userId] !== {} 
+    // second condition ensures _allFollowers[userId] !== {}
     return true;
   } else {
     return false;
@@ -59,6 +75,14 @@ FollowStore.fetchCount = function( userId ) {
   return { followersCount: Object.keys(_allFollowers[userId]).length, followingCount: Object.keys(_allFollowing[userId]).length };
 };
 
+FollowStore.fetchAllUsers = function( userId, type ) {
+  if ( type === "followers" ) {
+    return _allFollowers[userId];
+  } else if ( type === "following" ) {
+    return _allFollowing[userId];
+  }
+};
+
 FollowStore.__onDispatch = function(payload) {
   switch( payload.actionType ) {
     case FollowConstants.FETCH_FOLLOW_OBJECT:
@@ -66,7 +90,7 @@ FollowStore.__onDispatch = function(payload) {
       FollowStore.__emitChange();
     break;
     case FollowConstants.TOGGLE_FOLLOW:
-      updateFollows(payload.followObject, payload.userId, payload.deleteId);
+      updateFollows(payload.followObject, payload.userId, payload.deleteId, payload.onYourOwnPage);
       FollowStore.__emitChange();
     break;
     case FollowConstants.ALL_FOLLOWERS_AND_FOLLOWEES:

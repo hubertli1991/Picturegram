@@ -25,7 +25,6 @@ var PostApiUtil = {
       dataType: 'json',
       data: {following_status: followingStatus},
       success: function(fivePosts) {
-        // debugger;
         ServerActions.fetchFive(fivePosts, replaceStore);
       }
     });

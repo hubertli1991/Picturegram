@@ -7,7 +7,7 @@ var ClientActions = require('../actions/client_actions');
 
 var FollowButton = React.createClass({
   getInitialState: function() {
-    return( { userId: this.props.userId, currentlyFollowing: false, location: this.props.location } );
+    return( { userId: this.props.userId, currentlyFollowing: false, location: this.props.location, onYourOwnPage: this.props.onYourOwnPage } );
   },
 
   className: function(location) {
@@ -17,6 +17,8 @@ var FollowButton = React.createClass({
       return "follow-button-home";
     }  else if ( location === "index-item" ) {
       return "follow-button-index-item";
+    } else if ( location === "follow-index-item" ) {
+      return "follow-button-follow-index-item";
     }
   },
 
@@ -30,17 +32,20 @@ var FollowButton = React.createClass({
   },
 
   _onChange: function() {
-    var currentlyFollowing = FollowStore.fetchFollowStatus( this.state.userId, SessionStore.currentUser().id ) ; 
+    var currentlyFollowing = FollowStore.fetchFollowStatus( this.state.userId, SessionStore.currentUser().id );
     this.setState({ currentlyFollowing: currentlyFollowing });
   },
 
   componentWillReceiveProps: function(newProp) {
     this.state.userId = newProp.userId;
+    this.state.location = newProp.location;
+    this.state.onYourOwnPage = newProp.onYourOwnPage;
     ClientActions.fetchFollow( this.state.userId );
   },
 
   handleClick: function() {
-    ClientActions.toggleFollow( this.state.userId, SessionStore.currentUser().id );
+    // debugger;
+    ClientActions.toggleFollow( this.state.userId, SessionStore.currentUser().id, this.state.onYourOwnPage );
   },
 
   style: function() {

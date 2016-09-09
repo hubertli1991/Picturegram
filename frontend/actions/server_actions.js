@@ -101,12 +101,13 @@ fetchHashtagAndPosts: function(hashtagAndPosts) {
     });
   },
 
-  toggleFollow: function(followObject, userId, deleteId) {
+  toggleFollow: function(followObject, userId, deleteId, onYourOwnPage) {
     AppDispatcher.dispatch({
       actionType: FollowConstants.TOGGLE_FOLLOW,
       followObject: followObject,
       userId: userId,
-      deleteId: deleteId
+      deleteId: deleteId,
+      onYourOwnPage: onYourOwnPage
     });
   },
 
