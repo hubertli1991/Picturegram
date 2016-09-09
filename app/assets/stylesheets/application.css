@@ -1613,8 +1613,8 @@ body {
 
 .follow-not-follow-button {
   position: fixed;
-  right: 75px;
-  bottom: 75px;
+  right: 100px;
+  bottom: 100px;
   /*top: 200px;*/
   width: 150px;
   height: 150px;
