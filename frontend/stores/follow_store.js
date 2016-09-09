@@ -11,7 +11,7 @@ var _allFollowers = {};
 
 var _allFollowing = {};
 
-var updateFollows = function(followObject, userId, deleteId, onYourOwnPage) {
+var updateFollows = function(followObject, userId, deleteId) {
   if ( _allFollowers[userId] === undefined ) {
     _allFollowers[userId] = {};
     // to pervent fetchCount from erroring out at _allFollowing[userId]
@@ -19,28 +19,47 @@ var updateFollows = function(followObject, userId, deleteId, onYourOwnPage) {
     _allFollowing[userId] = {};
   }
 
-  if ( onYourOwnPage ) {
-    // deleteId is really just YOUR OWN id
-    // if you click follow button on your own page, you can ONLY affect the set of people you are FOLLOWING
-    // on other people's page, you can only affect their set of followers
-    if ( deleteId ) {
-      delete _allFollowing[deleteId][userId];
-    } else {
-      if ( followObject.id ) {
-        // if followObject === {}, we do nothing
-        _allFollowing[deleteId][followObject.id] = followObject;
-      }
-    }
+  if ( _allFollowers[deleteId] === undefined ) {
+    _allFollowers[deleteId] = {};
+    _allFollowing[deleteId] = {};
+  }
+
+  if ( deleteId ) {
+    delete _allFollowers[userId][deleteId];
+    delete _allFollowing[deleteId][userId];
   } else {
-    if ( deleteId ) {
-      delete _allFollowers[userId][deleteId];
-    } else {
-      if ( followObject.id ) {
-        // if followObject === {}, we do nothing
-        _allFollowers[userId][followObject.id] = followObject;
-      }
+    if ( followObject.id ) {
+      // if followObject === {}, we do nothing
+      _allFollowers[userId][followObject.id] = followObject;
+      _allFollowing[deleteId][followObject.id] = followObject;
     }
   }
+
+
+  // if ( onYourOwnPage ) {
+  //   // deleteId is really just YOUR OWN id
+  //   // if you click follow button on your own page, you can ONLY affect the set of people you are FOLLOWING
+  //   // on other people's page, you can only affect their set of followers
+  //   if ( deleteId ) {
+  //     delete _allFollowing[deleteId][userId];
+  //   } else {
+  //     if ( followObject.id ) {
+  //       // if followObject === {}, we do nothing
+  //       _allFollowing[deleteId][followObject.id] = followObject;
+  //     }
+  //   }
+  // } else {
+  //   if ( deleteId ) {
+  //     delete _allFollowers[userId][deleteId];
+  //     delete _allFollowing[deleteId][userId];
+  //   } else {
+  //     if ( followObject.id ) {
+  //       // if followObject === {}, we do nothing
+  //       _allFollowers[userId][followObject.id] = followObject;
+  //       _allFollowing[deleteId][followObject.id] = followObject;
+  //     }
+  //   }
+  // }
 
 };
 
@@ -90,7 +109,7 @@ FollowStore.__onDispatch = function(payload) {
       FollowStore.__emitChange();
     break;
     case FollowConstants.TOGGLE_FOLLOW:
-      updateFollows(payload.followObject, payload.userId, payload.deleteId, payload.onYourOwnPage);
+      updateFollows(payload.followObject, payload.userId, payload.deleteId);
       FollowStore.__emitChange();
     break;
     case FollowConstants.ALL_FOLLOWERS_AND_FOLLOWEES:

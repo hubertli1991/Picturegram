@@ -19,7 +19,7 @@ var FollowApiUtil = {
     });
   },
 
-  toggleFollow: function(userId, deleteId, onYourOwnPage) {
+  toggleFollow: function(userId, deleteId) {
     $.ajax({
       method: 'POST',
       url: '/api/followings',
@@ -27,10 +27,10 @@ var FollowApiUtil = {
       data: {following: {following_id: userId}},
       success: function( set ) {
         if ( set.followers[0] ) {
-          ServerActions.toggleFollow(set.followers[0], userId, null, onYourOwnPage);
+          ServerActions.toggleFollow(set.followers[0], userId, null);
         } else {
           // user object associated with userId is to be destroyed
-          ServerActions.toggleFollow({}, userId, deleteId, onYourOwnPage);
+          ServerActions.toggleFollow({}, userId, deleteId);
         }
       }
     });

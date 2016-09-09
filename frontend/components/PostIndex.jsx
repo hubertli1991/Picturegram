@@ -21,14 +21,7 @@ var PostIndex = React.createClass({
   },
 
   getInitialState: function() {
-    var onYourOwnPage;
-    if (parseInt(this.props.params.id) === SessionStore.currentUser().id) {
-      onYourOwnPage = true;
-    } else {
-      onYourOwnPage = false;
-    }
-
-    return { posts: [], modalOpen: false, userId: this.props.params.id, onYourOwnPage: onYourOwnPage };
+    return { posts: [], modalOpen: false, userId: this.props.params.id };
   },
 
 
@@ -52,12 +45,6 @@ var PostIndex = React.createClass({
   componentWillReceiveProps: function(newProp) {
     // this.setState({userId: newProp.params.id});
     this.state.userId = newProp.params.id;
-    if (parseInt(newProp.params.id) === SessionStore.currentUser().id) {
-      this.state.onYourOwnPage = true;
-    } else {
-      this.state.onYourOwnPage = false;
-    }
-
     ClientActions.fetchUserAndPosts(parseInt(this.state.userId));
   },
 
@@ -119,7 +106,7 @@ var PostIndex = React.createClass({
 
               <p className="profile-bio"> {user.bio} </p>
 
-              <Following postCount={this.state.posts.length} userId={this.state.userId} onYourOwnPage={this.state.onYourOwnPage} type="followers" />
+              <Following postCount={this.state.posts.length} userId={this.state.userId} type="followers" />
             </div>
 
 

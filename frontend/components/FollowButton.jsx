@@ -7,7 +7,7 @@ var ClientActions = require('../actions/client_actions');
 
 var FollowButton = React.createClass({
   getInitialState: function() {
-    return( { userId: this.props.userId, currentlyFollowing: false, location: this.props.location, onYourOwnPage: this.props.onYourOwnPage } );
+    return( { userId: this.props.userId, currentlyFollowing: false, location: this.props.location } );
   },
 
   className: function(location) {
@@ -39,13 +39,11 @@ var FollowButton = React.createClass({
   componentWillReceiveProps: function(newProp) {
     this.state.userId = newProp.userId;
     this.state.location = newProp.location;
-    this.state.onYourOwnPage = newProp.onYourOwnPage;
     ClientActions.fetchFollow( this.state.userId );
   },
 
   handleClick: function() {
-    // debugger;
-    ClientActions.toggleFollow( this.state.userId, SessionStore.currentUser().id, this.state.onYourOwnPage );
+    ClientActions.toggleFollow( this.state.userId, SessionStore.currentUser().id );
   },
 
   style: function() {

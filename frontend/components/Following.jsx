@@ -18,7 +18,7 @@ var Followers = React.createClass({
   },
 
   getInitialState: function() {
-    return { userId: this.props.userId, postCount: this.props.postCount, type: "", followersCount: 0, followingCount: 0, followSet: {}, onYourOwnPage: this.props.onYourOwnPage };
+    return { userId: this.props.userId, postCount: this.props.postCount, type: "", followersCount: 0, followingCount: 0, followSet: {} };
   },
 
 
@@ -42,7 +42,6 @@ var Followers = React.createClass({
   componentWillReceiveProps: function(newProp) {
     this.state.userId = newProp.userId;
     this.state.postCount = newProp.postCount;
-    this.state.onYourOwnPage = newProp.onYourOwnPage;
     ClientActions.fetchFollowersAndFollowees(this.state.userId);
   },
 
@@ -61,7 +60,7 @@ var Followers = React.createClass({
 
   renderFollowButton: function(userId) {
     if ( userId !== SessionStore.currentUser().id ) {
-      return <FollowButton userId={userId} onYourOwnPage={this.state.onYourOwnPage} location="follow-index-item"/>;
+      return <FollowButton userId={userId} location="follow-index-item"/>;
     }
   },
 
