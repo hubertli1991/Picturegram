@@ -70,9 +70,7 @@ var App = React.createClass({
     } else {
       return (
         <div>
-          <header>
-            <NavBar/>
-          </header>
+          <NavBar/>
           <HomeIndex/>
           {this.props.children}
         </div>

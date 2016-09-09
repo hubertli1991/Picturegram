@@ -27,7 +27,7 @@ var NavBar = React.createClass({
           </div>
           <SearchBar/>
           <div className="your-page-link">
-            <button className="fa fa-user" onClick={this.backToYourPage}/>
+            <div className="fa fa-user" onClick={this.backToYourPage}/>
           </div>
         </div>
       </div>

@@ -52,21 +52,23 @@ var HashtagIndex = React.createClass({
     return (
       <div>
         <NavBar/>
-        <div className="hashtag-header">
-          <div className="hashtag-title">{hashtag.hashtag}</div>
-          <div className="hashtag-post-count-container"><div className="hashtag-post-count">{postCount}</div>{unit}</div>
-        </div>
+        <div className="body">
+          <div className="hashtag-header">
+            <div className="hashtag-title">{hashtag.hashtag}</div>
+            <div className="hashtag-post-count-container"><div className="hashtag-post-count">{postCount}</div>{unit}</div>
+          </div>
 
-        <PostForm className="hashtag-post-form" userId={SessionStore.currentUser().id}/>
+          <PostForm className="hashtag-post-form" userId={SessionStore.currentUser().id}/>
 
-        <div className="spacing-below-post-form"/>
+          <div className="spacing-below-post-form"/>
 
-        <div className="user-picture-index group">
-          <ul>
-            {this.state.posts.map(function(post, idx) {
-              return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} postNumber={idx} postCount={postCount} thumbnail={post.thumbnail} hashtagPathId={this.state.hashtagId}/></div>);
-            }.bind(this))}
-          </ul>
+          <div className="user-picture-index group">
+            <ul>
+              {this.state.posts.map(function(post, idx) {
+                return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} postNumber={idx} postCount={postCount} thumbnail={post.thumbnail} hashtagPathId={this.state.hashtagId}/></div>);
+              }.bind(this))}
+            </ul>
+          </div>
         </div>
       </div>
     );

@@ -85,57 +85,57 @@ var PostIndex = React.createClass({
     return (
       <div>
         <NavBar/>
+        <div className="body">
+          <div className="right-below-nav group" >
+            <img className="profile-picture" src={user.profile_picture_url_regular}/>
 
-        <div className="right-below-nav group" >
-          <img className="profile-picture" src={user.profile_picture_url_regular}/>
+            <div className="stuff-under-nav-top-part">
 
-          <div className="stuff-under-nav-top-part">
+              <div className="username-and-buttons group">
+                <h1 className="user-name"> {user.username} </h1>
+                {this.renderProfileFormIfOnYourPage()}
 
-            <div className="username-and-buttons group">
-              <h1 className="user-name"> {user.username} </h1>
-              {this.renderProfileFormIfOnYourPage()}
+                {this.renderFollowButton()}
 
-              {this.renderFollowButton()}
+                <div className="logout-modal-button">
+                  <button className="fa fa-bars" onClick={this.openModal} />
+                </div>
 
-              <div className="logout-modal-button">
-                <button className="fa fa-bars" onClick={this.openModal} />
               </div>
 
+              <p className="profile-bio"> {user.bio} </p>
+
+              <Following postCount={this.state.posts.length} userId={this.state.userId} type="followers"/>
             </div>
 
-            <p className="profile-bio"> {user.bio} </p>
 
-            <Following postCount={this.state.posts.length} userId={this.state.userId} type="followers"/>
           </div>
 
-
-        </div>
-
-        <div>
-          <PostForm userId={SessionStore.currentUser().id}/>
-        </div>
-        <div className="spacing-below-post-form"></div>
-
-        <Modal
-          isOpen={this.state.modalOpen}
-          onRequestClose={this.closeModal}
-          style={_Logout_Style}>
-          <div className="logout-modal" >
-            <button className="logout-half" onClick={ this.handleLogOut }> Log out </button>
-            <button className="cancel-half" onClick={ this.closeModal }> Cancel </button>
+          <div>
+            <PostForm userId={SessionStore.currentUser().id}/>
           </div>
-        </Modal>
+          <div className="spacing-below-post-form"></div>
 
-        <div className="user-picture-index group">
-          <ul>
-            {this.state.posts.map(function(post, idx) {
-              return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} postNumber={idx} postCount={postCount} thumbnail={user.profile_picture_url_thumb_nail} path={currentPathLocation}/></div>);
-            })}
-          </ul>
-        </div>
+          <Modal
+            isOpen={this.state.modalOpen}
+            onRequestClose={this.closeModal}
+            style={_Logout_Style}>
+            <div className="logout-modal" >
+              <button className="logout-half" onClick={ this.handleLogOut }> Log out </button>
+              <button className="cancel-half" onClick={ this.closeModal }> Cancel </button>
+            </div>
+          </Modal>
 
-        {this.props.children}
+          <div className="user-picture-index group">
+            <ul>
+              {this.state.posts.map(function(post, idx) {
+                return ( <div className="posted-picture" key={idx}>< PostIndexItem post={post} postNumber={idx} postCount={postCount} thumbnail={user.profile_picture_url_thumb_nail} path={currentPathLocation}/></div>);
+              })}
+            </ul>
+          </div>
       </div>
+      {this.props.children}
+    </div>
     );
   }
 });

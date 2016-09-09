@@ -24,6 +24,7 @@ var HomeIndex = React.createClass({
 
   componentDidMount: function() {
     this.postStorelistener = PostStore.addListener(this._onChange);
+
     // infinte scroll -start
     this.infiniteScrollCallback = function(e) {
       if ( window.location.hash.slice(0,3) !== "#/?" ) {
@@ -31,10 +32,16 @@ var HomeIndex = React.createClass({
         window.removeEventListener("scroll", this.infiniteScrollCallback);
         return;
       }
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      if ((window.innerHeight + window.scrollY) - 78 >= document.body.offsetHeight) {
+        // " - 78 " to account for the homeIndex top positioning
         this.fetchFive();
+        // console.log("---------------");
+        // console.log(window.innerHeight + window.scrollY - 78);
+        // console.log(document.body.offsetHeight);
+        // console.log("---------------");
       }
     }.bind(this);
+
     window.addEventListener("scroll", this.infiniteScrollCallback);
     // infinte scroll -end
 
@@ -85,7 +92,7 @@ var HomeIndex = React.createClass({
     }
 
     return(
-      <div>
+      <div className="home-index">
         <div className="spacing-above-post-form-home"></div>
         <PostForm userId={SessionStore.currentUser().id}/>
         <div className="spacing-below-post-form-home"></div>
