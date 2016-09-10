@@ -72,6 +72,16 @@ var PostIndex = React.createClass({
     }
   },
 
+  renderLogoutButton: function() {
+    if (parseInt(this.state.userId) === SessionStore.currentUser().id) {
+      return (
+        <div className="logout-modal-button">
+          <button className="fa fa-bars" onClick={this.openModal} />
+        </div>
+      );
+    }
+  },
+
   render: function() {
     // we don't need currentPathLocation remove this and the prop later (double ckeck)
     var currentPathLocation = this.props.location.pathname;
@@ -91,12 +101,8 @@ var PostIndex = React.createClass({
               <div className="username-and-buttons group">
                 <h1 className="user-name"> {user.username} </h1>
                 {this.renderProfileFormIfOnYourPage()}
-
                 {this.renderFollowButton()}
-
-                <div className="logout-modal-button">
-                  <button className="fa fa-bars" onClick={this.openModal} />
-                </div>
+                {this.renderLogoutButton()}
 
               </div>
 
