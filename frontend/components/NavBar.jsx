@@ -10,10 +10,12 @@ var NavBar = React.createClass({
 
   backToRootPage: function() {
     this.context.router.push('/');
+    window.scrollTo(0, 0);
   },
 
   backToYourPage: function() {
     this.context.router.push('/users/' + SessionStore.currentUser().id);
+    window.scrollTo(0, 0);
   },
 
 

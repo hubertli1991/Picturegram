@@ -18,7 +18,7 @@ var PostApiUtil = {
     if ( postId === null ) {
       id = "first";
     }
-
+    
     $.ajax({
       method: 'GET',
       url: 'api/posts/fetch_five/' + id,

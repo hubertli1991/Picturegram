@@ -17,19 +17,21 @@ var SessionApiUtil = {
 		});
 	},
 
-	logout: function () {
+	logout: function (backToRootPage) {
 		$.ajax({
       method: 'delete',
 			url: '/api/session',
 			success: function () {
         SessionActions.removeCurrentUser();
+				backToRootPage();
       },
-			error: function () {
+			error: function (xhr) {
 			}
 		});
 	},
 
 	fetchCurrentUser: function(redirectIfNotLoggedIn) {
+
 		$.ajax({
       method: 'GET',
 			url: '/api/session',
@@ -43,10 +45,12 @@ var SessionApiUtil = {
 					profile_picture_url_regular: currentUserAndPosts.profile_picture_url_regular
 				};
 				SessionActions.receiveCurrentUser(currentUser);
+
 				// this callback allows us to refresh the page
 				if ( redirectIfNotLoggedIn ) {
 					redirectIfNotLoggedIn();
 				}
+
 				// send all current user's posts to post store
 				// PostActions.receiveAllPostsFromUser(currentUserAndPosts.posts);
 			},

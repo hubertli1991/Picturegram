@@ -43,7 +43,6 @@ var PostIndex = React.createClass({
   },
 
   componentWillReceiveProps: function(newProp) {
-    // this.setState({userId: newProp.params.id});
     this.state.userId = newProp.params.id;
     ClientActions.fetchUserAndPosts(parseInt(this.state.userId));
   },
@@ -54,15 +53,12 @@ var PostIndex = React.createClass({
 
 
   handleLogOut: function() {
-    SessionApiUtil.logout();
-    this.backToRootPage();
+    SessionApiUtil.logout(this.backToRootPage);
   },
 
   backToRootPage: function() {
     this.context.router.push('/');
   },
-// < PostIndexItem post={post} />
-// <h1> Hello </h1>
 
   renderProfileFormIfOnYourPage: function() {
     if (parseInt(this.state.userId) === SessionStore.currentUser().id) {
