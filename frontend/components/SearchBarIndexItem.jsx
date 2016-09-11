@@ -9,15 +9,17 @@ var SearchBarIndexItem = React.createClass({
   },
 
   getInitialState: function() {
-    return { user: this.props.user, hoverStyle: {}, type: this.props.user.type };
+    // console.log("search index item");
+    return { user: this.props.user, hoverStyle: {}, type: this.props.user.type, removeClickListener: this.props.removeClickListener };
   },
 
   componentWillReceiveProps: function(newProp) {
     // this.setState will not invoke render, but when you change the props, this.render will get invoked after this function
-    this.setState( { user: newProp.user,  hoverStyle: {}, type: newProp.user.type } );
+    this.setState( { user: newProp.user,  hoverStyle: {}, type: newProp.user.type, removeClickListener: newProp.removeClickListener } );
   },
 
   searchForUser: function() {
+    this.state.removeClickListener();
     if ( this.state.type === "user" ) {
       this.context.router.push( "/users/" + this.state.user.id );
     } else if ( this.state.type === "hashtag" ) {

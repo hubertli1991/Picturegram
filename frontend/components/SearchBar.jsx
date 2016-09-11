@@ -70,12 +70,17 @@ var SearchBar = React.createClass({
   hideSearchIndex: function() {
     document.addEventListener("click", this.hideHandler = this.hideHandler || function(e){
       // set this.hideHandler to event handler function or itself if it has already been set
-      // remove the even listeneer as soon as even occurs
-      document.removeEventListener("click", this.hideHandler);
-      if ( e.target !== document.getElementById("searchBarText") ) {
+      if ( e.target.className !== "searchbar-index-item" ) {
+        // remove the even listeneer as soon as you click outside the searchIndexItem
+        // we still need to remove event listener when we click on a searchIndexItem
+        document.removeEventListener("click", this.hideHandler);
         this.setState( { showSearchIndex: false } );
       }
     }.bind(this));
+  },
+
+  removeClickListener: function() {
+    document.removeEventListener("click", this.hideHandler);
   },
 
   showSearchBarIndexItem: function() {
@@ -88,8 +93,8 @@ var SearchBar = React.createClass({
       return (
         <ul className="searchbar-index" onClick={this.clearSearchBar}>
           {this.state.matchedUsers.map(function(user, idx) {
-            return (<SearchBarIndexItem user={user} key={idx} ref={user.username || user.hashtag}/>);
-          })}
+            return (<SearchBarIndexItem user={user} key={idx} removeClickListener={this.removeClickListener} ref={user.username || user.hashtag}/>);
+          }.bind(this))}
         </ul>
       );
     }
@@ -131,6 +136,8 @@ var SearchBar = React.createClass({
     else if ( e.keyCode === 13 && this.netUpDown !== 0) {
       // ENTER key
       // var indexItemUsername = this.state.matchedUsers[this.netUpDown - 1].username;
+      document.removeEventListener("click", this.hideHandler);
+      // remove the click eventListener set in hideSearchIndex
       this.refs[this.currentTarget].searchForUser();
     }
   },
