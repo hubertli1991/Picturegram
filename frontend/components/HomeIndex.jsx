@@ -9,7 +9,7 @@ var NavBar = require('./NavBar');
 var PostForm = require('./PostForm');
 var LikeButton = require('./LikeButton');
 var LikeCount = require('./LikeCount');
-var NavBar = require('./NAvBar');
+var NavBar = require('./NavBar');
 var LikeStore = require('../stores/like_store');
 var SessionStore = require('../stores/session_store');
 
