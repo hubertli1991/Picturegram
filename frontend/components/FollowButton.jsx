@@ -48,7 +48,7 @@ var FollowButton = React.createClass({
 
   style: function() {
     if ( this.state.currentlyFollowing ) {
-      return {color: "#ffffff", backgroundColor: "#70c050"};
+      return {color: "#ffffff", backgroundColor: "#70c050", borderColor: "#70c050"};
     } else {
       return {};
     }

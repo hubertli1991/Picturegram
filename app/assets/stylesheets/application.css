@@ -289,6 +289,7 @@ body {
   border-bottom: 1px solid #dbdbdb;
   background: white;
   height: 75px;
+  /*min-width: 800px;*/
   /*margin-bottom: 20px;*/
 }
 
@@ -482,6 +483,7 @@ body {
   font-family: proxima-nova, "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 21px;
   position: relative;
+  min-width: 900px;
 }
 
 .profile-picture {
@@ -552,8 +554,8 @@ body {
   font-size: 20px;
   font-weight: 600;
   /*background-color: green;*/
-  color: #70c050;
-  border: 2px solid #70c050;
+  color: #3897f0;
+  border: 2px solid #3897f0;
   cursor: pointer;
 }
 
@@ -669,8 +671,8 @@ body {
   border-radius: 7px;
   font-size: 20px;
   font-weight: 600;
-  color: #70c050;
-  border: 2px solid #70c050;
+  color: #3897f0;
+  border: 2px solid #3897f0;
   cursor: pointer;
 }
 
@@ -1149,8 +1151,8 @@ body {
   font-size: 20px;
   font-weight: 600;
   /*background-color: green;*/
-  color: #70c050;
-  border: 2px solid #70c050;
+  color: #3897f0;
+  border: 2px solid #3897f0;
   cursor: pointer;
 }
 
@@ -1548,8 +1550,8 @@ body {
   font-size: 20px;
   font-weight: 600;
   /*background-color: green;*/
-  color: #70c050;
-  border: 2px solid #70c050;
+  color: #3897f0;
+  border: 2px solid #3897f0;
   cursor: pointer;
 }
 
