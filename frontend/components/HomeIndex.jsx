@@ -9,6 +9,7 @@ var NavBar = require('./NavBar');
 var PostForm = require('./PostForm');
 var LikeButton = require('./LikeButton');
 var LikeCount = require('./LikeCount');
+var NavBar = require('./NAvBar');
 var LikeStore = require('../stores/like_store');
 var SessionStore = require('../stores/session_store');
 
@@ -95,51 +96,49 @@ var HomeIndex = React.createClass({
   },
 
   render: function() {
-    var buttonName;
-    if ( this.state.following ) {
-      buttonName = "NOT FOLLOWING";
-    } else {
-      buttonName = "FOLLOWING";
-    }
 
     return(
-      <div className="home-index">
-        <div className="spacing-above-post-form-home"></div>
-        <PostForm userId={SessionStore.currentUser().id}/>
-        <div className="spacing-below-post-form-home"></div>
+      <div>
 
-        { this.renderMessage()}
+        <NavBar handleSwitch={this.handleSwitch} following={this.state.following}/>
 
-        <ul>
-          {this.state.posts.map( function(post, idx) {
+        <div className="home-index">
+          <div className="spacing-above-post-form-home"></div>
+          <PostForm userId={SessionStore.currentUser().id}/>
+          <div className="spacing-below-post-form-home"></div>
 
-            var millisecondDay = 1000*60*60*24;
-            var currentDate = new Date();
-            var createAtDate = new Date(post.created_at);
-            var daysSince = Math.ceil( (currentDate - createAtDate) / millisecondDay );
-            var timeSince = 0;
-            var timeUnit = 0;
-            if( daysSince/7 < 1 ) {
-              timeSince = daysSince;
-              timeUnit = "d";
-            } else {
-              timeSince = Math.floor(daysSince/7);
-              timeUnit = "w";
-            }
+          { this.renderMessage()}
 
-            return (
-                    <li key={idx}>
+          <ul>
+            {this.state.posts.map( function(post, idx) {
 
-                      <HomeIndexItem post={post} timeSincePosted={timeSince + timeUnit}/>
+              var millisecondDay = 1000*60*60*24;
+              var currentDate = new Date();
+              var createAtDate = new Date(post.created_at);
+              var daysSince = Math.ceil( (currentDate - createAtDate) / millisecondDay );
+              var timeSince = 0;
+              var timeUnit = 0;
+              if( daysSince/7 < 1 ) {
+                timeSince = daysSince;
+                timeUnit = "d";
+              } else {
+                timeSince = Math.floor(daysSince/7);
+                timeUnit = "w";
+              }
 
-                    </li>
-                  );
+              return (
+                <li key={idx}>
+
+                  <HomeIndexItem post={post} timeSincePosted={timeSince + timeUnit}/>
+
+                </li>
+              );
             }.bind(this) )}
-        </ul>
+          </ul>
 
-        <div className="follow-not-follow-button" onClick={this.handleSwitch}> <div className="follow-not-follow-button-text"> {buttonName} </div> </div>
+          <div className="floor"/>
+        </div>
 
-        <div className="floor"/>
       </div>
     );
   }

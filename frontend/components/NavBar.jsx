@@ -8,6 +8,15 @@ var NavBar = React.createClass({
     router: React.PropTypes.object.isRequired
   },
 
+  getInitialState: function() {
+   return( { handleSwitch: this.props.handleSwitch, following: this.props.following } );
+  },
+
+  componentWillReceiveProps: function(newProp) {
+    // handleSwitch should never change
+    this.setState( { following: newProp.following } );
+  },
+
   backToRootPage: function() {
     this.context.router.push('/');
     window.scrollTo(0, 0);
@@ -18,6 +27,22 @@ var NavBar = React.createClass({
     window.scrollTo(0, 0);
   },
 
+  renderFollowToggle: function() {
+    if ( window.location.hash.slice(0,3) === "#/?" ) {
+
+      var buttonName;
+      var style={};
+      if ( this.state.following ) {
+        buttonName = "NOT FOLLOWING";
+        style = {};
+      } else {
+        buttonName = "FOLLOWING";
+        style = { color: "#70c050", borderColor: "#70c050" };
+      }
+
+      return <div className="follow-toggle" onClick={this.state.handleSwitch} style={style}> <div className="follow-not-follow-button-text"> {buttonName} </div>  </div>;
+    }
+  },
 
   render: function() {
 
@@ -27,6 +52,7 @@ var NavBar = React.createClass({
           <div className="home-link" onClick={this.backToRootPage}>
             <a className="home-link-button"></a>
           </div>
+          { this.renderFollowToggle() }
           <SearchBar/>
           <div className="your-page-link">
             <div className="fa fa-user" onClick={this.backToYourPage}/>

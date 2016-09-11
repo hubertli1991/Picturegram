@@ -46,7 +46,6 @@ var App = React.createClass({
     } else {
       return (
         <div>
-          <NavBar/>
           <HomeIndex/>
           {this.props.children}
         </div>
