@@ -37,7 +37,7 @@ var NavBar = React.createClass({
         style = {};
       } else {
         buttonName = "FOLLOWING";
-        style = { color: "#70c050", borderColor: "#70c050" };
+        style = { color: "white", backgroundColor: "#70c050", borderColor: "#70c050" };
       }
 
       return <div className="follow-toggle" onClick={this.state.handleSwitch} style={style}> <div className="follow-not-follow-button-text"> {buttonName} </div>  </div>;
