@@ -21,7 +21,8 @@ var PostIndex = React.createClass({
   },
 
   getInitialState: function() {
-    return { posts: [], modalOpen: false, userId: this.props.params.id };
+    console.log("get initial state");
+    return { posts: [], modalOpen: false, userId: this.props.params.id, user: 0 };
   },
 
 
@@ -34,7 +35,7 @@ var PostIndex = React.createClass({
 
 
   _onChange: function() {
-    this.setState({ posts: PostStore.all() });
+    this.setState({ posts: PostStore.all(), user: PostStore.fetchUser() });
   },
 
   componentDidMount: function() {
@@ -85,9 +86,11 @@ var PostIndex = React.createClass({
   render: function() {
     // we don't need currentPathLocation remove this and the prop later (double ckeck)
     var currentPathLocation = this.props.location.pathname;
-    var user = PostStore.fetchUser();
+    var user = this.state.user;
     var postCount = this.state.posts.length;
     // placed the post count into the Following component
+
+    if ( user === 0 ) { return <div/>; }
 
     return (
       <div>
