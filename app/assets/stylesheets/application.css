@@ -592,6 +592,11 @@ body {
   font-size: 44px;
   margin-top: 6px;
   margin-left: 5%;
+  width: 50px;
+  height: 50px;
+  background-image: url("three_dots.png");
+  background-size: 100% 100%;
+  cursor: pointer;
   /*background-color: purple;*/
 }
 

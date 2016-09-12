@@ -76,9 +76,7 @@ var PostIndex = React.createClass({
   renderLogoutButton: function() {
     if (parseInt(this.state.userId) === SessionStore.currentUser().id) {
       return (
-        <div className="logout-modal-button">
-          <button className="fa fa-bars" onClick={this.openModal} />
-        </div>
+          <button className="logout-modal-button" onClick={this.openModal} />
       );
     }
   },
