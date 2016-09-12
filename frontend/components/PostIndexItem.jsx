@@ -109,6 +109,7 @@ var PostIndexItem = React.createClass({
     } else if ( type === "hashtag" ) {
       this.context.router.push( "/hashtags/" + id );
     }
+    window.scrollTo(0,0);
   },
 
   handleKeyDown: function(e) {

@@ -25,6 +25,7 @@ var SearchBarIndexItem = React.createClass({
     } else if ( this.state.type === "hashtag" ) {
       this.context.router.push( "/hashtags/" + this.state.user.id );
     }
+    window.scrollTo(0,0);
     // Want to clear out the search Index under and the value inside the search bar
     // This step will skip the backend to clear the UserStore
     ClientActions.fetchUsersThatMatchSearch("");
