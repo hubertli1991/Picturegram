@@ -21,7 +21,6 @@ var PostIndex = React.createClass({
   },
 
   getInitialState: function() {
-    console.log("get initial state");
     return { posts: [], modalOpen: false, userId: this.props.params.id, user: 0 };
   },
 

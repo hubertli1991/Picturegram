@@ -18,13 +18,56 @@ var NavBar = React.createClass({
   },
 
   backToRootPage: function() {
+    if ( this.currentlyScrolling ) { return; }
+    if ( window.location.hash.slice(0,3) === "#/?" ) {
+      this.scrollToTop( window.location.hash );
+      return;
+    }
     this.context.router.push('/');
-    window.scrollTo(0, 0);
   },
 
   backToYourPage: function() {
+    if ( this.currentlyScrolling ) { return; }
+
+    var idx = window.location.hash.indexOf("?");
+    if ( window.location.hash.slice(0,8) === "#/users/" &&
+    parseInt(window.location.hash.slice(8, idx)) === SessionStore.currentUser().id ) {
+      // only slow scroll to top if on your own page
+      // otherwise just jump to it
+      this.scrollToTop( window.location.hash );
+      return;
+    }
+
     this.context.router.push('/users/' + SessionStore.currentUser().id);
     window.scrollTo(0, 0);
+  },
+
+  followToggle: function() {
+    if ( this.currentlyScrolling ) { return; }
+    if ( window.location.hash.slice(0,3) === "#/?" ) {
+      // the followToggle button only appears on the HomeIndex page, so this if statement is overkill
+      // just want to be safe
+      this.scrollToTop( window.location.hash, this.state.handleSwitch );
+      return;
+    }
+  },
+
+  scrollToTop: function( currentPage, callback ) {
+    this.currentY = this.currentY || window.scrollY;
+
+    if ( this.currentY <= 0 || (window.location.hash !== currentPage) ) {
+      this.currentY = null;
+      clearTimeout( this.currentlyScrolling );
+      this.currentlyScrolling = null;
+      if (callback) { callback(); }
+      return;
+    }
+
+    this.currentlyScrolling = setTimeout( function() {
+      this.currentY -= 70;
+      window.scrollTo(0, this.currentY);
+      this.scrollToTop( currentPage, callback );
+    }.bind(this), 1);
   },
 
   renderFollowToggle: function() {
@@ -40,7 +83,7 @@ var NavBar = React.createClass({
         style = { color: "white", backgroundColor: "#70c050", borderColor: "#70c050" };
       }
 
-      return <div className="follow-toggle" onClick={this.state.handleSwitch} style={style}> <div className="follow-not-follow-button-text"> {buttonName} </div>  </div>;
+      return <div className="follow-toggle" onClick={this.followToggle} style={style}> <div className="follow-not-follow-button-text"> {buttonName} </div>  </div>;
     }
   },
 
@@ -64,8 +107,3 @@ var NavBar = React.createClass({
 });
 
 module.exports = NavBar;
-
-// <button className="fa fa-instagram"/>
-// <div className="picturegram" >Picturegram</div>
-
-// <img src="<%= asset_path('picturegram.png')%>" />
