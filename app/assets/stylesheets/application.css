@@ -429,7 +429,7 @@ body {
   width: 100%;
   margin-top: 7px;
   margin-left: -1px;
-  /*z-index: 1;*/
+  /*z-index: 2;*/
 }
 
 .searchbar-index-item {
@@ -441,6 +441,7 @@ body {
   position: relative;
   overflow: auto;
   cursor: pointer;
+  /*z-index: 2;*/
 }
 
 .searchbar-index-item:hover{
@@ -453,6 +454,7 @@ body {
   height: 50px;
   width: 50px;
   cursor: pointer;
+  /*z-index: 2;*/
 }
 
 .searchbar-username {
@@ -461,6 +463,7 @@ body {
   right: 15px;
   top: 30%;
   font-size: 20px;
+  /*z-index: 2;*/
   /*background-color: green;*/
 }
 
@@ -473,6 +476,7 @@ body {
   background-size: 100% 100%;
   background-color: green;
   cursor: pointer;
+  /*z-index: 2;*/
 }
 
 .searchbar-username-hashtag {
@@ -481,6 +485,7 @@ body {
   right: 15px;
   top: 20%;
   font-size: 20px;
+  /*z-index: 2;*/
 }
 
 .searchbar-hashtag-post-count {
@@ -490,6 +495,7 @@ body {
   top: 50%;
   font-size: 20px;
   color: gray;
+  /*z-index: 2;*/
 }
 
 /*logout modal*/

@@ -20,15 +20,44 @@ var SearchBarIndexItem = React.createClass({
 
   searchForUser: function() {
     this.state.removeClickListener();
+
+    this.scrollToTop( window.location.hash, this.reRoute );
+
+    // if ( this.state.type === "user" ) {
+    //   this.context.router.push( "/users/" + this.state.user.id );
+    // } else if ( this.state.type === "hashtag" ) {
+    //   this.context.router.push( "/hashtags/" + this.state.user.id );
+    // }
+    // window.scrollTo(0,0);
+    // Want to clear out the search Index under and the value inside the search bar
+    // This step will skip the backend to clear the UserStore
+    ClientActions.fetchUsersThatMatchSearch("");
+  },
+
+  reRoute: function() {
     if ( this.state.type === "user" ) {
       this.context.router.push( "/users/" + this.state.user.id );
     } else if ( this.state.type === "hashtag" ) {
       this.context.router.push( "/hashtags/" + this.state.user.id );
     }
-    window.scrollTo(0,0);
-    // Want to clear out the search Index under and the value inside the search bar
-    // This step will skip the backend to clear the UserStore
-    ClientActions.fetchUsersThatMatchSearch("");
+  },
+
+  scrollToTop: function( currentPage, callback ) {
+    this.currentY = this.currentY || window.scrollY;
+
+    if ( this.currentY <= 0 || (window.location.hash !== currentPage) ) {
+      this.currentY = null;
+      clearTimeout( this.currentlyScrolling );
+      this.currentlyScrolling = null;
+      if (callback) { callback(); }
+      return;
+    }
+
+    this.currentlyScrolling = setTimeout( function() {
+      this.currentY -= 70;
+      window.scrollTo(0, this.currentY);
+      this.scrollToTop( currentPage, callback );
+    }.bind(this), 1);
   },
 
   addHoverEffect: function(idx) {
