@@ -21,14 +21,13 @@ var SearchBarIndexItem = React.createClass({
   searchForUser: function() {
     this.state.removeClickListener();
 
-    this.scrollToTop( window.location.hash, this.reRoute );
+    if ( window.location.hash.slice(0,3) !== "#/?" ) {
+      this.scrollToTop( window.location.hash, this.reRoute );
+      ClientActions.fetchUsersThatMatchSearch("");
+      return;
+    }
 
-    // if ( this.state.type === "user" ) {
-    //   this.context.router.push( "/users/" + this.state.user.id );
-    // } else if ( this.state.type === "hashtag" ) {
-    //   this.context.router.push( "/hashtags/" + this.state.user.id );
-    // }
-    // window.scrollTo(0,0);
+    this.reRoute();
     // Want to clear out the search Index under and the value inside the search bar
     // This step will skip the backend to clear the UserStore
     ClientActions.fetchUsersThatMatchSearch("");
