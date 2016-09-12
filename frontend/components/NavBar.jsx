@@ -1,6 +1,7 @@
 var React = require('react');
 var SessionStore = require('../stores/session_store');
 var SearchBar = require('./SearchBar');
+var Helper = require('../helpers/helpers');
 
 var NavBar = React.createClass({
 
@@ -20,7 +21,7 @@ var NavBar = React.createClass({
   backToRootPage: function() {
     if ( this.currentlyScrolling ) { return; }
     if ( window.location.hash.slice(0,3) === "#/?" ) {
-      this.scrollToTop( window.location.hash );
+      Helper.scrollToTop( window.location.hash );
       return;
     }
     this.context.router.push('/');
@@ -33,13 +34,12 @@ var NavBar = React.createClass({
     if ( window.location.hash.slice(0,8) === "#/users/" &&
     parseInt(window.location.hash.slice(8, idx)) === SessionStore.currentUser().id ) {
       // only slow scroll to top if on your own page
-      // otherwise just jump to it
-      this.scrollToTop( window.location.hash );
+      // otherwise, slow scroll to top and jump to own page
+      Helper.scrollToTop( window.location.hash );
       return;
     }
 
-    this.context.router.push('/users/' + SessionStore.currentUser().id);
-    window.scrollTo(0, 0);
+    Helper.scrollToTop( window.location.hash, this.context.router.push.bind(null, '/users/' + SessionStore.currentUser().id) );
   },
 
   followToggle: function() {
@@ -47,27 +47,9 @@ var NavBar = React.createClass({
     if ( window.location.hash.slice(0,3) === "#/?" ) {
       // the followToggle button only appears on the HomeIndex page, so this if statement is overkill
       // just want to be safe
-      this.scrollToTop( window.location.hash, this.state.handleSwitch );
+      Helper.scrollToTop( window.location.hash, this.state.handleSwitch );
       return;
     }
-  },
-
-  scrollToTop: function( currentPage, callback ) {
-    this.currentY = this.currentY || window.scrollY;
-
-    if ( this.currentY <= 0 || (window.location.hash !== currentPage) ) {
-      this.currentY = null;
-      clearTimeout( this.currentlyScrolling );
-      this.currentlyScrolling = null;
-      if (callback) { callback(); }
-      return;
-    }
-
-    this.currentlyScrolling = setTimeout( function() {
-      this.currentY -= 70;
-      window.scrollTo(0, this.currentY);
-      this.scrollToTop( currentPage, callback );
-    }.bind(this), 1);
   },
 
   renderFollowToggle: function() {

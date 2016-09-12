@@ -1,6 +1,7 @@
 var React = require('react');
 var ClientActions = require('../actions/client_actions');
 var UserStore = require('../stores/user_store');
+var Helper = require('../helpers/helpers');
 
 var SearchBarIndexItem = React.createClass({
 
@@ -21,42 +22,23 @@ var SearchBarIndexItem = React.createClass({
   searchForUser: function() {
     this.state.removeClickListener();
 
+    var newRoute;
+    if ( this.state.type === "user" ) {
+      newRoute = "/users/" + this.state.user.id;
+    } else if ( this.state.type === "hashtag" ) {
+      newRoute = "/hashtags/" + this.state.user.id;
+    }
+
     if ( window.location.hash.slice(0,3) !== "#/?" ) {
-      this.scrollToTop( window.location.hash, this.reRoute );
+      Helper.scrollToTop( window.location.hash, this.context.router.push.bind(null, newRoute) );
       ClientActions.fetchUsersThatMatchSearch("");
       return;
     }
 
-    this.reRoute();
+    this.context.router.push(newRoute);
     // Want to clear out the search Index under and the value inside the search bar
     // This step will skip the backend to clear the UserStore
     ClientActions.fetchUsersThatMatchSearch("");
-  },
-
-  reRoute: function() {
-    if ( this.state.type === "user" ) {
-      this.context.router.push( "/users/" + this.state.user.id );
-    } else if ( this.state.type === "hashtag" ) {
-      this.context.router.push( "/hashtags/" + this.state.user.id );
-    }
-  },
-
-  scrollToTop: function( currentPage, callback ) {
-    this.currentY = this.currentY || window.scrollY;
-
-    if ( this.currentY <= 0 || (window.location.hash !== currentPage) ) {
-      this.currentY = null;
-      clearTimeout( this.currentlyScrolling );
-      this.currentlyScrolling = null;
-      if (callback) { callback(); }
-      return;
-    }
-
-    this.currentlyScrolling = setTimeout( function() {
-      this.currentY -= 70;
-      window.scrollTo(0, this.currentY);
-      this.scrollToTop( currentPage, callback );
-    }.bind(this), 1);
   },
 
   addHoverEffect: function(idx) {

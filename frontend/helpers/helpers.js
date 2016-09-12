@@ -61,7 +61,27 @@ var Helper = {
     } else {
       return hashtagsArray;
     }
-  }
+  },
+
+
+
+  scrollToTop: function( currentPage, callback ) {
+    this.currentY = this.currentY || window.scrollY;
+
+    if ( this.currentY <= 0 || (window.location.hash !== currentPage) ) {
+      this.currentY = null;
+      clearTimeout( this.currentlyScrolling );
+      this.currentlyScrolling = null;
+      if (callback) { callback(); }
+      return;
+    }
+
+    this.currentlyScrolling = setTimeout( function() {
+      this.currentY -= 70;
+      window.scrollTo(0, this.currentY);
+      this.scrollToTop( currentPage, callback );
+    }.bind(this), 1);
+  },
 
 };
 
