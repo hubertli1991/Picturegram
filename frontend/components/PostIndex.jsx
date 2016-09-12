@@ -44,9 +44,6 @@ var PostIndex = React.createClass({
   },
 
   componentWillReceiveProps: function(newProp) {
-    this.setState({ user: 0 });
-    // ensures posts and profile pictures render at the same time
-    // as username and blurb when you search for someone else
     this.state.userId = newProp.params.id;
     ClientActions.fetchUserAndPosts(parseInt(this.state.userId));
   },
@@ -93,7 +90,7 @@ var PostIndex = React.createClass({
     var postCount = this.state.posts.length;
     // placed the post count into the Following component
     // ensure previous user profile doesn't render when searching new user page
-    if ( user === 0 ) { return <NavBar/>; }
+    if ( user === 0 ) { return( <div><NavBar/></div>); }
 
     return (
       <div>
