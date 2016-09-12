@@ -18,16 +18,27 @@ I allow my app to authenticate users through Facebook. If you look in my `routes
 
 ### Posts
 
-To implement the post picture functionality, I used the Paperclip gem. Instagram displays two versions of every photo you upload. A small version for your user page and a large version for when someone click on the image. I saved two copies of every image that is uploaded through the `PostForm`, one 300x300 and another 600x600. I do this to reduce the load on the front end.
+To implement the post picture functionality, I used the Paperclip gem. Instagram displays two versions of every photo you upload. A small version for your user page and a large version for when someone click on the image. I saved two copies of every image that is uploaded through the `PostForm`, one 300x300 and another 600x600.
+```` Ruby
+has_attached_file :image, styles: { :small => "300x300#", :large => "600x600#" }
+````
+I did this to reduce the load on the front end. Similarly, for profile pictures, I saved two copies every time a user uploads a profile picture. One for the user home page and another for the thumbnail posted on every user post.
 
-Similarly, for profile pictures, I saved two copies every time a user uploads a profile picture. One for the user home page and another for the thumbnail posted on every user post.
+### Hashtags
 
 ### Comments    
 
 For comments, I created a database that connected each comment with a post_id. I didn't create a store for comments. Instead I packaged comments with posts and placed them all into the `PostStore`. I did this because pictures and comments are almost always rendered at the same time and even if they are not, the user is likely going to render both sets of data. I wanted the reduce the number of ajax requests to the backend.
 
-## Future Direction for the Project
+### Search Bar
+
+### Arrow Key Navigation
 
 ### followers
+
+
+## Future Direction for the Project
+
+### Photo Tagging
 
 In addition to the features already implemented, I plan to continue working on this project. The next step is to create a follow feature. This will allow users to send follow requests to other users and to decide which users to accept follow requests from. Users will have the option to prevent other users from rendering their posts based on the other user's follow status.
