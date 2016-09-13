@@ -107,6 +107,49 @@ var Helper = {
 ````
 When the caption is done parsing, we package the hashtags in a way where we can send them to the back-end.
 
+When the user clicks on a small image, the `PostIndexItem` modal renders along with the post's large image and caption. When the caption renders, all of the post's hashtags must render in place of the pure string.
+
+To do this, we must pass down all of the post's hashtag objects from the back-end when we fetch a post. `PostsController#show` renders a post json object that has an attribute pair where the key is "hashtags" and the value is an array of hashtag objects. The JBuilder code is below.
+```` Ruby
+json.hashtags do
+  json.partial! 'hashtags/hashtags', hashtags: post.hashtags
+end
+````
+Here we are able to use the `Post.hashtags` method created when we set Post `has_many :hashtags, through: :post_hashtag_relationships`.
+```` Ruby
+json.array! hashtags do |hashtag|
+  json.extract! hashtag, :hashtag, :id
+end
+````
+So, the json object looks something like `{ id: some_num, caption: some_string,... , hashtags: [ { hashtag: #govikings, id: 28 }, { hashtag: #beatthepackers, id: 2 },... ] }`. from the `jsonObject.hashtags` we have all the data we need to render the caption with hashtags in place of string when necessary.
+
+when we render the caption, we again invoke `Helper.parseHashtags` and this will return us the array of hashtags. From there, we match each hashtag with a hashtag object brought down from the back-end. The tricky part is slicing the caption string up to render the string that doesn't correspond with a hashtag object the way it is and render the other parts with a new component that a different css (to make the color blue and the text to display inline) and an onClick property that routes the user to the hashtag page upon click.
+
+```` javascript
+renderCaption: function() {
+  hashtagsArray = Helpers.parseHashtags(this.state.post.caption, this.state.post.hashtags);
+
+  if ( hashtagsArray.length ) {
+    var caption = this.state.post.caption;
+    var idx = 0;
+    var final = [];
+    for (var i = 0; i < hashtagsArray.length; i++) {
+      // slice of pure caption string
+      final[idx] = caption.slice(idx, hashtagsArray[i][1]);
+      // hashtags component with onClick listener
+      final[hashtagsArray[i][1]] = <div className="hashtag" key={i} onClick={this.handleClick.bind(null, hashtagsArray[i][2], "hashtag")}>{hashtagsArray[i][0]}</div>;
+      //
+      idx = hashtagsArray[i][1] + hashtagsArray[i][0].length;
+    }
+    final[idx] = caption.slice(idx, caption.length);
+    return <div className="caption-text">{final}</div>;
+  } else {
+    return <div className="caption-text">{this.state.post.caption}</div>;
+  }
+},
+````
+The handleClick just invokes `this.context.router.push( "/hashtags/" + id )`.
+
 ### Comments    
 
 For comments, I created a database that connected each comment with a post_id. I didn't create a store for comments. Instead I packaged comments with posts and placed them all into the `PostStore`. I did this because pictures and comments are almost always rendered at the same time and even if they are not, the user is likely going to render both sets of data. I wanted the reduce the number of ajax requests to the backend.
