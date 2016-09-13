@@ -115,7 +115,7 @@ json.hashtags do
   json.partial! 'hashtags/hashtags', hashtags: post.hashtags
 end
 ````
-Here we are able to use the `Post.hashtags` method created when we set Post `has_many :hashtags, through: :post_hashtag_relationships`.
+Here we are able to use the `Post.hashtags` method created when we set `Post` `has_many :hashtags, through: :post_hashtag_relationships`.
 ```` Ruby
 json.array! hashtags do |hashtag|
   json.extract! hashtag, :hashtag, :id
@@ -123,7 +123,7 @@ end
 ````
 So, the json object looks something like `{ id: some_num, caption: some_string,... , hashtags: [ { hashtag: #govikings, id: 28 }, { hashtag: #beatthepackers, id: 2 },... ] }`. from the `jsonObject.hashtags` we have all the data we need to render the caption with hashtags in place of string when necessary.
 
-when we render the caption, we again invoke `Helper.parseHashtags` and this will return us the array of hashtags. From there, we match each hashtag with a hashtag object brought down from the back-end. The tricky part is slicing the caption string up to render the string that doesn't correspond with a hashtag object the way it is and render the other parts with a new component that a different css (to make the color blue and the text to display inline) and an onClick property that routes the user to the hashtag page upon click.
+when we render the caption, we again invoke `Helper.parseHashtags` and this will return us the array of hashtags. From there, we match each hashtag with a hashtag object brought down from the back-end. The tricky part is slicing the caption string up to render the string that doesn't correspond with a hashtag object the way it is and render the other parts with a new component that has a different css (to make the color blue and the text to display inline) and an onClick property that routes the user to the hashtag page upon click.
 
 ```` javascript
 renderCaption: function() {
@@ -148,7 +148,7 @@ renderCaption: function() {
   }
 },
 ````
-The handleClick just invokes `this.context.router.push( "/hashtags/" + id )`.
+The `handleClick` just invokes `this.context.router.push( "/hashtags/" + id )` which renders the `HashtagIndex` component. This component just pulls down all the hashtag's posts using the `posts` method created when we set `Hashtag` `has_many :posts, through: :post_hashtag_relationships`. It then renders the images using the same way `PostIndex` does.
 
 ### Comments    
 
