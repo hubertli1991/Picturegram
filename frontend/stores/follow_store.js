@@ -32,33 +32,6 @@ var updateFollows = function(yourObject, otherUserObject, userId, currentUserId)
     delete _allFollowers[userId][currentUserId];
     delete _allFollowing[currentUserId][userId];
   }
-
-
-  // if ( onYourOwnPage ) {
-  //   // deleteId is really just YOUR OWN id
-  //   // if you click follow button on your own page, you can ONLY affect the set of people you are FOLLOWING
-  //   // on other people's page, you can only affect their set of followers
-  //   if ( deleteId ) {
-  //     delete _allFollowing[deleteId][userId];
-  //   } else {
-  //     if ( followObject.id ) {
-  //       // if followObject === {}, we do nothing
-  //       _allFollowing[deleteId][followObject.id] = followObject;
-  //     }
-  //   }
-  // } else {
-  //   if ( deleteId ) {
-  //     delete _allFollowers[userId][deleteId];
-  //     delete _allFollowing[deleteId][userId];
-  //   } else {
-  //     if ( followObject.id ) {
-  //       // if followObject === {}, we do nothing
-  //       _allFollowers[userId][followObject.id] = followObject;
-  //       _allFollowing[deleteId][followObject.id] = followObject;
-  //     }
-  //   }
-  // }
-
 };
 
 var updatePile = function( set, userId ) {
@@ -73,7 +46,7 @@ var updatePile = function( set, userId ) {
       }
     }
   }
-  // looks something like allFollowers = { userId: { followerId: { his/her data }, anotherFollowerId: { his/her data } ... } }
+  // looks something like _allFollowers = { userId: { followerId: { his/her data }, anotherFollowerId: { his/her data } ... } }
   _allFollowers[userId] = followers;
   _allFollowing[userId] = following;
 };

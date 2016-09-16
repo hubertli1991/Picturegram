@@ -13,9 +13,6 @@ class Api::LikesController < ApplicationController
         @return_object[postId][:permissionToLike] = false
       end
     end
-    # if params[:id] == "117"
-    #   puts "117 hit!"
-    # end
     render json: @return_object
   end
 

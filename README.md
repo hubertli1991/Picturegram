@@ -14,7 +14,7 @@ On the front end, the root page listens to the `SessionStore` by invoking the ob
 
 ### Omni Auth
 
-I allow my app to authenticate users through Facebook. If you look in my `routes.rb` file, I made a custom route to `Sessions#create_with_facebook`. This method will authenticate the user or create an account for him or her if he or she doesn't have an existing account. The `create_with_facebook` method calls on the User model's `find_or_create_with_auth_hash` method and will either query for the user using the `facebook_uid` provided by facebook and log him or her in or create an account for the new user with the user's facebook username and facebook_uid.
+Picturegram can authenticate users through Facebook. If you look in the `routes.rb` file, I made a custom route to `Sessions#create_with_facebook`. This method will authenticate the user or create an account for him/her if he/she doesn't have an existing account. The `create_with_facebook` method calls on the User model's `find_or_create_with_auth_hash` method and will either query for the user using the `facebook_uid` provided by facebook and log him/her in or create an account for the new user with the user's facebook username and facebook_uid.
 
 ### Posts
 
@@ -115,7 +115,7 @@ json.hashtags do
   json.partial! 'hashtags/hashtags', hashtags: post.hashtags
 end
 ````
-Here we are able to use the `Post.hashtags` method created when we set `Post` `has_many :hashtags, through: :post_hashtag_relationships`.
+Here we are able to use the `Post#hashtags` method created when we set `Post` `has_many :hashtags, through: :post_hashtag_relationships`.
 ```` Ruby
 json.array! hashtags do |hashtag|
   json.extract! hashtag, :hashtag, :id
@@ -148,17 +148,78 @@ renderCaption: function() {
   }
 },
 ````
-The `handleClick` just invokes `this.context.router.push( "/hashtags/" + id )` which renders the `HashtagIndex` component. This component just pulls down all the hashtag's posts using the `posts` method created when we set `Hashtag` `has_many :posts, through: :post_hashtag_relationships`. It then renders the images using the same way `PostIndex` does.
+The `handleClick` just invokes `this.context.router.push( "/hashtags/" + id )` which renders the `HashtagIndex` component. This component just pulls down all the hashtag's posts using the `posts` method created when we set `Hashtag` `has_many :posts, through: :post_hashtag_relationships`. It then renders the images using the same way the `PostIndex` component does.
 
 ### Comments    
 
-For comments, I created a database that connected each comment with a post_id. I didn't create a store for comments. Instead I packaged comments with posts and placed them all into the `PostStore`. I did this because pictures and comments are almost always rendered at the same time and even if they are not, the user is likely going to render both sets of data. I wanted the reduce the number of ajax requests to the backend.
+Implementing comments was very straight forward. On the back-end, the `comments` data table contains `comment`, `post_id` and `user_id`. On the front-end, I didn't create a store for comments. Instead I packaged comments with posts and placed them all into the `PostStore`. I did this because pictures and comments are almost always rendered at the same time and I wanted to reduce the number of ajax requests and asynchronous calls to the backend.
+
+`Comment` has a `belongs_to` association with `post` and whenever a user sends a request to the `PostsController` for a post, the controller calls `Post#comments` and eventually renders a json object that contains an array of comments ordered by `created_at`. When a user writes a comment, it gets passed up to the `CommentsController` along with the `post_id`. Upon a successful save, the controller passes the post along with the updated comments onto the front-end which will send the updated data into the `PostStore` and eventually rendered on the browser through the `PostIndexItem` component. The process of sending down the entire set of comments will run an additional query, but it's necessary because what if multiple people are commenting on the same post at the same time? The controller should send down the most up to date information.
+
+### Like / Unlike
+
+The back-end for likes is straight forward. The `likes` data table has `post_id` and `user_id`. It has a `belongs_to` relation with `Post`. When a post is rendered, it invokes a ClientAction that fetches a like object using that post's id. The `LikesController#show_with_post_id` method will call `Like.where(post_id: params[:id])` and if this query returns a non-empty array, the controller will pass down a json object with a parameter `permissionToLike: false` which will eventually get stored into the `LikeStore` under the `postId`. Logistically, I didn't need to pass down this parameter. I could have just passed down an empty object, but I did so for readability.
+
+the `permissionToLike` attribute is used for two things. the first, is it decides the css of the heart icon ( pink if false and white if true ). `permissionToLike` is false if and only if the like object with the user's id exists in `Like`. In other words, if the user already liked a post, he/she should not have permission to like the post again. So, this attribute will decide which likes resource route to use when the user clicks on the heart or picture. If permission is true, click would `create` a like, if false, click would unlike or `destroy` the like.
+
+### followers
+
+Followers are just users. The tricky part of this feature is a users has many followers and a user follow many other users. This is a many-to-many relation. I created a `followings` table which contains `user_id` (the current user's id) and `following_id` (the id of the user that was clicked on).
+
+The associations for `followings` and `followers` are:
+```` Ruby
+has_many(
+  :followings,
+  primary_key: :id,
+  foreign_key: :user_id,
+  class_name: "Following"
+)
+
+has_many(
+  :followees,
+  through: :followings,
+  source: :followee
+)
+
+has_many(
+  :followeds,
+  primary_key: :id,
+  foreign_key: :following_id,
+  class_name: "Following"
+)
+
+has_many(
+  :followers,
+  through: :followeds,
+  source: :user
+)
+````
+On the front-end, all follow data get stored in the `FollowStore` which keeps track of two objects `_allFollowers` and `_allFollowing`. Two components use the `FollowStore`, the `FollowButton` and `Following` which is the part in the user profile page that displays the number of followers and following a user has. The button is used to either create or destroy a follow object. It is green if the current user is following and blue if not. The `Following` component, upon click will render a ReactModal that displays either all of that user's followers or all the users he/she is following (next to each user, there should be a `FollowButton`).
+
+In the `FollowStore`, I want to update both the data from the `current_user` and the user as completely as possible from one request to the backend. For example, every time the `FollowButton` is rendered, it invokes a `ClientAction.fetchFollow(user_id)` where `user_id` is the id of the user page. This will send a get request which will call `UsersController#show`. This request will bring back a object that contains data on both the `current_user` and the `user`. In the `FollowStore`, `updateFollows` gets invoked.
+```` javascript
+var updateFollows = function(yourObject, otherUserObject, userId, currentUserId) {
+  //...
+  if ( yourObject ) {
+    _allFollowers[userId][currentUserId] = yourObject;
+    // ensure that the current_user is a follower of user
+    _allFollowing[currentUserId][userId] = otherUserObject;
+    // ensure that user is on the following list for current_user
+  } else if ( yourObject === null ) {
+    // MUST be null to delete
+    delete _allFollowers[userId][currentUserId];
+    delete _allFollowing[currentUserId][userId];
+  }
+};
+````
+When the store `__emitChange`, the follow button will invoke `FollowStore.fetchFollowStatus(userId, currentUserId)` which will return `_allFollowers[userId][currentUserId]`, and if the return value is anything other than undefined, then the button will know the current user is a follower of user and turn green.
+
+Note how, in `updateFollows` BOTH `_allFollowing[userId]` and `_allFollowers[currentUserId]` are updated. It is important to do so because it makes the `FollowStore` an accurate representation of the relationship between the current user and user. the current user is a follower of the user and the user is one of the people current user is following. This ensures that both the follow count and followers count get updated accurately on user pages when current user choses to follow or unfollow someone in the `Following` modals, even when the current user goes to his/her own page.
 
 ### Search Bar
 
 ### Arrow Key Navigation
 
-### followers
 
 
 ## Future Direction for the Project
