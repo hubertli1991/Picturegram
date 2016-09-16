@@ -258,11 +258,70 @@ UserStore.topSeven = function() {
   return topSeven;
 };
 ````
-The idea is to rank all the matched objects based on length and then pick out and order the seven shortest objects. The shorter the object the greater the match percentage. I am giving preference to users over hashtags. However long hashtags are, I score it by doubling the length. This way, users will usually show up higher in the search index.
+The idea is to rank all the matched objects based on length and then pick out and order the seven shortest objects. The shorter the object the greater the match percentage. I am also giving preference to users over hashtags. However long hashtags are, I score it by doubling the length. This way, users will usually show up earlier in the search index.
 
 ### Arrow Key Navigation
 
+There are two component where I added arrow key navigation: `SearchBar` and `PostIndexItem`.
 
+#### Search Bar
+
+The `SearchBar` input box has an onKeydown listener that invokes `searchUsingSearchBarIndex`. This function initiates a public variable `this.netUpDown = this.netUpDown || 0`. This is the index of the array `this.state.matchedUsers` (we get this by invoking `UserStore.topSeven` from above). If the current user presses the down arrow, `this.netUpDown = this.netUpDown + 1` and the css of the corresponding `SearchIndexItem` changes to make it darker. If the current user presses enter, the selected item invokes it's `searchForUser` function.
+
+```` javascript
+searchUsingSearchBarIndex: function(e) {
+  // skip this function if there are no matched users
+  if ( this.state.matchedUsers.length === 0 ) { return; }
+  this.netUpDown = this.netUpDown || 0;
+  var numberOfMatchedUsers = this.state.matchedUsers.length;
+  if ( e.keyCode === 40 && this.netUpDown < numberOfMatchedUsers ) {
+    // DOWN arrow
+    this.netUpDown = this.netUpDown + 1;
+    // change css
+    this.currentTarget = this.state.matchedUsers[this.netUpDown - 1].username || this.state.matchedUsers[this.netUpDown - 1].hashtag;
+    this.refs[this.currentTarget].addHoverEffect();
+
+    if ( this.netUpDown >= 2 ) {
+      this.previousTarget = this.state.matchedUsers[this.netUpDown - 2].username || this.state.matchedUsers[this.netUpDown - 2].hashtag;
+      this.refs[this.previousTarget].removeHoverEffect();
+    }
+  }
+  else if ( e.keyCode === 38 && this.netUpDown > 0 ) {
+    // UP arrow
+    this.netUpDown = this.netUpDown - 1;
+    // do the opposite as above...
+    // ...
+  }
+  else if ( e.keyCode === 13 && this.netUpDown !== 0) {
+    // ENTER key
+    this.refs[this.currentTarget].searchForUser();
+  }
+},
+````
+
+#### Post Index Item
+```` javascript
+handleKeyDown: function(e) {
+  if ( e.keyCode === 39 && this.state.postNumber < this.state.postCount - 1 ) {
+    this.switchPost( "right" );
+  }
+  if ( e.keyCode === 37 && this.state.postNumber > 0 ) {
+    this.switchPost( "left" );
+  }
+},
+
+switchPost: function( direction ) {
+  if ( direction === "left" ) {
+    this.state.postNumber--;
+  }
+  if ( direction === "right" ) {
+    this.state.postNumber++;
+  }
+  
+  var nextPost = PostStore.fetcherPostByArrayIndex(this.state.postNumber);
+  this.setState( { post: nextPost } );
+},
+````
 
 ## Future Direction for the Project
 
