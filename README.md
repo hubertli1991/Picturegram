@@ -218,6 +218,48 @@ Note how, in `updateFollows` BOTH `_allFollowing[userId]` and `_allFollowers[cur
 
 ### Search Bar
 
+The idea behind the search bar is every time a user types anything into the search bar, it should send up a get request to retrieve some usernames and hashtags which will eventually make it into a store and get rendered under the `SearchBar` as a `SearchBarIndexItem`. Whenever the current user types something into the search bar, `SearchBar` invokes `ClientActions.fetchUsersThatMatchSearch(searchValue)`. This will go into the back-end and pull down the first five users and first five hashtags where the username or hashtag has the `searchValue` inside. In total, this will bring down 10 objects (5 users and 5 hashtags) into the store. Once the store is updated, `SearchBar` will fetch the top seven matches.
+
+The way to pick and order the top seven is
+
+```` javascript
+UserStore.topSeven = function() {
+  // sort by length
+  var matches = [];
+  for (var i = 0; i < _users.length; i++) {
+    var name = _users[i].username || _users[i].hashtag;
+    var length = name.length;
+
+    if ( _users[i].hashtag ) {
+      // search bar should prioritize users over hashtags
+      // move the hashtags further back in the line by scaling its length by 2
+      length = length * 2;
+    }
+    if ( matches[length] ) {
+      matches[length].push( _users[i] );
+    } else {
+      matches[length] = [ _users[i] ];
+    }
+  }
+  // take top seven
+  var topSeven = [];
+  var counter = 0;
+  for (var j = 0; j < matches.length; j++) {
+    // The match object with the "shortest" username or hashtag goes first
+    if ( matches[j] ) {
+      for (var k = 0; k < matches[j].length; k++) {
+        topSeven.push(matches[j][k]);
+        counter++;
+        if (counter >= 7) { return topSeven; }
+      }
+    }
+  }
+
+  return topSeven;
+};
+````
+The idea is to rank all the matched objects based on length and then pick out and order the seven shortest objects. The shorter the object the greater the match percentage. I am giving preference to users over hashtags. However long hashtags are, I score it by doubling the length. This way, users will usually show up higher in the search index.
+
 ### Arrow Key Navigation
 
 
