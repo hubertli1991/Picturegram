@@ -2,31 +2,29 @@
 
 [Picturegram](https://picture-gram.herokuapp.com/)
 
-Picturegram is a full-stack web application inspired by Instagram. It's back-end is built on Ruby on Rails and its front-end is uses React.js with a Flux architectural.
+Picturegram is a full-stack single page web application inspired by Instagram. Its back-end is built on Ruby on Rails and its front-end is built using React.js with a Flux architecture.
 
 ## Features and Implementation
 
 ### Authentication
 
-Picturegram is a single page app where all data is delivered on one static page.
-
-On the front end, the root page listens to the `SessionStore` by invoking the object's `currentUserHasBeenFetched` method. The only way to render the app's components (other than the login and sign up form) is if the user is recognized as the `current_user` by the `ApplicationController`. If you are not recognized, the only components that will render are the login and sign up forms.
+On the front end, the root page listens to the `SessionStore` by invoking the object's `currentUserHasBeenFetched` method. The only way to render the app's components is if the user is recognized as the `current_user` by the `ApplicationController`. If the user is not recognized, the only components that will render are the login and sign up forms.
 
 ### Omni Auth
 
-Picturegram can authenticate users through Facebook. If you look in the `routes.rb` file, I made a custom route to `Sessions#create_with_facebook`. This method will authenticate the user or create an account for him/her if he/she doesn't have an existing account. The `create_with_facebook` method calls on the User model's `find_or_create_with_auth_hash` method and will either query for the user using the `facebook_uid` provided by facebook and log him/her in or create an account for the new user with the user's facebook username and facebook_uid.
+Picturegram can authenticate users through Facebook. If you look in the `routes.rb` file, I made a custom route to `Sessions#create_with_facebook`. This method will authenticate the user or create an account for him/her if he/she doesn't have an existing account. The `create_with_facebook` method calls on the User model's `find_or_create_with_auth_hash` method and will either query for the user using the `facebook_uid` provided by Facebook and log him/her in or create an account for the new user with the user's Facebook username and facebook_uid.
 
 ### Posts
 
-In the backend, the `posts` table contains a `user_id`, `caption`, `image_url_large` and `image_url_small`. For every image a user uploads, I use `ImageMagick` and the `Paperclip` gem to resize and upload onto AWS a large version (600x600) and a small version (300x300). The small version is used when the user PostIndex page is rendered and the large version is rendered when the user clicks on the small version.
+In the back-end, the `posts` table contains columns for `user_id`, `caption`, `image_url_large` and `image_url_small`. For every image file the current user uploads, `ImageMagick` and the `Paperclip` gem resizes and uploads, onto AWS, a large version (600x600) and a small version (300x300). The small version is rendered when a user's `PostIndex` page is rendered and the large version is rendered when a user clicks on the small version, opening a modal showing the details of the post.
+
+On the Post, users can hashtag, comment, like/unlike, and follow.
 
 ### Hashtags
 
-Hashtags are located in the post's caption and are created when the user writes or edits a caption. When a user clicks on a hashtag, he/she should be able to see all posts that have that hashtag in its caption.
+Hashtags are located in the post's caption and are created when the current user writes or edits a caption. When a user clicks on a hashtag, he/she should be able to see all posts that have that hashtag in its caption.
 
-#### Back-End
-
-A post can have many hashtags and a hashtag can have many posts referencing it. The `hashtags` table contains a `hashtag` string and a `count`. The `count` is an integer that starts at 1 and increments by 1 when a creates or edits a post that includes that hashtag. This variable tracks the number of posts that has this hashtag. I did this because the `SearchBar` component allows users to look up hashtags and its also suppose to show the number of posts that hashtag has. It would be a strain on my server if it ran a query for every potential hashtag a user searches for. So, to reduce the number of queries my backend is making, I will do the calculation when a user saves or updates a post and pass the `count` value down to the post store when fetched.
+A post can have many hashtags and a hashtag can have many posts referencing it. The `hashtags` table contains a `hashtag` (string) and a `count`. The `count` is an integer that starts at 1 and increments by 1 when the current user creates or edits a post that includes that hashtag. This variable tracks the number of posts that has this hashtag. I designed the table this way because the `SearchBar` component is suppose to allow current users to look up hashtags and, at the same time, see the number of posts that hashtag has before going to the page. It would be a strain on my server if it ran a query for every potential hashtag a user searches for. So, to reduce the number of queries my back-end is making, I will do the calculation when a user saves or updates a post and just pass the `count` value down to the post store when fetched.
 
 As mentioned above, `Post` and `Hashtag` have a many to many relationship. I created a `post_hashtag_relationships` table that has both `post_id` and `hashtag_id` columns and it `belongs_to` both `Post` and `Hashtag`. With this table and its associations in place, I associated `Post` with `Hashtag`.
 
@@ -49,9 +47,7 @@ end
 ````
 Now `Post` can call `hashtags` and query for its hashtags and `Hashtag` can call `posts` and query its posts.
 
-#### Front-End
-
-On the front-end, when a user submits a post, the caption must be parsed for hashtags and those hashtags have to be saved into the database only after the post has been successfully saved. To parse the caption, I wrote a helper method `Helper.parseHashtags`.
+On the front-end, when the current user submits a post, the caption must be parsed for hashtags and those hashtags have to be saved into the database only after the post has been successfully saved. To parse the caption, I wrote a helper method `Helper.parseHashtags`.
 
 The first step was to define legal characters after a `#`. After that, the overall idea is we iterate through the caption and whenever we see a "#", we create a `candidate`. It's called candidate because cases like "#" should not count and "##foo" should only be "#foo". we keep iterating until we get to a character that is not legal or we get to the end. When that happens, if the candidate is not just "#", we push it inside `hashtagsArray`.
 
@@ -107,7 +103,7 @@ var Helper = {
 ````
 When the caption is done parsing, we package the hashtags in a way where we can send them to the back-end.
 
-When the user clicks on a small image, the `PostIndexItem` modal renders along with the post's large image and caption. When the caption renders, all of the post's hashtags must render in place of the pure string.
+When the current user clicks on a small image, the `PostIndexItem` modal renders along with the post's large image and caption. When the caption renders, all of the post's hashtags must render in place of the pure string.
 
 To do this, we must pass down all of the post's hashtag objects from the back-end when we fetch a post. `PostsController#show` renders a post json object that has an attribute pair where the key is "hashtags" and the value is an array of hashtag objects. The JBuilder code is below.
 ```` Ruby
@@ -121,9 +117,9 @@ json.array! hashtags do |hashtag|
   json.extract! hashtag, :hashtag, :id
 end
 ````
-So, the json object looks something like `{ id: some_num, caption: some_string,... , hashtags: [ { hashtag: #govikings, id: 28 }, { hashtag: #beatthepackers, id: 2 },... ] }`. from the `jsonObject.hashtags` we have all the data we need to render the caption with hashtags in place of string when necessary.
+So, the json object looks something like `{ id: some_num, caption: some_string,... , hashtags: [ { hashtag: #govikings, id: 28 }, { hashtag: #beatthepackers, id: 2 },... ] }`. from the jsonObject.hashtags we have all the data we need to render the caption with hashtags in place of string.
 
-when we render the caption, we again invoke `Helper.parseHashtags` and this will return us the array of hashtags. From there, we match each hashtag with a hashtag object brought down from the back-end. The tricky part is slicing the caption string up to render the string that doesn't correspond with a hashtag object the way it is and render the other parts with a new component that has a different css (to make the color blue and the text to display inline) and an onClick property that routes the user to the hashtag page upon click.
+when we render the caption, we again invoke `Helper.parseHashtags` and this will return us the array of hashtags. From there, we match each hashtag with a hashtag object brought down from the back-end. The tricky part is slicing the caption up to render the substring that doesn't correspond with a hashtag unchanged and to render the other parts with a new component that has a different css (to make the color blue and the text to display inline) and an onClick property that routes the user to the hashtag page upon click.
 
 ```` javascript
 renderCaption: function() {
@@ -329,5 +325,4 @@ Like with the search bar, there is an index value for the array of posts in the 
 ## Future Direction for the Project
 
 ### Photo Tagging
-
-In addition to the features already implemented, I plan to continue working on this project. The next step is to create a follow feature. This will allow users to send follow requests to other users and to decide which users to accept follow requests from. Users will have the option to prevent other users from rendering their posts based on the other user's follow status.
+My next step will be to add photo tagging. The current user will be able to click on his/her own image either in the modal or on the `HomeIndexPage` and type in a username. The relative position of the click as well as the username will be sent up to the back-end and stored inside a photo_tags table. If the username given has an account, then that user's id will be included as well. When a user clicks on the the image, the component will fire off `ClientAction.fetchPhotoTags` which will fetch the tags. The tags will be rendered based on the percentage coordinates and if the tags object includes a userId, then the tags will be links to that id's page. Some things to be careful about will be making sure the tags do not leak out of the image. On the front end, we need set some conditions that restrict how far to the left or right a tag can be and shift the tag in the opposite direction if it violates the condition.
