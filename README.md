@@ -300,6 +300,8 @@ searchUsingSearchBarIndex: function(e) {
 ````
 
 #### Post Index Item
+When the `openModal` function is invoked, it calls `document.addEventListener("keydown", this.handleKeyDown)`.
+
 ```` javascript
 handleKeyDown: function(e) {
   if ( e.keyCode === 39 && this.state.postNumber < this.state.postCount - 1 ) {
@@ -317,11 +319,12 @@ switchPost: function( direction ) {
   if ( direction === "right" ) {
     this.state.postNumber++;
   }
-  
+
   var nextPost = PostStore.fetcherPostByArrayIndex(this.state.postNumber);
   this.setState( { post: nextPost } );
 },
 ````
+Like with the search bar, there is an index value for the array of posts in the store. When the current user presses a key, that index, `this.state.postNumber` will increment up or down by one and then placed into `PostStore.fetcherPostByArrayIndex` to return the next post on the page. When `setState` is called with the new post, the modal will render the next post's data.
 
 ## Future Direction for the Project
 
