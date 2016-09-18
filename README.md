@@ -4,11 +4,13 @@
 
 Picturegram is a full-stack single page web application inspired by Instagram. Its back-end is built on Ruby on Rails and its front-end is built using React.js with a Flux architecture.
 
+![Alt text] (./app/assets/images/user_page.jpg)
+
 ## Features and Implementation
 
 ### Authentication
 
-On the front end, the root page listens to the `SessionStore` by invoking the object's `currentUserHasBeenFetched` method. The only way to render the app's components is if the user is recognized as the `current_user` by the `ApplicationController`. If the user is not recognized, the only components that will render are the login and sign up forms.
+On the front end, the root page checks user authentication by using the `SessionStore`. It invokes the object's `currentUserHasBeenFetched` method. The only way to render the app's components is if the user is recognized as the `current_user` by the `ApplicationController`. If the user is not recognized, the only components that will render are the login and sign up forms.
 
 ### Omni Auth
 
@@ -146,53 +148,55 @@ renderCaption: function() {
 ````
 The `handleClick` just invokes `this.context.router.push( "/hashtags/" + id )` which renders the `HashtagIndex` component. This component just pulls down all the hashtag's posts using the `posts` method created when we set `Hashtag` `has_many :posts, through: :post_hashtag_relationships`. It then renders the images using the same way the `PostIndex` component does.
 
-### Comments    
-
-Implementing comments was very straight forward. On the back-end, the `comments` data table contains `comment`, `post_id` and `user_id`. On the front-end, I didn't create a store for comments. Instead I packaged comments with posts and placed them all into the `PostStore`. I did this because pictures and comments are almost always rendered at the same time and I wanted to reduce the number of ajax requests and asynchronous calls to the backend.
-
-`Comment` has a `belongs_to` association with `post` and whenever a user sends a request to the `PostsController` for a post, the controller calls `Post#comments` and eventually renders a json object that contains an array of comments ordered by `created_at`. When a user writes a comment, it gets passed up to the `CommentsController` along with the `post_id`. Upon a successful save, the controller passes the post along with the updated comments onto the front-end which will send the updated data into the `PostStore` and eventually rendered on the browser through the `PostIndexItem` component. The process of sending down the entire set of comments will run an additional query, but it's necessary because what if multiple people are commenting on the same post at the same time? The controller should send down the most up to date information.
-
 ### Like / Unlike
 
-The back-end for likes is straight forward. The `likes` data table has `post_id` and `user_id`. It has a `belongs_to` relation with `Post`. When a post is rendered, it invokes a ClientAction that fetches a like object using that post's id. The `LikesController#show_with_post_id` method will call `Like.where(post_id: params[:id])` and if this query returns a non-empty array, the controller will pass down a json object with a parameter `permissionToLike: false` which will eventually get stored into the `LikeStore` under the `postId`. Logistically, I didn't need to pass down this parameter. I could have just passed down an empty object, but I did so for readability.
+The back-end for likes is straight forward. The `likes` data table has `post_id` and `user_id`. The corresponding model has a `belongs_to` relation with `Post`. When a post is rendered, it invokes a ClientAction that fetches a like object using that post's id. The `LikesController#show_with_post_id` method will call `Like.where(post_id: params[:id])` and if this query returns a non-empty array, the controller will pass down a json object with a parameter `permissionToLike: false` which will eventually get stored into the `LikeStore` under the `postId` key. Logistically, I didn't need to pass down this parameter. I could have just passed down an empty object, but I did so to increase readability.
 
-the `permissionToLike` attribute is used for two things. the first, is it decides the css of the heart icon ( pink if false and white if true ). `permissionToLike` is false if and only if the like object with the user's id exists in `Like`. In other words, if the user already liked a post, he/she should not have permission to like the post again. So, this attribute will decide which likes resource route to use when the user clicks on the heart or picture. If permission is true, click would `create` a like, if false, click would unlike or `destroy` the like.
+the `permissionToLike` attribute is used for two things. the first, is it decides the css of the heart icon (pink if false and white if true). `permissionToLike` is false if and only if the like object with the user's id exists in `likes`. In other words, if the current user has already liked a post, he/she should not have permission to like the post again. So, this attribute will decide which likes resource route to use when the user clicks on the heart or picture. If permission is true, click would `create` a like, if false, click would unlike or `destroy` the like.
+
+### Comments    
+
+Implementing comments was very straight forward. On the back-end, the `comments` data table contains `comment`, `post_id` and `user_id`. `Comment` has a `belongs_to` association with `Post` and whenever a user sends a request to the `PostsController` for a post, the controller calls `Post#comments` and eventually renders a json object that contains an array of comments ordered by `created_at`. When a user writes a comment, it gets passed up to the `CommentsController` along with the `post_id`. Upon a successful save, the controller passes the updated comments array into the front-end which will send the data into the store and eventually onto the browser through the `PostIndexItem` component. The process of sending down the entire set of comments for a post will run an additional query, but it's necessary because what if multiple people are commenting on the same post at the same time? The controller should send down the most up to date information.
 
 ### followers
 
-Followers are just users. The tricky part of this feature is a users has many followers and a user follow many other users. This is a many-to-many relation. I created a `followings` table which contains `user_id` (the current user's id) and `following_id` (the id of the user that was clicked on).
+Followers are just users. The tricky part of this feature is a users has many followers and a user follows many other users. This is a many-to-many relation. I created a `followings` table which contains `user_id` (the current user's id) and `following_id` (the id of the user that was clicked on).
 
-The associations for `followings` and `followers` are:
+The associations for `followings` and `followers` are
 ```` Ruby
-has_many(
-  :followings,
-  primary_key: :id,
-  foreign_key: :user_id,
-  class_name: "Following"
-)
+class User
 
-has_many(
-  :followees,
-  through: :followings,
-  source: :followee
-)
+  has_many(
+    :followings,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: "Following"
+  )
 
-has_many(
-  :followeds,
-  primary_key: :id,
-  foreign_key: :following_id,
-  class_name: "Following"
-)
+  has_many(
+    :followees,
+    through: :followings,
+    source: :followee
+  )
 
-has_many(
-  :followers,
-  through: :followeds,
-  source: :user
-)
+  has_many(
+    :followeds,
+    primary_key: :id,
+    foreign_key: :following_id,
+    class_name: "Following"
+  )
+
+  has_many(
+    :followers,
+    through: :followeds,
+    source: :user
+  )
+
+end
 ````
 On the front-end, all follow data get stored in the `FollowStore` which keeps track of two objects `_allFollowers` and `_allFollowing`. Two components use the `FollowStore`, the `FollowButton` and `Following` which is the part in the user profile page that displays the number of followers and following a user has. The button is used to either create or destroy a follow object. It is green if the current user is following and blue if not. The `Following` component, upon click will render a ReactModal that displays either all of that user's followers or all the users he/she is following (next to each user, there should be a `FollowButton`).
 
-In the `FollowStore`, I want to update both the data from the `current_user` and the user as completely as possible from one request to the backend. For example, every time the `FollowButton` is rendered, it invokes a `ClientAction.fetchFollow(user_id)` where `user_id` is the id of the user page. This will send a get request which will call `UsersController#show`. This request will bring back a object that contains data on both the `current_user` and the `user`. In the `FollowStore`, `updateFollows` gets invoked.
+Every time the `FollowButton` is rendered, it invokes a `ClientAction.fetchFollow(user_id)` where `user_id` is the id of the user page. This will send a get request which will call `UsersController#show`. This request will bring back a object that contains data on both the `current_user` and the `user`. In the `FollowStore`, `updateFollows` gets invoked.
 ```` javascript
 var updateFollows = function(yourObject, otherUserObject, userId, currentUserId) {
   //...
@@ -210,13 +214,13 @@ var updateFollows = function(yourObject, otherUserObject, userId, currentUserId)
 ````
 When the store `__emitChange`, the follow button will invoke `FollowStore.fetchFollowStatus(userId, currentUserId)` which will return `_allFollowers[userId][currentUserId]`, and if the return value is anything other than undefined, then the button will know the current user is a follower of user and turn green.
 
-Note how, in `updateFollows` BOTH `_allFollowing[userId]` and `_allFollowers[currentUserId]` are updated. It is important to do so because it makes the `FollowStore` an accurate representation of the relationship between the current user and user. the current user is a follower of the user and the user is one of the people current user is following. This ensures that both the follow count and followers count get updated accurately on user pages when current user choses to follow or unfollow someone in the `Following` modals, even when the current user goes to his/her own page.
+Note how, in `updateFollows` BOTH `_allFollowing[userId]` and `_allFollowers[currentUserId]` are updated. It is important to do so because it makes the `FollowStore` an accurate representation of the relationship between the current user and user. the current user is a follower of the user and the user is one of the people current user is following. This ensures that both the follow count and followers count get updated accurately on user pages when current user choses to follow or unfollow someone in the `Following` modals, even when the current user is on his/her own page.
 
 ### Search Bar
 
-The idea behind the search bar is every time a user types anything into the search bar, it should send up a get request to retrieve some usernames and hashtags which will eventually make it into a store and get rendered under the `SearchBar` as a `SearchBarIndexItem`. Whenever the current user types something into the search bar, `SearchBar` invokes `ClientActions.fetchUsersThatMatchSearch(searchValue)`. This will go into the back-end and pull down the first five users and first five hashtags where the username or hashtag has the `searchValue` inside. In total, this will bring down 10 objects (5 users and 5 hashtags) into the store. Once the store is updated, `SearchBar` will fetch the top seven matches.
+The idea behind the search bar is every time a user types anything into the search bar, it should send up a get request to retrieve some usernames and hashtags which will eventually make it into a store and get rendered under the `SearchBar` as a `SearchBarIndexItem`. Whenever the current user types something into the search bar, `SearchBar` invokes `ClientActions.fetchUsersThatMatchSearch(searchValue)`. This will go into the back-end and pull down the first five users and first five hashtags where the username or hashtag has the `searchValue` inside. In total, this will bring down up to 10 objects (5 users and 5 hashtags) into the store. Once the store is updated, `SearchBar` will fetch the top seven matches.
 
-The way to pick and order the top seven is
+The way I pick and order the top seven is
 
 ```` javascript
 UserStore.topSeven = function() {
@@ -254,7 +258,7 @@ UserStore.topSeven = function() {
   return topSeven;
 };
 ````
-The idea is to rank all the matched objects based on length and then pick out and order the seven shortest objects. The shorter the object the greater the match percentage. I am also giving preference to users over hashtags. However long hashtags are, I score it by doubling the length. This way, users will usually show up earlier in the search index.
+The idea is to rank all the matched objects based on length and then pick out and order the seven shortest objects. The shorter the object the greater the match percentage. I am also giving preference to users over hashtags. I do this by doubling the length of hashtags. This way, users will usually show up earlier in the search index.
 
 ### Arrow Key Navigation
 
@@ -262,7 +266,7 @@ There are two component where I added arrow key navigation: `SearchBar` and `Pos
 
 #### Search Bar
 
-The `SearchBar` input box has an onKeydown listener that invokes `searchUsingSearchBarIndex`. This function initiates a public variable `this.netUpDown = this.netUpDown || 0`. This is the index of the array `this.state.matchedUsers` (we get this by invoking `UserStore.topSeven` from above). If the current user presses the down arrow, `this.netUpDown = this.netUpDown + 1` and the css of the corresponding `SearchIndexItem` changes to make it darker. If the current user presses enter, the selected item invokes it's `searchForUser` function.
+The `SearchBar` input box has an onKeydown listener that invokes `searchUsingSearchBarIndex`. This function initiates a public variable `this.netUpDown = this.netUpDown || 0`. This is the index of the array `this.state.matchedUsers` (we get this by invoking `UserStore.topSeven` from above). If the current user presses the down arrow, `this.netUpDown++` and the css of the corresponding `SearchIndexItem` changes to make it darker. If the current user presses enter, the selected item invokes it's `searchForUser` function.
 
 ```` javascript
 searchUsingSearchBarIndex: function(e) {
@@ -320,9 +324,9 @@ switchPost: function( direction ) {
   this.setState( { post: nextPost } );
 },
 ````
-Like with the search bar, there is an index value for the array of posts in the store. When the current user presses a key, that index, `this.state.postNumber` will increment up or down by one and then placed into `PostStore.fetcherPostByArrayIndex` to return the next post on the page. When `setState` is called with the new post, the modal will render the next post's data.
+Like with the search bar, there is an index value for the array of posts in the store. When the current user presses a key, that index, `this.state.postNumber` will increment up or down by one and then placed into `PostStore.fetcherPostByArrayIndex(this.state.postNumber)` to return the next post on the page. When `setState` is called with the new post, the modal will render the next post's data.
 
 ## Future Direction for the Project
 
 ### Photo Tagging
-My next step will be to add photo tagging. The current user will be able to click on his/her own image either in the modal or on the `HomeIndexPage` and type in a username. The relative position of the click as well as the username will be sent up to the back-end and stored inside a photo_tags table. If the username given has an account, then that user's id will be included as well. When a user clicks on the the image, the component will fire off `ClientAction.fetchPhotoTags` which will fetch the tags. The tags will be rendered based on the percentage coordinates and if the tags object includes a userId, then the tags will be links to that id's page. Some things to be careful about will be making sure the tags do not leak out of the image. On the front end, we need set some conditions that restrict how far to the left or right a tag can be and shift the tag in the opposite direction if it violates the condition.
+My next step will be to add photo tagging. The current user will be able to click on his/her own image either in the modal or on the `HomeIndexPage` and type in a username. The relative position of the click as well as the username will be sent up to the back-end and stored inside a photo_tags table. If the username given has an account, then that user's id will be included as well. When a user clicks on the the image, the component will fire off `ClientAction.fetchPhotoTags` which will fetch the tags. The tags will be rendered based on the percentage coordinates and if the tags object includes a userId, then the tags will be links to that id's page. Some things to be careful about will be making sure the tags do not leak out of the image. On the front end, we need to set some conditions that restrict how far to the left or right a tag can be and shift the tag in the opposite direction if it violates the condition.
