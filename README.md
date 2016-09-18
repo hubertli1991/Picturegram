@@ -1,6 +1,6 @@
 # Picturegram
 
-[Picturegram](https://picture-gram.herokuapp.com/)
+# [LIVE Picturegram](https://picture-gram.herokuapp.com/)
 
 Picturegram is a full-stack single page web application inspired by Instagram. Its back-end is built on Ruby on Rails and its front-end is built using React.js with a Flux architecture.
 
@@ -10,7 +10,9 @@ Picturegram is a full-stack single page web application inspired by Instagram. I
 
 ### Authentication
 
-On the front end, the root page checks user authentication by using the `SessionStore`. It invokes the object's `currentUserHasBeenFetched` method. The only way to render the app's components is if the user is recognized as the `current_user` by the `ApplicationController`. If the user is not recognized, the only components that will render are the login and sign up forms.
+On the back-end, Picturegram uses `BCrypt` to authenticate a user and if his/her username and passwords are valid, the `SessionsController` defines that person as a `current_user`.
+
+On the front end, the root page checks user authentication by using the `SessionStore`. It invokes the object's `_ensureLoggedIn` method which either invokes `SessionStore.isUserLoggedIn()` or sends a get request to the `SessionsController` by invoking `SessionApiUtil.fetchCurrentUser()`. `_ensureLoggedIn` only renders the app's components if `SessionStore.isUserLoggedIn()` returns true which only happens when `current_user` exits in the backend. If the user is not recognized, the only components that will render are the login and sign up forms.
 
 ### Omni Auth
 
