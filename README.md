@@ -168,6 +168,8 @@ Implementing comments was very straight forward. On the back-end, the `comments`
 
 ### followers
 
+![Alt text] (./app/assets/images/followed_screenshot.jpg)
+
 Followers are just users. The tricky part of this feature is a users has many followers and a user follows many other users. This is a many-to-many relation. I created a `followings` table which contains `user_id` (the current user's id) and `following_id` (the id of the user that was clicked on).
 
 The associations for `followings` and `followers` are
@@ -222,11 +224,17 @@ var updateFollows = function(yourObject, otherUserObject, userId, currentUserId)
 ````
 When the store `__emitChange`, the follow button will invoke `FollowStore.fetchFollowStatus(userId, currentUserId)` which will return `_allFollowers[userId][currentUserId]`, and if the return value is anything other than undefined, then the button will know the current user is a follower of user and turn green.
 
+![Alt text] (./app/assets/images/following_component_screenshot.jpg)
+
 Note how, in `updateFollows` BOTH `_allFollowing[userId]` and `_allFollowers[currentUserId]` are updated. It is important to do so because it makes the `FollowStore` an accurate representation of the relationship between the current user and user. the current user is a follower of the user and the user is one of the people current user is following. This ensures that both the follow count and followers count get updated accurately on user pages when current user choses to follow or unfollow someone in the `Following` modals, even when the current user is on his/her own page.
+
+![Alt text] (./app/assets/images/following_modal_screenshot.jpg)
 
 ### Search Bar
 
 The idea behind the search bar is every time a user types anything into the search bar, it should send up a get request to retrieve some usernames and hashtags which will eventually make it into a store and get rendered under the `SearchBar` as a `SearchBarIndexItem`. Whenever the current user types something into the search bar, `SearchBar` invokes `ClientActions.fetchUsersThatMatchSearch(searchValue)`. This will go into the back-end and pull down the first five users and first five hashtags where the username or hashtag has the `searchValue` inside. In total, this will bring down up to 10 objects (5 users and 5 hashtags) into the store. Once the store is updated, `SearchBar` will fetch the top seven matches.
+
+![Alt text] (./app/assets/images/search_bar_screenshot.jpg)
 
 The way I pick and order the top seven is
 
@@ -274,6 +282,8 @@ There are two component where I added arrow key navigation: `SearchBar` and `Pos
 
 #### Search Bar
 
+![Alt text] (./app/assets/images/search_bar_arrow_nav.jpg)
+
 The `SearchBar` input box has an onKeydown listener that invokes `searchUsingSearchBarIndex`. This function initiates a public variable `this.netUpDown = this.netUpDown || 0`. This is the index of the array `this.state.matchedUsers` (we get this by invoking `UserStore.topSeven` from above). If the current user presses the down arrow, `this.netUpDown++` and the css of the corresponding `SearchIndexItem` changes to make it darker. If the current user presses enter, the selected item invokes it's `searchForUser` function.
 
 ```` javascript
@@ -308,6 +318,9 @@ searchUsingSearchBarIndex: function(e) {
 ````
 
 #### Post Index Item
+
+![Alt text] (./app/assets/images/modal_arrow_nav.jpg)
+
 When the `openModal` function is invoked, it calls `document.addEventListener("keydown", this.handleKeyDown)`.
 
 ```` javascript
