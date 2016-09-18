@@ -28,6 +28,8 @@ Hashtags are located in the post's caption and are created when the current user
 
 A post can have many hashtags and a hashtag can have many posts referencing it. The `hashtags` table contains a `hashtag` (string) and a `count`. The `count` is an integer that starts at 1 and increments by 1 when the current user creates or edits a post that includes that hashtag. This variable tracks the number of posts that has this hashtag. I designed the table this way because the `SearchBar` component is suppose to allow current users to look up hashtags and, at the same time, see the number of posts that hashtag has before going to the page. It would be a strain on my server if it ran a query for every potential hashtag a user searches for. So, to reduce the number of queries my back-end is making, I will do the calculation when a user saves or updates a post and just pass the `count` value down to the post store when fetched.
 
+![Alt text] (./app/assets/images/hashtag_search_index_item.jpg)
+
 As mentioned above, `Post` and `Hashtag` have a many to many relationship. I created a `post_hashtag_relationships` table that has both `post_id` and `hashtag_id` columns and it `belongs_to` both `Post` and `Hashtag`. With this table and its associations in place, I associated `Post` with `Hashtag`.
 
 ````Ruby
@@ -50,6 +52,8 @@ end
 Now `Post` can call `hashtags` and query for its hashtags and `Hashtag` can call `posts` and query its posts.
 
 On the front-end, when the current user submits a post, the caption must be parsed for hashtags and those hashtags have to be saved into the database only after the post has been successfully saved. To parse the caption, I wrote a helper method `Helper.parseHashtags`.
+
+![Alt text] (./app/assets/images/hashtag_screenshot.jpg)
 
 The first step was to define legal characters after a `#`. After that, the overall idea is we iterate through the caption and whenever we see a "#", we create a `candidate`. It's called candidate because cases like "#" should not count and "##foo" should only be "#foo". we keep iterating until we get to a character that is not legal or we get to the end. When that happens, if the candidate is not just "#", we push it inside `hashtagsArray`.
 
