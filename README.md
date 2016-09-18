@@ -154,11 +154,15 @@ The `handleClick` just invokes `this.context.router.push( "/hashtags/" + id )` w
 
 ### Like / Unlike
 
+![Alt text] (./app/assets/images/like_screenshot.jpg)
+
 The back-end for likes is straight forward. The `likes` data table has `post_id` and `user_id`. The corresponding model has a `belongs_to` relation with `Post`. When a post is rendered, it invokes a ClientAction that fetches a like object using that post's id. The `LikesController#show_with_post_id` method will call `Like.where(post_id: params[:id])` and if this query returns a non-empty array, the controller will pass down a json object with a parameter `permissionToLike: false` which will eventually get stored into the `LikeStore` under the `postId` key. Logistically, I didn't need to pass down this parameter. I could have just passed down an empty object, but I did so to increase readability.
 
 the `permissionToLike` attribute is used for two things. the first, is it decides the css of the heart icon (pink if false and white if true). `permissionToLike` is false if and only if the like object with the user's id exists in `likes`. In other words, if the current user has already liked a post, he/she should not have permission to like the post again. So, this attribute will decide which likes resource route to use when the user clicks on the heart or picture. If permission is true, click would `create` a like, if false, click would unlike or `destroy` the like.
 
 ### Comments    
+
+![Alt text] (./app/assets/images/comments_screenshot.jpg)
 
 Implementing comments was very straight forward. On the back-end, the `comments` data table contains `comment`, `post_id` and `user_id`. `Comment` has a `belongs_to` association with `Post` and whenever a user sends a request to the `PostsController` for a post, the controller calls `Post#comments` and eventually renders a json object that contains an array of comments ordered by `created_at`. When a user writes a comment, it gets passed up to the `CommentsController` along with the `post_id`. Upon a successful save, the controller passes the updated comments array into the front-end which will send the data into the store and eventually onto the browser through the `PostIndexItem` component. The process of sending down the entire set of comments for a post will run an additional query, but it's necessary because what if multiple people are commenting on the same post at the same time? The controller should send down the most up to date information.
 
