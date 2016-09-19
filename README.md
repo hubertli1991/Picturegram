@@ -10,25 +10,25 @@ Picturegram is a full-stack single page web application inspired by Instagram. I
 
 ### Authentication
 
-On the back-end, Picturegram uses `BCrypt` to authenticate a user and if his/her username and passwords are valid, the `SessionsController` defines that person as a `current_user`.
+On the back-end, Picturegram uses `BCrypt` to authenticate a user and if his/her username and password are valid, the `SessionsController` defines that person as a `current_user`.
 
-On the front end, the root page checks user authentication by using the `SessionStore`. It invokes the object's `_ensureLoggedIn` method which either invokes `SessionStore.isUserLoggedIn()` or sends a get request to the `SessionsController` by invoking `SessionApiUtil.fetchCurrentUser()`. `_ensureLoggedIn` only renders the app's components if `SessionStore.isUserLoggedIn()` returns true which only happens when `current_user` exits in the backend. If the user is not recognized, the only components that will render are the login and sign up forms.
+On the front end, the root page checks user authentication by using the `SessionStore`. It invokes the `_ensureLoggedIn` function which either invokes `SessionStore.isUserLoggedIn()` or sends a get request to the `SessionsController` by invoking `SessionApiUtil.fetchCurrentUser()`. `_ensureLoggedIn` only allows the app's components to be rendered if `SessionStore.isUserLoggedIn()` returns true, and that only happens when `current_user` exits in the back-end. If the user is not recognized, the only components that will be rendered are the login and sign up forms.
 
 ### Omni Auth
 
-Picturegram can authenticate users through Facebook. If you look in the `routes.rb` file, I made a custom route to `Sessions#create_with_facebook`. This method will authenticate the user or create an account for him/her if he/she doesn't have an existing account. The `create_with_facebook` method calls on the User model's `find_or_create_with_auth_hash` method and will either query for the user using the `facebook_uid` provided by Facebook and log him/her in or create an account for the new user with the user's Facebook username and facebook_uid.
+Picturegram can authenticate users through Facebook. If you look in the `routes.rb` file, I made a custom route to `Sessions#create_with_facebook`. This method will authenticate the user or create an account for him/her if he/she doesn't have an existing account. The `create_with_facebook` method calls on the User model's `find_or_create_with_auth_hash` method and will either query for the user using the `facebook_uid` provided by Facebook and log him/her in or create an account for the new user with the user's Facebook username and `facebook_uid`.
 
 ### Posts
 
-In the back-end, the `posts` table contains columns for `user_id`, `caption`, `image_url_large` and `image_url_small`. For every image file the current user uploads, `ImageMagick` and the `Paperclip` gem resizes and uploads, onto AWS, a large version (600x600) and a small version (300x300). The small version is rendered when a user's `PostIndex` page is rendered and the large version is rendered when a user clicks on the small version, opening a modal showing the details of the post.
+On the back-end, the `posts` table contains columns for `user_id`, `caption`, `image_url_large` and `image_url_small`. For every image file the current user uploads, `ImageMagick` and the `Paperclip` gem resizes and uploads onto AWS, a large version (600x600) and a small version (300x300). The small version is rendered when a user's `PostIndex` page is rendered and the large version is rendered when a user clicks on the small version, opening a modal showing the details of the post.
 
-On the Post, users can hashtag, comment, like/unlike, and follow.
+On the Post modal, users can hashtag, comment, like/unlike, and follow.
 
 ### Hashtags
 
 Hashtags are located in the post's caption and are created when the current user writes or edits a caption. When a user clicks on a hashtag, he/she should be able to see all posts that have that hashtag in its caption.
 
-A post can have many hashtags and a hashtag can have many posts referencing it. The `hashtags` table contains a `hashtag` (string) and a `count`. The `count` is an integer that starts at 1 and increments by 1 when the current user creates or edits a post that includes that hashtag. This variable tracks the number of posts that has this hashtag. I designed the table this way because the `SearchBar` component is suppose to allow current users to look up hashtags and, at the same time, see the number of posts that hashtag has before going to the page. It would be a strain on my server if it ran a query for every potential hashtag a user searches for. So, to reduce the number of queries my back-end is making, I will do the calculation when a user saves or updates a post and just pass the `count` value down to the post store when fetched.
+A post can have many hashtags and a hashtag can have many posts referencing it. The `hashtags` table contains a `hashtag` (string) and a `count`. The `count` is an integer that starts at 1 and increments by 1 when the current user creates or edits a post that includes that hashtag. In other words, this variable tracks the number of posts that have this hashtag. I designed the table this way because the `SearchBar` component is suppose to allow current users to look up hashtags and, at the same time, see the number of posts that hashtag has before going to the page. It would be a strain on my server if it ran a query for every potential hashtag a user searches for. So, to reduce the number of queries my back-end has to run, I will do the calculation when a user saves or updates a post and just pass the `count` value down to the post store when fetched.
 
 ![Alt text] (./app/assets/images/hashtag_search_index_item.jpg)
 
@@ -53,9 +53,9 @@ end
 ````
 Now `Post` can call `hashtags` and query for its hashtags and `Hashtag` can call `posts` and query its posts.
 
-On the front-end, when the current user submits a post, the caption must be parsed for hashtags and those hashtags have to be saved into the database only after the post has been successfully saved. To parse the caption, I wrote a helper method `Helper.parseHashtags`.
-
 ![Alt text] (./app/assets/images/hashtag_screenshot.jpg)
+
+On the front-end, when the current user submits a post, the caption must be parsed for hashtags and those hashtags can only be saved into the database after the post has been successfully saved. To parse the caption, I wrote a helper method `Helper.parseHashtags`.
 
 The first step was to define legal characters after a `#`. After that, the overall idea is we iterate through the caption and whenever we see a "#", we create a `candidate`. It's called candidate because cases like "#" should not count and "##foo" should only be "#foo". we keep iterating until we get to a character that is not legal or we get to the end. When that happens, if the candidate is not just "#", we push it inside `hashtagsArray`.
 
@@ -125,9 +125,9 @@ json.array! hashtags do |hashtag|
   json.extract! hashtag, :hashtag, :id
 end
 ````
-So, the json object looks something like `{ id: some_num, caption: some_string,... , hashtags: [ { hashtag: #govikings, id: 28 }, { hashtag: #beatthepackers, id: 2 },... ] }`. from the jsonObject.hashtags we have all the data we need to render the caption with hashtags in place of string.
+So, the json object looks something like `{ id: some_num, caption: some_string,... , hashtags: [ { hashtag: #govikings, id: 28 }, { hashtag: #beatthepackers, id: 2 },... ] }`. From jsonObject.hashtags, we have all the data we need to render the caption with hashtags in place of the string.
 
-when we render the caption, we again invoke `Helper.parseHashtags` and this will return us the array of hashtags. From there, we match each hashtag with a hashtag object brought down from the back-end. The tricky part is slicing the caption up to render the substring that doesn't correspond with a hashtag unchanged and to render the other parts with a new component that has a different css (to make the color blue and the text to display inline) and an onClick property that routes the user to the hashtag page upon click.
+when we render the caption, we again invoke `Helper.parseHashtags` and this will return us the array of hashtags. From there, we match each hashtag with a hashtag object brought down from the back-end. The tricky part is to slice the caption up to render the substrings that do not correspond with a hashtag unchanged, and to render the remaining parts as components that have a different css (color: blue; display: inline;) and an `onClick` property that routes the current user to the hashtag page.
 
 ```` javascript
 renderCaption: function() {
@@ -152,7 +152,7 @@ renderCaption: function() {
   }
 },
 ````
-The `handleClick` just invokes `this.context.router.push( "/hashtags/" + id )` which renders the `HashtagIndex` component. This component just pulls down all the hashtag's posts using the `posts` method created when we set `Hashtag` `has_many :posts, through: :post_hashtag_relationships`. It then renders the images using the same way the `PostIndex` component does.
+The `handleClick` just invokes `this.context.router.push( "/hashtags/" + id )` which renders the `HashtagIndex` component. This component just pulls down all the hashtag's posts using the `posts` method created when we set `Hashtag` `has_many :posts, through: :post_hashtag_relationships`. It then renders these posts using the same way the `PostIndex` component renders posts.
 
 ### Like / Unlike
 
@@ -160,13 +160,13 @@ The `handleClick` just invokes `this.context.router.push( "/hashtags/" + id )` w
 
 The back-end for likes is straight forward. The `likes` data table has `post_id` and `user_id`. The corresponding model has a `belongs_to` relation with `Post`. When a post is rendered, it invokes a ClientAction that fetches a like object using that post's id. The `LikesController#show_with_post_id` method will call `Like.where(post_id: params[:id])` and if this query returns a non-empty array, the controller will pass down a json object with a parameter `permissionToLike: false` which will eventually get stored into the `LikeStore` under the `postId` key. Logistically, I didn't need to pass down this parameter. I could have just passed down an empty object, but I did so to increase readability.
 
-the `permissionToLike` attribute is used for two things. the first, is it decides the css of the heart icon (pink if false and white if true). `permissionToLike` is false if and only if the like object with the user's id exists in `likes`. In other words, if the current user has already liked a post, he/she should not have permission to like the post again. So, this attribute will decide which likes resource route to use when the user clicks on the heart or picture. If permission is true, click would `create` a like, if false, click would unlike or `destroy` the like.
+the `permissionToLike` attribute is used for two things. the first, is it decides the css of the heart icon (pink if false and white if true). `permissionToLike` is false if and only if the like object with the user's id exists in `likes`. In other words, if the current user has already liked a post, he/she should not have permission to like the post again. So, this attribute will decide which likes resource route to use when the current user clicks on the heart or picture. If permission is true, click would `create` a like, if false, click would unlike or `destroy` the like.
 
 ### Comments    
 
 ![Alt text] (./app/assets/images/comments_screenshot.jpg)
 
-Implementing comments was very straight forward. On the back-end, the `comments` data table contains `comment`, `post_id` and `user_id`. `Comment` has a `belongs_to` association with `Post` and whenever a user sends a request to the `PostsController` for a post, the controller calls `Post#comments` and eventually renders a json object that contains an array of comments ordered by `created_at`. When a user writes a comment, it gets passed up to the `CommentsController` along with the `post_id`. Upon a successful save, the controller passes the updated comments array into the front-end which will send the data into the store and eventually onto the browser through the `PostIndexItem` component. The process of sending down the entire set of comments for a post will run an additional query, but it's necessary because what if multiple people are commenting on the same post at the same time? The controller should send down the most up to date information.
+Implementing comments was very straight forward. On the back-end, the `comments` data table contains `comment`, `post_id` and `user_id`. `Comment` has a `belongs_to` association with `Post` and whenever a user sends a request to the `PostsController` for a post, the controller calls `Post#comments` and render a json object that contains an array of comments ordered by `created_at`. When a user writes a comment, it gets passed up to the `CommentsController` along with the `post_id`. Upon a successful save, the controller passes the updated comments array into the front-end which will send the data into the store and eventually onto the browser through the `PostIndexItem` component. The process of sending down the entire set of comments for a post will run an additional query, but it's necessary because what if multiple people are commenting on the same post at the same time? The controller should send down the most up to date information.
 
 ### followers
 
@@ -208,7 +208,7 @@ end
 ````
 On the front-end, all follow data get stored in the `FollowStore` which keeps track of two objects `_allFollowers` and `_allFollowing`. Two components use the `FollowStore`, the `FollowButton` and `Following` which is the part in the user profile page that displays the number of followers and following a user has. The button is used to either create or destroy a follow object. It is green if the current user is following and blue if not. The `Following` component, upon click will render a ReactModal that displays either all of that user's followers or all the users he/she is following (next to each user, there should be a `FollowButton`).
 
-Every time the `FollowButton` is rendered, it invokes a `ClientAction.fetchFollow(user_id)` where `user_id` is the id of the user page. This will send a get request which will call `UsersController#show`. This request will bring back a object that contains data on both the `current_user` and the `user`. In the `FollowStore`, `updateFollows` gets invoked.
+Every time the `FollowButton` is rendered, it invokes a `ClientAction.fetchFollow(user_id)` where `user_id` is the id of the user page. This will send a get request which will call `UsersController#show`. This request will bring back an object that contains data on both the `current_user` and the `user`. In the `FollowStore`, `updateFollows` gets invoked.
 ```` javascript
 var updateFollows = function(yourObject, otherUserObject, userId, currentUserId) {
   //...
@@ -228,17 +228,17 @@ When the store `__emitChange`, the follow button will invoke `FollowStore.fetchF
 
 ![Alt text] (./app/assets/images/following_component_screenshot.jpg)
 
-Note how, in `updateFollows` BOTH `_allFollowing[userId]` and `_allFollowers[currentUserId]` are updated. It is important to do so because it makes the `FollowStore` an accurate representation of the relationship between the current user and user. the current user is a follower of the user and the user is one of the people current user is following. This ensures that both the follow count and followers count get updated accurately on user pages when current user choses to follow or unfollow someone in the `Following` modals, even when the current user is on his/her own page.
+Note how, in `updateFollows`, BOTH `_allFollowing[userId]` and `_allFollowers[currentUserId]` are updated. It is important to do so because it makes the `FollowStore` an accurate representation of the relationship between the current user and user. the current user is a follower of the user and the user is one of the people current user is following. This ensures that the `Following` component gets updated accurately when the current user choses to follow or unfollow someone in the `Following` modals, even when the current user is on his/her own page.
 
 ![Alt text] (./app/assets/images/following_modal_screenshot.jpg)
 
 ### Search Bar
 
-The idea behind the search bar is every time a user types anything into the search bar, it should send up a get request to retrieve some usernames and hashtags which will eventually make it into a store and get rendered under the `SearchBar` as a `SearchBarIndexItem`. Whenever the current user types something into the search bar, `SearchBar` invokes `ClientActions.fetchUsersThatMatchSearch(searchValue)`. This will go into the back-end and pull down the first five users and first five hashtags where the username or hashtag has the `searchValue` inside. In total, this will bring down up to 10 objects (5 users and 5 hashtags) into the store. Once the store is updated, `SearchBar` will fetch the top seven matches.
+The idea behind the search bar is every time a user types anything into it, it should send up a get request to retrieve some usernames and hashtags which will eventually make it into a store and get rendered under the `SearchBar` as a `SearchBarIndexItem`. Whenever the current user types something into the search bar, `SearchBar` invokes `ClientActions.fetchUsersThatMatchSearch(searchValue)`. This will go into the back-end and pull down the first five users and first five hashtags where the username or hashtag has the `searchValue` somewhere inside it. In total, this will bring down up to 10 objects (5 users and 5 hashtags) into the store. Once the store is updated, `SearchBar` will fetch the top seven matches.
 
 ![Alt text] (./app/assets/images/search_bar_screenshot.jpg)
 
-The way I pick and order the top seven is
+The way I pick and order the top seven is by invoking
 
 ```` javascript
 UserStore.topSeven = function() {
@@ -276,7 +276,7 @@ UserStore.topSeven = function() {
   return topSeven;
 };
 ````
-The idea is to rank all the matched objects based on length and then pick out and order the seven shortest objects. The shorter the object the greater the match percentage. I am also giving preference to users over hashtags. I do this by doubling the length of hashtags. This way, users will usually show up earlier in the search index.
+The idea is to rank all the matched objects based on length and then pick out the seven "shortest" objects. The "shorter" the object, the greater the match percentage. I am also giving preference to users over hashtags. I do this by doubling the length of hashtags. This way, users will usually show up higher in the search index.
 
 ### Arrow Key Navigation
 
