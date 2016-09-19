@@ -88,7 +88,7 @@ var HomeIndex = React.createClass({
     if ( this.state.following && this.state.posts.length === 0 ) {
       return <p className="message">
               You are not following anyone at the moment. <br/>
-              Find users to follow by clicking the button below to see the most
+              Find users to follow by clicking the blue button above to see the most
               recent posts or by navigating
               users and hashtags with the search bar.
             </p>;
