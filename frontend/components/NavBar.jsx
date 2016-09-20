@@ -58,10 +58,10 @@ var NavBar = React.createClass({
       var buttonName;
       var style={};
       if ( this.state.following ) {
-        buttonName = "NOT FOLLOWING";
+        buttonName = "DISCOVER OTHERS";
         style = {};
       } else {
-        buttonName = "FOLLOWING";
+        buttonName = "CURRENTLY FOLLOWING";
         style = { color: "white", backgroundColor: "#70c050", borderColor: "#70c050" };
       }
 
