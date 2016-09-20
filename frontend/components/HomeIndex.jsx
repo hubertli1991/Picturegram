@@ -20,6 +20,7 @@ var HomeIndex = React.createClass({
   },
 
   getInitialState: function() {
+    this.infiniteScrollStatus = false;
     return { posts: [], following: false };
   },
 
@@ -33,9 +34,10 @@ var HomeIndex = React.createClass({
         window.removeEventListener("scroll", this.infiniteScrollCallback);
         return;
       }
-      if ((window.innerHeight + window.scrollY) - 78 === document.body.offsetHeight) {
+      if ( (window.innerHeight + window.scrollY - 78 === document.body.offsetHeight) && this.infiniteScrollStatus ) {
         // " - 78 " to account for the homeIndex top positioning
         this.fetchFive();
+        this.infiniteScrollStatus = false;
         // console.log("---------------");
         // console.log(window.innerHeight + window.scrollY - 78);
         // console.log(document.body.offsetHeight);
@@ -50,6 +52,9 @@ var HomeIndex = React.createClass({
   },
 
   _onChange: function() {
+    if ( this.state.posts.length !== PostStore.all().length ) {
+      this.infiniteScrollStatus = true;
+    }
     this.setState( { posts: PostStore.all() } );
   },
 
