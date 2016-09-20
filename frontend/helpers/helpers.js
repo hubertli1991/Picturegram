@@ -68,8 +68,8 @@ var Helper = {
   scrollToTop: function( currentPage, callback ) {
     this.currentY = this.currentY || window.scrollY;
     this.increment = this.increment || function() {
-      if ( window.scrollY > 70 * 200 ) {
-        return window.scrollY / 200;
+      if ( window.scrollY > 70 * 100 ) {
+        return window.scrollY / 100;
       }
       return 70;
     }();
