@@ -657,6 +657,10 @@ body {
   display: inline;
 }
 
+.user-stat:hover {
+  color: #49E20E;
+}
+
 .follow-header {
   position: absolute;
   top: 0%;
