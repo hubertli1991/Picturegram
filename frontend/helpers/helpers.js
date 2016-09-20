@@ -67,9 +67,16 @@ var Helper = {
 
   scrollToTop: function( currentPage, callback ) {
     this.currentY = this.currentY || window.scrollY;
+    this.increment = this.increment || function() {
+      if ( window.scrollY > 70 * 200 ) {
+        return window.scrollY / 200;
+      }
+      return 70;
+    }();
 
     if ( this.currentY <= 0 || (window.location.hash !== currentPage) ) {
       this.currentY = null;
+      this.increment = null;
       clearTimeout( this.currentlyScrolling );
       this.currentlyScrolling = null;
       if (callback) { callback(); }
@@ -77,7 +84,8 @@ var Helper = {
     }
 
     this.currentlyScrolling = setTimeout( function() {
-      this.currentY -= 70;
+      console.log(this.increment);
+      this.currentY -= this.increment;
       window.scrollTo(0, this.currentY);
       this.scrollToTop( currentPage, callback );
     }.bind(this), 1);
