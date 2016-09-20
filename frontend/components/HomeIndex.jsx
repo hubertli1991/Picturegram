@@ -33,7 +33,7 @@ var HomeIndex = React.createClass({
         window.removeEventListener("scroll", this.infiniteScrollCallback);
         return;
       }
-      if ((window.innerHeight + window.scrollY) - 78 >= document.body.offsetHeight) {
+      if ((window.innerHeight + window.scrollY) - 78 === document.body.offsetHeight) {
         // " - 78 " to account for the homeIndex top positioning
         this.fetchFive();
         // console.log("---------------");
