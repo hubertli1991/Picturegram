@@ -84,7 +84,6 @@ var Helper = {
     }
 
     this.currentlyScrolling = setTimeout( function() {
-      console.log(this.increment);
       this.currentY -= this.increment;
       window.scrollTo(0, this.currentY);
       this.scrollToTop( currentPage, callback );
